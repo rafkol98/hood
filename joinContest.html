@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+
+    <title>Join Contest</title>
+    <!-- <script src="https://gstatic.com/firebasejs/6.3.1/firebase-app.js"></script>
+    <script src="https://gstatic.com/firebasejs/6.3.1/firebase-auth.js"></script>
+    <script src="https://gstatic.com/firebasejs/6.3.1/firebase-database.js"></script>
+    <script src="https://gstatic.com/firebasejs/6.3.1/firebase-storage.js"></script> -->
+
+
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+
+
+    <script src="https://www.gstatic.com/firebasejs/5.9.4/firebase.js"></script>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.3.0/firebase-app.js"></script>
+    
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+         https://firebase.google.com/docs/web/setup#available-libraries -->
+    <!-- Add Firebase products that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-auth.js"></script>
+    
+    <script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-database.js"></script>
+
+  
+
+
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+          apiKey: "AIzaSyAjn39FIOAD4iH-KyFl6G5ygJjLCfxX6lM",
+          authDomain: "hood-project-883de.firebaseapp.com",
+          databaseURL: "https://hood-project-883de.firebaseio.com",
+          projectId: "hood-project-883de",
+          storageBucket: "hood-project-883de.appspot.com",
+          messagingSenderId: "895762021353",
+          appId: "1:895762021353:web:de05bbebaa562e44092978",
+          measurementId: "G-TMSQNRF5DN"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        firebase.analytics();
+      </script>
+
+      <script>
+
+              firebase.auth().onAuthStateChanged(function (user){
+                  if(user){
+                    $("#pool1").click(function(){
+                      window.location.href = "pool1.html";
+                    });
+
+                    $("#manageMyAccount").click(function(){
+                    window.location.href = "pool2.html";
+                  });
+
+                  $("#withdrawMyBricks").click(function(){
+                    window.location.href = "pool3.html";
+                      });
+                    }
+                  });
+
+
+      </script>
+
+  </head>
+  <body onload="showCard()">
+       <!--Navigation Menu-->
+       <section id="nav_bar">
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <a class="navbar-brand" href="index.html"><img src="" class="logoClass"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+              <ul class="navbar-nav ml-auto">
+                
+            </div>
+        </nav>
+
+    </section>
+
+    <div class="brickLayer">
+      <p>Credit: <span id="noOfBricks">Loading...</span> <img src="https://img.icons8.com/wired/64/000000/brick-wall.png" class="icon-brick"/></p>
+    </div>
+
+
+    <section>
+      <div class="container">
+      <div class="gap"></div>
+    
+
+      <!-- <div class="gapp"></div> -->
+      <div class="row">
+     
+      <div class="col-md-4 col-md-pull-4 text-center" >
+        <div class="card text-center cardPadding" id="pool1">
+          <div class="card-body">
+            <h3 class="card-title">SMALL TIER POOL</h3>
+            <img src="images/pools/Group 49@2x.png" class="img-fluid imgPadding">
+            <p class="card-text">Price of entry is 10 Bricks.</p>
+            <button type="button" class="btn btn-new" id="pool1" >JOIN</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 col-md-pull-4 text-center" >
+        <div class="card text-center cardPadding" id="pool2">
+          <div class="card-body">
+            <h3 class="card-title">MEDIUM TIER POOL</h3>
+            <img src="images/pools/Group 55@2x.png" class="img-fluid imgPadding">
+            <p class="card-text">Price of entry is 40 Bricks.</p>
+            <button type="button" class="btn btn-new" id="pool2" >JOIN</button>
+          </div>
+        </div>
+      </div>
+     
+
+      <div class="col-md-4 col-md-pull-4 text-center" >
+        <div class="card text-center cardPadding" id="pool3">
+          <div class="card-body">
+            <h3 class="card-title">BIG TIER POOL</h3>
+            <img src="images/pools/Group 59@2x.png" class="img-fluid imgPadding">
+            <p class="card-text">Price of entry is 100 Bricks.</p>
+            <button type="button" class="btn btn-new" id="pool3" >JOIN</button>
+          </div>
+        </div>
+        </div>
+     
+   
+      
+      </div>
+      </div>
+  </section>
+
+
+
+   
+ <!-- Firebase -->
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <!-- <script src="/__/firebase/7.15.0/firebase-app.js"></script> -->
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+         https://firebase.google.com/docs/web/setup#available-libraries -->
+    
+    <!-- Initialize Firebase -->
+    <!-- <script src="/__/firebase/init.js"></script> -->
+
+    <script src="js/signup.js"></script>
+    
+
+    <script>
+      $(function(){
+       
+        firebase.auth().onAuthStateChanged(function (user){
+          if(user){
+            var userId = user.uid;
+            firebase.database().ref('/profiles/').child(userId).once('value').then(function(snapshot) {
+              // var username = (snapshot.val() && snapshot.val().username) || 'Anonymous';
+              available_quantity = snapshot.val().currentBricks;
+              console.log(available_quantity);
+              $("#noOfBricks").html(available_quantity);
+              
+            });
+          }
+        });
+      });
+    </script>
+
+    </body>
+</html>

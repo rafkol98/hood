@@ -1,0 +1,626 @@
+*
+{
+    
+    margin: 0;
+    padding: 0;
+}
+
+body
+{
+    background-color: rgb(32,32,32);
+font-family: Arial, Helvetica, sans-serif;
+}
+
+h2{
+    color: white;
+    font-style: italic;
+    font-size: 36px;
+    font-weight: 300;
+    padding: 5px;
+}
+
+h3{
+    font-style: italic;
+    font-size: 24px;
+    font-weight: 300;
+}
+
+h5{
+    font-size: 18px;
+    padding: 5px;
+}
+
+h6{
+    font-style: italic;
+    font-size: 18px;
+    padding: 5px;
+}
+
+p {
+    color: rgb(215, 215, 215);
+}
+
+/* Navigation Bar */
+
+#nav-bar{
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.navbar{
+    background-image: linear-gradient(to right, #121212,#020202);
+    padding-left: 5%;
+    padding-right: 5%;
+    transition: 1s;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4);
+    
+}
+/* 
+.navbar:hover{
+    transform: scale(1.01);
+} */
+
+
+.k{
+    font-size: 30px;
+    font-weight: bold;
+    color: white !important;
+}
+
+.navbar-nav li a{
+    color: white !important;
+    font-weight: bold;
+    float: right;
+    text-align: left;
+    transition: 0.4s;
+}
+
+.navbar-nav li a:hover{
+    color: #F95700FF !important;
+    
+}
+
+/* How Section */
+
+#how {
+    margin-top: 0%;
+    margin-bottom: 0%;
+}
+
+#how img{
+    margin-top: 4%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 85%;
+}
+
+.how-title {
+    font-style: italic;
+    font-size: 26px;
+    font-weight: 600;
+    margin-top: 4%;
+}
+
+/* Pc-laptop Section */
+
+#pc-laptop {
+    margin-bottom: 2%;
+}
+
+#pc-laptop img{
+    margin-top: 20%;
+    display: block;
+    margin-left: 10%;
+    margin-right: auto;
+    width: 70%;
+}
+
+/* Footer Section */
+
+.containerFooter {
+    position: relative;
+    text-align: center;
+    color: white;
+  }
+
+.containerFooter p{
+    font-size: 28px;
+}
+
+/* Bottom right text */
+.bottom-left {
+    position: absolute;
+    bottom: 10px;
+    left: 28px;
+  }
+
+
+
+/* Login class */
+
+
+.login_t img{
+    /* padding-top: 5%; */
+    margin-top: 90px;
+    margin-left: 20%;
+    width: 55%;
+    margin-bottom: 0px;
+    transition: 10s;
+}
+
+
+
+.login_t p{
+    text-align: center;
+    margin-left: 34%;
+    margin-top: 4%;
+    color: grey;
+}
+
+/* Bordered form */
+form {
+    border: 3px solid #f1f1f1;
+  }
+  
+  /* Full-width inputs */
+  input[type=text], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+  }
+  
+  /* Set a style for all buttons */
+  button {
+    background-color: #F95700FF;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+  }
+  
+  /* Add a hover effect for buttons */
+  button:hover {
+    opacity: 0.8;
+  }
+  
+  
+  /* Center the avatar image inside this container */
+  .imgcontainer {
+    text-align: center;
+    margin: 24px 0 12px 0;
+  }
+  
+  
+  /* Add padding to containers */
+  .container {
+    padding: 16px;
+  }
+
+  .container p{
+      text-align: center;
+  }
+  
+  /* The "Forgot password" text */
+  span.psw {
+    float: right;
+    padding-top: 16px;
+  }
+  
+
+  /* Change styles for span and cancel button on extra small screens */
+  @media screen and (max-width: 300px) {
+    span.psw {
+      display: block;
+      float: none;
+    }
+    .cancelbtn {
+      width: 100%;
+    }
+  }
+
+  .login-title{
+    text-align: left !important;
+    font-style: italic;
+    font-size: 32px;
+    margin-top: 20px;
+    margin-bottom: 8px;
+}
+
+.login-pool{
+    text-align: center !important;
+    font-style: italic;
+    font-size: 32px;
+    margin-top: 20px;
+    margin-bottom: 8px;
+}
+
+
+@media all and (max-width: 767px) { [class^='col-sm-'] {margin-top: 20px; } }
+
+.gap {
+    margin-top: 8%;
+}
+
+.gapp {
+    margin-top: 2%;
+}
+
+.border-on-section{
+    background-color: rgb(18, 18, 18,0.6);
+    border: 3px ridge black;
+    padding-left: 40px;
+    padding-right: 40px;
+    color: white;
+    margin-top: 20px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2) !important;
+    transition: 0.8s;
+}
+
+.border-on-section:hover{
+    -ms-transform: scale(1.02); /* IE 9 */
+    -webkit-transform: scale(1.02); /* Safari 3-8 */
+    transform: scale(1.02);
+    animation-duration: 4s;
+
+}
+
+
+
+
+/* Logged in page */
+
+#loggedin_banner {
+    background-image: url("images/wave_logged.svg");
+    background-repeat: no-repeat;
+    color: black;
+    padding-bottom: 5%;
+}
+/* buttons used in loggedIn paged */
+.btn-logged{
+    background-color: white;
+    color: #120F0F;
+    padding: 20px 10px;
+    border: 1px solid #E6E6E6;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 22px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    border-radius: 2px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.btn-logged:hover{
+    background-color: #120F0F;
+    border: 0.1px solid #120F0F;
+    color: white;
+    opacity: 1;
+    font-weight: bold;
+    font-style: italic;
+    border-radius: 2px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.btn{
+    /* border: 1px solid rgb(58, 58, 58); */
+    border: 2px ridge black;
+    background: none;
+    padding: 20px 10px;
+    font-size: 22px;
+    cursor: pointer;
+    margin: 10px;
+    transition: 0.8s;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  }
+  .btn-new{
+    background-color: rgb(14, 14, 14,0.4);
+    color: rgb(255, 255, 255);
+    font-style: italic;
+  }
+ 
+  .btn-new:hover{
+    color: #fff;
+  }
+  
+  .btn::before{
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 0%;
+    background: #F95700FF;
+    z-index: -1;
+    transition: 0.8s;
+  }
+  .btn-new::before{
+    top: 0;
+    border-radius: 0 0 50% 50%;
+  }
+
+  .btn-new:hover::before{
+    height: 180%;
+  }
+
+
+.logged_t img{
+    /* padding-top: 5%; */
+    margin-top: 35px;
+    margin-left: 20%;
+    width: 78%;
+}
+
+.navbar-brand {
+    font-size: 30px;
+    font-weight: bold;
+    color: white !important;
+}
+
+.logoClass{
+  display: inline-block; 
+  max-width: 10%;
+  transition: 2s;
+}
+
+.logoClass:hover{
+    transform:scale(1.1);
+}
+
+hr.style-two {
+    border: 0;
+    height: 1px;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0));
+}
+
+
+/* Sign up class */
+.signup_t img{
+    /* padding-top: 5%; */
+    margin-top: 20px;
+    margin-left: 20%;
+    width: 78%;
+    margin-bottom: 90px;
+}
+
+.card {
+    /* border: 1px solid rgb(58, 58, 58); */
+    border: 3px ridge black;
+    background-color: rgb(14,14,14,0.4) !important;
+    margin-left: 20% !important;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2) !important;
+    transition: 4s;
+}
+
+.card:hover {
+    -ms-transform: scale(1.04); /* IE 9 */
+    -webkit-transform: scale(1.04); /* Safari 3-8 */
+    transform: scale(1.04); 
+  }
+
+.cardPadding{
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding: 20px;
+    margin-bottom: 80px;
+}
+
+.card-title{
+    color: white !important;
+}
+
+.card-text{
+    color: rgb(215, 215, 215);
+}
+
+.imgPadding{
+    width: 70%;
+    padding: 40px;
+}
+
+.money{
+    font-style: italic;
+    font-size: 60px;
+    font-weight: 300;
+    color: #F95700FF;
+    transition: width 2s, height 2s, transform 1s;
+}
+
+.money:hover{
+    transform: rotate(2deg);
+}
+
+.icon-bit {
+    display: inline-block;
+    width: 25px;
+    height: 25px; 
+    background-position: 0 0;
+    transition: width 2s, height 2s, transform 1s;
+  }
+
+.icon-brick {
+    display: inline-block;
+    width: 20px;
+    height: 20px; 
+    background-position: 0 0;
+    
+}
+
+.icon-bit:hover{
+    transform: rotate(-40deg);
+}
+
+.brickLayer{
+    background-color: rgb(249, 87, 0,0.8);
+    text-align: right;
+}
+
+.brickLayer p{
+    color: rgb(200, 200, 200);
+    font-size: 20px;
+    padding-right: 5%;
+}
+
+/* Invitation class */
+.col-centered{
+    float: none;
+    margin: 0 auto;
+}
+
+.marginBox{
+    padding: 50px;
+    margin-top: 8%;
+}
+
+.footer{
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    margin-top: 20px;
+}
+
+
+.btn-enter{
+    background-color: #120F0F;
+    color: white;
+    padding: 10px 5px;
+    border: 1px solid rgb(69, 68, 68);
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    border-radius: 2px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.btn-enter:hover{
+    background-color: #120F0F;
+    border: 0.1px solid #120F0F;
+    color: white;
+    opacity: 1;
+    font-weight: bold;
+    font-style: italic;
+    border-radius: 2px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+button:disabled,
+button[disabled]{
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
+}
+
+button:disabled:hover,
+button[disabled]{
+    font-style: normal;
+    font-weight: normal;
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
+}
+
+/* For index bg picture. */
+.jumbotron {
+    background-image: url(images/banner_true_black@2x.png);
+    background-color: rgba(32, 32, 32, 0.84);
+    background-blend-mode: saturation;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+    box-shadow: 20px 100px 100px 0px rgb(32, 32, 32) inset, -25px -25px 200px 100px rgb(32, 32, 32) inset; 
+  }
+
+  .bg_Logged{
+    background-image: url(images/bg_black_logged@2x.png);
+    background-color: rgba(32, 32, 32, 0.7);
+    background-blend-mode: saturation;
+  }
+
+  /* Arrows scroll down. */
+  .arrows {
+	width: 60px;
+	height: 72px;
+	position: absolute;
+	left: 50%;
+    margin-left: -30px;
+	bottom: 20px;
+}
+
+.arrows path {
+	stroke: #F95700FF;
+	fill: transparent;
+	stroke-width: 1px;	
+	animation: arrow 2s infinite;
+	-webkit-animation: arrow 2s infinite; 
+}
+
+@keyframes arrow
+{
+0% {opacity:0}
+40% {opacity:1}
+80% {opacity:0}
+100% {opacity:0}
+}
+
+@-webkit-keyframes arrow /*Safari and Chrome*/
+{
+0% {opacity:0}
+40% {opacity:1}
+80% {opacity:0}
+100% {opacity:0}
+}
+
+.arrows path.a1 {
+	animation-delay:-1s;
+	-webkit-animation-delay:-1s; /* Safari 和 Chrome */
+}
+
+.arrows path.a2 {
+	animation-delay:-0.5s;
+	-webkit-animation-delay:-0.5s; /* Safari 和 Chrome */
+}
+
+.arrows path.a3 {	
+	animation-delay:0s;
+	-webkit-animation-delay:0s; /* Safari 和 Chrome */
+}
+
+input {
+border: 2px solid black !important;
+background-color: rgb(30, 30, 30);
+}
+
+
+input[type=text], input[type=password] {
+    color: white !important;
+}
+input p {
+    color: white;
+}
+
+a {
+    color: rgb(255, 234, 234);
+}
+
+/* pool1 */
+
+
+#playerId{
+    font-size: 22px;
+    overflow: scroll;
+    color: #F95700FF ;
+   
+}

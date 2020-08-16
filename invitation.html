@@ -1,0 +1,230 @@
+<!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#120F0F" fill-opacity="1" d="M0,96L288,128L576,224L864,64L1152,192L1440,64L1440,320L1152,320L864,320L576,320L288,320L0,320Z"></path></svg>
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="##120F0F" fill-opacity="1" d="M0,32L360,96L720,256L1080,64L1440,64L1440,320L1080,320L720,320L360,320L0,320Z"></path></svg>
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="##120F0F" fill-opacity="1" d="M0,64L288,128L576,64L864,128L1152,96L1440,64L1440,320L1152,320L864,320L576,320L288,320L0,320Z"></path></svg>
+
+
+//Request invite
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="##120F0F" fill-opacity="1" d="M0,192L130.9,288L261.8,64L392.7,192L523.6,224L654.5,160L785.5,224L916.4,96L1047.3,224L1178.2,96L1309.1,192L1440,128L1440,320L1309.1,320L1178.2,320L1047.3,320L916.4,320L785.5,320L654.5,320L523.6,320L392.7,320L261.8,320L130.9,320L0,320Z"></path></svg> -->
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+
+    <title>Invitation Code</title>
+    <!-- <script src="https://gstatic.com/firebasejs/6.3.1/firebase-app.js"></script>
+    <script src="https://gstatic.com/firebasejs/6.3.1/firebase-auth.js"></script>
+    <script src="https://gstatic.com/firebasejs/6.3.1/firebase-database.js"></script>
+    <script src="https://gstatic.com/firebasejs/6.3.1/firebase-storage.js"></script> -->
+
+
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+
+
+    <script src="https://www.gstatic.com/firebasejs/5.9.4/firebase.js"></script>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.3.0/firebase-app.js"></script>
+    
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+         https://firebase.google.com/docs/web/setup#available-libraries -->
+    <!-- Add Firebase products that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-auth.js"></script>
+    
+    <script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-database.js"></script>
+
+    <script src="js/signup.js"></script>
+    <script src="js/joinedContest.js"></script>
+
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+          apiKey: "AIzaSyAjn39FIOAD4iH-KyFl6G5ygJjLCfxX6lM",
+          authDomain: "hood-project-883de.firebaseapp.com",
+          databaseURL: "https://hood-project-883de.firebaseio.com",
+          projectId: "hood-project-883de",
+          storageBucket: "hood-project-883de.appspot.com",
+          messagingSenderId: "895762021353",
+          appId: "1:895762021353:web:de05bbebaa562e44092978",
+          measurementId: "G-TMSQNRF5DN"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        firebase.analytics();
+      </script>
+
+      <script>
+        firebase.auth().onAuthStateChanged(function (user)
+        {
+
+          if(user){
+            $("#nav_signOut").one("click", function(e) {
+              firebase.auth().signOut().then(function() {
+              console.log('Signed Out');
+            }, function(error) {
+              console.error('Sign Out Error', error);
+            });
+
+          });
+          }
+
+        }
+        );
+      </script>
+      <style>
+        .loader, .loader2 {
+            position:fixed;
+            padding:0;
+            margin:0;
+
+            top:0;
+            left:0;
+
+            width: 100%;
+            height: 100%;
+            background:rgba(255,255,255,0.5);
+            z-index: 999;
+
+            display: flex;
+            flex-direction: column;
+            align-content: center;
+            align-items: center;
+            justify-content: center;
+        }
+      </style>
+
+  </head>
+  <body>
+    <div class="loader2" style="display: none">
+      <h2>Loading your bricks.</h2>
+      <br>
+      <img src="images/25.gif" alt="">
+    </div>
+       <!--Navigation Menu-->
+       <section id="nav_bar">
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <a class="navbar-brand" href="index.html"><img src="images/logo_temp.png" class="logoClass"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+              <ul class="navbar-nav ml-auto">
+                
+            </div>
+          </nav>
+
+    </section>
+
+    <div class="brickLayer">
+      <p>Credit: <span id="noOfBricks">0</span> <img src="https://img.icons8.com/wired/64/000000/brick-wall.png" class="icon-brick"/></p>
+    </div>
+
+    <div class="gap"></div>
+  
+  <section>
+
+    <div class="col-md-5 col-md-push-5 order-sm-1 border-on-section col-centered marginBox" >
+      <p class="login-title">ENTER INVITATION CODE</p>
+      <div class="container">
+          <input id="referenceCode"   type="text" placeholder="Enter reference code..." name="reference" required>
+
+              
+          <button id="btn-code" type="submit">Enter Code...</button>
+          <div class="gapp">
+              <p> <a href="">Do not have an invitation code? Click here to request one.</a></p>
+          </div>
+          
+        </div>
+
+    </div>
+  </section>
+
+  <script>
+    $("#btn-code").click(function(){
+
+    
+    firebase.auth().onAuthStateChanged(function (user){
+
+    if(user){
+      var referenceCode = $("#referenceCode").val();
+      var userId = user.uid
+      var database = firebase.database();
+      var ref = database.ref('/inviteCodes/');
+
+      ref.on('value', gotData, errData);
+
+      //TODO: make sure to increment peopleInvited on the person who owns the inviteCode that the user used.
+
+      function gotData(data){
+        if(data.hasChild(referenceCode)){
+          var invitedById = data.child(referenceCode).child("userId").val();
+          localStorage.setItem("invitedByuId", invitedById);
+
+          window.location.href = "joinedContest.html"}
+          else{
+            window.location.href = "joinedContest.html"
+          }
+        }
+
+
+      function errData(err) {
+        console.log('Error!');
+        console.log(err);
+        }
+
+      }
+    });
+  });
+  
+
+  </script>
+
+  <script>
+    $(function(){
+      $(".loader2").show();
+      firebase.auth().onAuthStateChanged(function (user){
+        if(user){
+          var userId = user.uid;
+          firebase.database().ref('/profiles/').child(userId).once('value').then(function(snapshot) {
+            // var username = (snapshot.val() && snapshot.val().username) || 'Anonymous';
+            available_quantity = snapshot.val().currentBricks;
+            console.log(available_quantity);
+            $("#noOfBricks").html(available_quantity);
+            $(".loader2").hide();
+          });
+        }
+      });
+    });
+  </script>
+
+
+
+
+   
+ <!-- Firebase -->
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <!-- <script src="/__/firebase/7.15.0/firebase-app.js"></script> -->
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+         https://firebase.google.com/docs/web/setup#available-libraries -->
+    
+    <!-- Initialize Firebase -->
+    <!-- <script src="/__/firebase/init.js"></script> -->
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    </body>
+</html>
