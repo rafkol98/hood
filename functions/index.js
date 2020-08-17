@@ -3,17 +3,16 @@ const admin = require('firebase-admin');
 admin.initializeApp(functions.config().firebase);
 
 
-
-
-
 //http request function.
 exports.toTheDojo = functions.https.onRequest((request,response) =>{
     response.redirect('https://www.thenetninja.co.uk')
 }
 );
 
-
-
+exports.dashboard =functions.https.onCall((data,context)=>{
+  // $("#peopleClicked").html("test");
+  return 'hello ninjas.'
+});
 
 exports.initializeHood = functions.https.onRequest((request,response) =>{
   initialize();

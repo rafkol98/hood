@@ -38,6 +38,8 @@
 
     
     <script src="js/joinedContest.js"></script>
+
+    <script src ="js/noOfBricks.js"></script>
     
 
     <script>
@@ -149,17 +151,10 @@
       firebase.auth().onAuthStateChanged(function (user){
         if(user){
           var userId = user.uid;
-          firebase.database().ref('/profiles/').child(userId).once('value').then(function(snapshot) {
-            // var username = (snapshot.val() && snapshot.val().username) || 'Anonymous';
-            available_quantity = snapshot.val().currentBricks;
-            console.log(available_quantity);
-            $("#noOfBricks").html(available_quantity);
-          });
-
+        
           //Get the first uid user.
           firebase.database().ref('/Request_System/').child("Pool1").limitToFirst(1).once('value').then(function(snapshot) {
             var uidOfUser = snapshot.val();
-            console.log("uid of user is"+JSON.stringify(uidOfUser));
             for(key in uidOfUser){
                 if(uidOfUser.hasOwnProperty(key)) {
                 var value = uidOfUser[key];

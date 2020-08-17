@@ -25,6 +25,13 @@ h3{
     font-weight: 300;
 }
 
+h4 {
+    font-style: italic;
+    font-size: 28px;
+    font-weight: 300;
+    color: white;
+}
+
 h5{
     font-size: 18px;
     padding: 5px;
@@ -38,6 +45,42 @@ h6{
 
 p {
     color: rgb(215, 215, 215);
+}
+
+.dashboard-title {
+    color: rgb(240, 240, 240);
+    font-size: 20px;
+    font-style: italic;
+}
+
+.dashboard-title-left {
+    color: rgb(240, 240, 240);
+    font-size: 22px;
+    font-style: italic;
+    text-align: left !important;
+    padding-left: 10px;
+
+}
+
+
+.dashboard-numbers {
+    font-style: italic;
+    font-size: 40px ;
+    font-weight: 300;
+    color: #F95700FF !important;
+}
+
+.dashboard-number-big {
+    font-style: italic;
+    font-size: 60px ;
+    font-weight: 300;
+    color: #F95700FF !important;
+}
+
+.orange {
+   color: #F95700FF;
+   font-size: 2rem;
+   padding-left: 10px;
 }
 
 /* Navigation Bar */
@@ -400,7 +443,26 @@ hr.style-two {
     transition: 4s;
 }
 
+.cardDashBoard {
+    /* border: 1px solid rgb(58, 58, 58); */
+    border: 3px ridge black;
+    background-color: rgb(14,14,14,0.4) !important;
+    margin: 10px !important;
+    overflow: scroll;
+    height: 300px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2) !important;
+    transition: 2s;
+}
+
+
+
 .card:hover {
+    -ms-transform: scale(1.04); /* IE 9 */
+    -webkit-transform: scale(1.04); /* Safari 3-8 */
+    transform: scale(1.04); 
+  }
+
+.cardDashBoard:hover {
     -ms-transform: scale(1.04); /* IE 9 */
     -webkit-transform: scale(1.04); /* Safari 3-8 */
     transform: scale(1.04); 
@@ -624,3 +686,5 @@ a {
     color: #F95700FF ;
    
 }
+
+

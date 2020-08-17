@@ -37,6 +37,8 @@
     
     <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-database.js"></script>
 
+    <script src ="js/noOfBricks.js"></script>
+
     <script>
         // Your web app's Firebase configuration
         var firebaseConfig = {
@@ -132,23 +134,7 @@
         </div>
         </div>
     </section>
-    <script>
-      $(function(){
-        // $(".loader2").show();
-        firebase.auth().onAuthStateChanged(function (user){
-          if(user){
-            var userId = user.uid;
-            firebase.database().ref('/profiles/').child(userId).once('value').then(function(snapshot) {
-              // var username = (snapshot.val() && snapshot.val().username) || 'Anonymous';
-              available_quantity = snapshot.val().currentBricks;
-              console.log(available_quantity);
-              $("#noOfBricks").html(available_quantity);
-              // $(".loader2").hide();
-            });
-          }
-        });
-      });
-    </script>
+    
     <script src="js/withdrawBricks.js"></script>
    
   </body>

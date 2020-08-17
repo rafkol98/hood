@@ -34,7 +34,7 @@
      <script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-functions.js"></script>
  
    
-
+     <script src ="js/noOfBricks.js"></script>
 
     <script>
         // Your web app's Firebase configuration
@@ -91,20 +91,22 @@
 
               $("#joinContest").click(function(){
 
-                window.location.href = "joinContest.html";
+                // window.location.href = "joinContest.html";
                 
               //TODO: DECOMMENT THIS :P
 
-              // var userId = user.uid
-              // var database = firebase.database();
-              // var ref = database.ref('/profiles/'+userId);
-              // ref.on('value', gotData, errData);
-              // function gotData(data){
-              //   if(data.hasChild("participates")){
-              //     window.location.href = "inContestDashBoard.html";}
-              //   else{
-              //     window.location.href = "joinContest.html";}
-              // }
+              var userId = user.uid
+              var database = firebase.database();
+              var ref = database.ref('/profiles/'+userId);
+              ref.on('value', gotData, errData);
+              function gotData(data){
+                if(data.hasChild("participates")){
+                  console.log("eshi");
+                  window.location.href = "inContestDashBoard.html";}
+                else{
+                  console.log("en eshi")
+                  window.location.href = "joinContest.html";}
+              }
             })
             
 
@@ -138,7 +140,7 @@
   
             width: 100%;
             height: 100%;
-            background:rgba(255,255,255,0.5);
+            background:rgba(0, 0, 0, 0.5);
             z-index: 999;
   
             display: flex;
@@ -199,7 +201,7 @@
       <div class="col-md-5 col-md-push-5 order-sm-1" >
           
           <button type="button" class="btn btn-new" id="buyBricks">Buy Bricks</button>
-          <button type="button" class="btn btn-new" id="joinContest">Join this week's contest</button>
+          <button type="button" class="btn btn-new" id="joinContest">This week's contest</button>
           <button type="button" class="btn btn-new" id="manageMyAccount">Manage my account</button>
           <button type="button" class="btn btn-new" id="withdrawMyBricks">Withdraw bricks</button>
         
@@ -218,17 +220,6 @@
   </section>
   <script>
     $(function(){
-      // $(".loader2").show();
-      firebase.auth().onAuthStateChanged(function (user){
-        if(user){
-          var userId = user.uid;
-          firebase.database().ref('/profiles/').child(userId).once('value').then(function(snapshot) {
-            // var username = (snapshot.val() && snapshot.val().username) || 'Anonymous';
-            available_quantity = snapshot.val().currentBricks;
-            console.log(available_quantity);
-            $("#noOfBricks").html(available_quantity);
-            // $(".loader2").hide();
-          });
 
           firebase.database().ref('/Contests/Pool1').child("moneySpread").once('value').then(function(snapshot) {
             // var username = (snapshot.val() && snapshot.val().username) || 'Anonymous';
@@ -238,12 +229,12 @@
             // $(".loader2").hide();
           });
 
-        }
-      });
+        });
+     
 
 
 
-    });
+ 
   </script>
 
 
@@ -256,8 +247,6 @@
     });
 
   });
-
-
 
 </script>
 

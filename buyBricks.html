@@ -39,6 +39,8 @@
     <script src="js/categoryParticipates.js"></script>
 
     <script src="js/joinedContest.js"></script>
+
+    <script src ="js/noOfBricks.js"></script>
     
 
     <script>
@@ -67,7 +69,7 @@
 
           width: 100%;
           height: 100%;
-          background:rgba(255, 255, 255, 0.5);
+          background:rgba(0, 0, 0, 0.8);
           z-index: 999;
 
           font-size: 20px;
@@ -84,7 +86,7 @@
   </head>
   <body>
     <div class="loader" style="display: none">
-      <p>Waiting for payment!! Please do not refresh or go back from this page. You will be redirected automatically.</p>
+      <h4>Waiting for payment!! Please do not refresh or go back from this page. You will be redirected automatically.</h4>
       <br>
       <img src="images/25.gif" alt="">
     </div>
@@ -220,24 +222,6 @@
       </div>
     </div>
   </div>
-
-  <script>
-    $(function(){
-      // $(".loader2").show();
-      firebase.auth().onAuthStateChanged(function (user){
-        if(user){
-          var userId = user.uid;
-          firebase.database().ref('/profiles/').child(userId).once('value').then(function(snapshot) {
-            // var username = (snapshot.val() && snapshot.val().username) || 'Anonymous';
-            available_quantity = snapshot.val().currentBricks;
-            console.log(available_quantity);
-            $("#noOfBricks").html(available_quantity);
-            // $(".loader2").hide();
-          });
-        }
-      });
-    });
-  </script>
 
   <script src="js/buyBricks.js"></script>
    
