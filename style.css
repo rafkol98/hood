@@ -68,6 +68,13 @@ p {
     font-size: 40px ;
     font-weight: 300;
     color: #F95700FF !important;
+    transition: 2s;
+}
+
+.dashboard-numbers:hover {
+    transform: translate(0, -10px);
+    color: rgb(255, 146, 51) !important;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 1);
 }
 
 .dashboard-number-big {
@@ -75,6 +82,13 @@ p {
     font-size: 60px ;
     font-weight: 300;
     color: #F95700FF !important;
+    transition: 2s;
+}
+
+.dashboard-number-big:hover {
+    transform: translate(0, -10px);
+    color: rgb(255, 146, 51) !important;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 1);
 }
 
 .orange {
@@ -453,7 +467,6 @@ hr.style-two {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2) !important;
     transition: 2s;
 }
-
 
 
 .card:hover {
