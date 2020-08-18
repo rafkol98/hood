@@ -36,7 +36,10 @@ $(function(){
             var currentHour = new Date().getHours();
             if(currentHour>=6 && currentHour< 10){
                 $("#randomizerNext").html("10:00");
-            } else if(currentHour>=14 && currentHour< 18){
+            } else if(currentHour>=10 && currentHour< 14) {
+                $("#randomizerNext").html("14:00");
+            }
+            else if(currentHour>=14 && currentHour< 18){
                 $("#randomizerNext").html("18:00");
             } else if(currentHour>=18 && currentHour< 22){
                 $("#randomizerNext").html("22:00");
@@ -48,7 +51,7 @@ $(function(){
 
 
 
-           console.log(currentTimestamp);
+           console.log(currentHour);
             
             if(snapshot.child("completedRequest").exists()){
                 

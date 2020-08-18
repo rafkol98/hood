@@ -24,6 +24,11 @@ exports.allocateBricksHood = functions.https.onRequest((request,response) =>{
 }
 );
 
+exports.findRiders = functions.https.onRequest((request,response) =>{
+  findFreeRiders();
+}
+);
+
 
 exports.getCount = functions.database.ref('Request_System/Pool1/{userID}')
 .onCreate((snapshot, context)=>{
@@ -548,4 +553,27 @@ function allocateBricks(){
     }
 
   });
+}
+
+
+//find free riders. give free ticket. bronze pool1, silver pool2, gold pool3
+function findFreeRiders(){
+
+admin.database().ref('profiles').once('value').then(function(snapshot) {
+    snapshot.forEach((child) => {
+      var uid = child.key;
+      var pool1 = child.child("participates").child("pool1");
+      if(pool1.exists()){
+        if((pool1.child("timestamp1st") != exists) && (pool1.child("peopleInvited") == 0)){
+          console.log("i fullfil the criteria to be given a free ticket, "+uid);
+          const writeTicket = admin.database().ref('/profiles/'+uid+'/bronzeTicket');
+          return writeTicket.set(true);
+
+        }
+      }
+
+
+
+    });});
+
 }
