@@ -26,8 +26,23 @@ exports.allocateBricksHood = functions.https.onRequest((request,response) =>{
 
 exports.findRiders = functions.https.onRequest((request,response) =>{
   findFreeRiders();
+  clearRequestSystem();
 }
 );
+
+exports.terminatorX =functions.https.onRequest((data,context)=>{
+  console.log("IMPORTANT - pool termination method was called!");
+  //find freeRiders - losers of this pool, give them ticket for the next pool.
+  findFreeRiders();  // //AllocateBricks to all the people who are allowed in this contest.
+  // allocateBricks();
+  // //Function that makes the current pool history and deletes it from participates for each user.
+  // makeItHistory();
+  // //moves the stats of current contest to logistics.
+  // moveToLogistics();
+  // //clearRequest system.
+  // clearRequestSystem();
+  
+});
 
 
 exports.getCount = functions.database.ref('Request_System/Pool1/{userID}')
@@ -177,7 +192,7 @@ exports.taskRunner = functions.runWith({memory:'2GB'}).pubsub
         var peopleInvited = snapshot.child("peopleInvited").val();
         var timestamp1st = snapshot.child("timestamp1st").val();
         console.log("timestamp "+timestamp1st);
-        var minsAllowed = snapshot.child("minsAllowed").val();
+        var minsAllowed = Number(snapshot.child("minsAllowed").val());
         console.log("minsAllowed "+minsAllowed);
       
           if(peopleInvited >= 1){
@@ -193,6 +208,14 @@ exports.taskRunner = functions.runWith({memory:'2GB'}).pubsub
                 oneBrickerPlusOne.child('numberOneBrickers').transaction(function(numberOneBrickers) {
                       return (numberOneBrickers|| 0) + 1});
                       console.log("oneBricker counter incremented");
+
+                admin.database().ref('Contests/Pool1').once('value').then(function(snapshot) {
+                  var sumBonusOneBrick = snapshot.child("sumBonusOneBrick").val();
+                  var numberOneBrickers = snapshot.child("numberOneBrickers").val();
+                  var bonusPerOneBricker = sumBonusOneBrick/numberOneBrickers;
+                  admin.database().ref('Contests/Pool1/bonusPerOneBricker').set(bonusPerOneBricker);
+                  console.log("bonusPerOneBricker was written. value:"+bonusPerOneBricker);
+                });
               }
 
               //remove him from the request system.
@@ -362,15 +385,27 @@ function calculatePecentage(moneyTotal) {
     //Calculate percentage of cut.
     var percentage;
 
-    if(moneyTotal >= 0 && moneyTotal < 2000){
+    // if(moneyTotal >= 0 && moneyTotal < 2000){
+    //   percentage = 30;
+    // } else if (moneyTotal >= 2000 && moneyTotal < 5000) {
+    //   percentage = 25;
+    // } else if (moneyTotal >= 5000 && moneyTotal < 10000) {
+    //   percentage = 20;
+    // } else if (moneyTotal >= 10000 && moneyTotal < 20000) {
+    //   percentage = 15;
+    // } else if (moneyTotal >= 20000 && moneyTotal < 100000) {
+    //   percentage = 10;
+    // }
+
+    if(moneyTotal >= 0 && moneyTotal < 50){
       percentage = 30;
-    } else if (moneyTotal >= 2000 && moneyTotal < 5000) {
+    } else if (moneyTotal >= 50 && moneyTotal < 70) {
       percentage = 25;
-    } else if (moneyTotal >= 5000 && moneyTotal < 10000) {
+    } else if (moneyTotal >= 70 && moneyTotal < 100) {
       percentage = 20;
-    } else if (moneyTotal >= 10000 && moneyTotal < 20000) {
+    } else if (moneyTotal >= 100 && moneyTotal < 120) {
       percentage = 15;
-    } else if (moneyTotal >= 20000 && moneyTotal < 100000) {
+    } else if (moneyTotal >= 120 && moneyTotal < 140) {
       percentage = 10;
     }
 
@@ -398,18 +433,20 @@ function calculatePecentage(moneyTotal) {
 
     console.log("values used for brick formula "+numberOfPeople+"  "+priceEntry+"  "+biggestPercentagePossible);
     
-    //Formula.
-    var brickWorth = (moneySpread/numberOfPeople) - ((biggestPercentagePossible-percentage)*priceEntry);
-    console.log("brickWorth before write"+brickWorth);
-
-    admin.database().ref('Contests/Pool1/brickWorth').set(brickWorth);
-    console.log("brickWorth was written. value:"+brickWorth);
-
+    
 
     //One bricker bonus percentage.
     var oneBrickExtraPercentage = biggestPercentagePossible - percentage;
     admin.database().ref('Contests/Pool1/oneBrickExtraPercentage').set(oneBrickExtraPercentage);
     console.log("oneBrickExtraPercentage was written. value:"+oneBrickExtraPercentage);
+
+    //Formula BrickWorth.
+    var brickWorth = (moneySpread/numberOfPeople) - ((oneBrickExtraPercentage/100)*priceEntry);
+    console.log("brickWorth before write"+brickWorth);
+
+    admin.database().ref('Contests/Pool1/brickWorth').set(brickWorth);
+    console.log("brickWorth was written. value:"+brickWorth);
+
 
     //Calculate bonus for one brickers
     var sumBonusOneBrick = (oneBrickExtraPercentage/100) * moneyTotal;
@@ -421,16 +458,13 @@ function calculatePecentage(moneyTotal) {
 
     admin.database().ref('Contests/Pool1/numberOneBrickers').once('value').then(function(snapshot) {
       numberOneBrickers = snapshot.val();
+      console.log("numberOneBrickers "+numberOneBrickers);
+
+      var bonusPerOneBricker = sumBonusOneBrick/numberOneBrickers;
+      admin.database().ref('Contests/Pool1/bonusPerOneBricker').set(bonusPerOneBricker);
+      console.log("bonusPerOneBricker was written. value:"+bonusPerOneBricker);
+
     });
-
-    console.log("numberOneBrickers "+numberOneBrickers);
-
-
-    var bonusPerOneBricker = sumBonusOneBrick/numberOneBrickers;
-    admin.database().ref('Contests/Pool1/bonusPerOneBricker').set(bonusPerOneBricker);
-    console.log("bonusPerOneBricker was written. value:"+bonusPerOneBricker);
-
-
 
   });
   
@@ -452,14 +486,15 @@ function initialize() {
   admin.database().ref('Contests/Pool1/brickWorth').set(0);
   admin.database().ref('Contests/Pool1/bonusPerOneBricker').set(0);
   admin.database().ref('Contests/Pool1/completedRequest').set(0);
-  console.log("IMPORTANT - pool1 was initialized.")
+
+  console.log("IMPORTANT - pool1 was initialized.");
   
 }
 
 //Automatically allocate bricks to users.
 function allocateBricks(){
   var brickWorth;
-
+  console.log("2 called");
   admin.database().ref('Contests/Pool1/brickWorth').once('value').then(function(snapshot) {
     brickWorth = snapshot.val();
     console.log("brickWorth value "+brickWorth);
@@ -467,7 +502,8 @@ function allocateBricks(){
   //Check that brickWorth is equal to 7, as it should be.
   if(brickWorth == 7 ){
       console.log("Allocation going good, brickWorth was correct");
-
+      admin.database().ref('Logistics/Pool1/bricksAllocated').set(0);
+      console.log("bricksAllocated set to 0. time for new calculations.")
 
   admin.database().ref('profiles').once('value').then(function(snapshot) {
     snapshot.forEach((child) => {
@@ -545,35 +581,112 @@ function allocateBricks(){
       });
      }
    });
-
+   console.log("FINISHED 2..");
+   makeItHistory();
 
   });
     } else{
       console.log("brickWorth was not 7. It was "+brickWorth);
     }
-
+    
   });
+
 }
 
 
 //find free riders. give free ticket. bronze pool1, silver pool2, gold pool3
 function findFreeRiders(){
+  console.log("1 called");
 
 admin.database().ref('profiles').once('value').then(function(snapshot) {
+    
+  snapshot.forEach((child) => {
+      var uid = child.key;
+      var pool1 = child.child("participates").child("pool1");
+      if(pool1.exists()){
+        if((pool1.child("timestamp1st").exists() == false ) && (pool1.child("peopleInvited").val() == 0)){
+          console.log("i fullfil the criteria to be given a free ticket, "+uid);
+          admin.database().ref('/profiles/'+uid+'/ticket').set("bronze");
+          console.log("written.")
+        }
+      }
+    });
+    console.log("FINISHED 1..");
+    allocateBricks();
+  });
+ 
+}
+
+//move current pool to history for user.
+function makeItHistory(){
+  admin.database().ref('profiles').once('value').then(function(snapshot) {
+    console.log("3 called");
+    var currentTimestamp = new Date().getTime();
     snapshot.forEach((child) => {
       var uid = child.key;
       var pool1 = child.child("participates").child("pool1");
       if(pool1.exists()){
-        if((pool1.child("timestamp1st") != exists) && (pool1.child("peopleInvited") == 0)){
-          console.log("i fullfil the criteria to be given a free ticket, "+uid);
-          const writeTicket = admin.database().ref('/profiles/'+uid+'/bronzeTicket');
-          return writeTicket.set(true);
-
-        }
+        admin.database().ref('/profiles/'+uid+'/history/pool1/'+currentTimestamp).set(pool1.val());
+        console.log("successfully made it history.")
+        admin.database().ref('/profiles/'+uid+'/participates/pool1').remove();
+        console.log("deleted pool1-participates succesfully.");
       }
-
-
-
-    });});
+    });
+    console.log("FINISHED 3..");
+    moveToLogistics();  
+});
 
 }
+
+//
+function moveToLogistics(){
+  admin.database().ref('Contests/Pool1').once('value').then(function(snapshot) {
+    console.log("4 called");
+      var pool1 = snapshot.val();
+      var currentTimestamp = new Date().getTime();
+      admin.database().ref('Logistics/History/Pool1/'+currentTimestamp).set(pool1);
+      console.log("moved it to logistics/history.")
+      //Initialize current contest stats.
+      initialize();
+      console.log("FINISHED 4..");
+      clearRequestSystem();
+  });
+
+}
+
+function clearRequestSystem(){
+  console.log("5 called");
+  var currentTimestamp = new Date().getTime();
+  admin.database().ref('Request_System/Pool1').remove();
+  admin.database().ref('Request_System/Pool1/'+currentTimestamp).set("ADMIN");
+  admin.database().ref('profiles/ADMIN/participates/pool1/timestampEntered').set(currentTimestamp);
+  admin.database().ref('profiles/ADMIN/participates/pool1/minsAllowed').set(10);
+  admin.database().ref('profiles/ADMIN/participates/pool1/peopleInvited').set(0);
+  
+  
+
+
+
+  console.log("succesfully cleared request system.");
+  console.log("FINISHED 5..")
+
+}
+
+// exports.terminatePool = functions.runWith({memory:'2GB'}).pubsub
+// .schedule('* * * * *').onRun(async context => {
+//   console.log("IMPORTANT - pool termination method was called!");
+//   //find freeRiders - losers of this pool, give them ticket for the next pool.
+//   findFreeRiders();
+//   //AllocateBricks to all the people who are allowed in this contest.
+//   allocateBricks();
+//   //Function that makes the current pool history and deletes it from participates for each user.
+//   makeItHistory();
+//   //moves the stats of current contest to logistics.
+//   moveToLogistics();
+//   //clearRequest system.
+//   clearRequest();
+
+// });
+
+
+//ON remove of ticket, increment mouktijies value.

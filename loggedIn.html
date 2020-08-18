@@ -102,7 +102,13 @@
               function gotData(data){
                 if(data.hasChild("participates")){
                   console.log("eshi");
-                  window.location.href = "inContestDashBoard.html";}
+                  window.location.href = "inContestDashBoard.html";} 
+                  else if(data.hasChild("ticket")){
+
+                    if(data.child("ticket").val()=="bronze"){
+                      window.location.href = "ticketPool1.html";}
+                  
+                  }
                 else{
                   console.log("en eshi")
                   window.location.href = "joinContest.html";}
