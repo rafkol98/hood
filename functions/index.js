@@ -525,6 +525,8 @@ function allocateBricks(){
 
         const bricksEarnedRef = admin.database().ref('profiles/'+userUid);
         const bricksAllocatedRef = admin.database().ref('Logistics/Pool1');
+
+        console.log("peopleInvited "+ peopleInvited+"for" +userUid);
         
         //if peopleInvited is not 1, then allocate bricks normally.
         if(peopleInvited!=1){
@@ -657,7 +659,7 @@ function makeItHistory(){
       }
     });
     console.log("FINISHED 3..");
-    initialize();
+    // initialize();
     moveToLogistics();  
 });
 
