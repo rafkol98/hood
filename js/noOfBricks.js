@@ -8,6 +8,13 @@ $(function(){
           available_quantity = snapshot.val().currentBricks;
           console.log(available_quantity);
           $("#noOfBricks").html(available_quantity);
+
+          var ticket = snapshot.child("ticket");
+          if(ticket.exists()){
+            $("#ticket").html(ticket.val());
+          } else{
+            $("#ticket").html(0);
+          }
           
         });
       }

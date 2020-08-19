@@ -24,6 +24,11 @@ exports.allocateBricksHood = functions.https.onRequest((request,response) =>{
 }
 );
 
+exports.startMouktijiesTimer = functions.https.onRequest((request,response) =>{
+  mouktijiesStart();
+}
+);
+
 exports.findRiders = functions.https.onRequest((request,response) =>{
   findFreeRiders();
   clearRequestSystem();
@@ -114,21 +119,8 @@ exports.getCount = functions.database.ref('Request_System/Pool1/{userID}')
             });
           
           
-          
-          
-          
-          
-          
-          
-          
           }
         }
-
-
-
-
-
-
 
 
     });
@@ -486,6 +478,8 @@ function initialize() {
   admin.database().ref('Contests/Pool1/brickWorth').set(0);
   admin.database().ref('Contests/Pool1/bonusPerOneBricker').set(0);
   admin.database().ref('Contests/Pool1/completedRequest').set(0);
+  admin.database().ref('Contests/Pool1/numberMouktijies').set(0);
+  admin.database().ref('Contests/Pool1/maxMouktijies').set(50);
 
   console.log("IMPORTANT - pool1 was initialized.");
   
@@ -594,6 +588,36 @@ function allocateBricks(){
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //find free riders. give free ticket. bronze pool1, silver pool2, gold pool3
 function findFreeRiders(){
   console.log("1 called");
@@ -633,6 +657,7 @@ function makeItHistory(){
       }
     });
     console.log("FINISHED 3..");
+    initialize();
     moveToLogistics();  
 });
 
@@ -645,9 +670,7 @@ function moveToLogistics(){
       var pool1 = snapshot.val();
       var currentTimestamp = new Date().getTime();
       admin.database().ref('Logistics/History/Pool1/'+currentTimestamp).set(pool1);
-      console.log("moved it to logistics/history.")
-      //Initialize current contest stats.
-      initialize();
+      console.log("moved it to logistics/history.");
       console.log("FINISHED 4..");
       clearRequestSystem();
   });
@@ -668,7 +691,9 @@ function clearRequestSystem(){
 
 
   console.log("succesfully cleared request system.");
-  console.log("FINISHED 5..")
+  console.log("FINISHED 5..");
+     //Initialize current contest stats.
+    
 
 }
 
@@ -689,4 +714,161 @@ function clearRequestSystem(){
 // });
 
 
-//ON remove of ticket, increment mouktijies value.
+
+
+exports.enterTicket =functions.https.onCall((data,context)=>{
+  const userId = context.auth.uid;
+
+  var refPool = admin.database().ref('/Request_System/Pool1');
+  var refCurrent = admin.database().ref('/profiles/'+userId);
+
+
+  //1. IF NUMBER MOUKTIJIES < 50 THEN => CONTINUE, ELSE STOP. xx.
+  //2. IF USER HAS TICKET BRONZE. xx
+
+  admin.database().ref('Contests/Pool1').once('value').then(function(snapshot) {
+    var numberMouktijies = snapshot.child("numberMouktijies").val();
+    var maxMouktijies = snapshot.child("maxMouktijies").val();
+    var mouktijiesStop = snapshot.child("mouktijiesStop").val();
+    var currentTimestamp = new Date().getTime();
+    console.log("numberMouktijies "+ numberMouktijies+" , maxMouktijies"+ maxMouktijies+", mouktijiesStop "+mouktijiesStop+", currentTimestamp "+currentTimestamp);
+
+    //only execute if numberOfMouktijies is less than maxMouktijies and if the mouktijies time period didn't ran out.
+    if(numberMouktijies < maxMouktijies && (currentTimestamp<mouktijiesStop)){
+
+    refCurrent.once('value').then(function(snapshot) {
+    var ticket = snapshot.child("ticket");
+    if(ticket.exists()){
+      if(ticket.val()=="bronze"){
+      
+      console.log("userId "+userId+" fullfils the criteria.");
+
+
+        
+      
+        //Write user under Request System.
+        refPool.child(currentTimestamp).set(userId);
+        var count = count10Mins();
+
+        //currentUser 
+        refCurrent.child("participates").child("pool1").set({
+          peopleInvited: 0,
+          timestampEntered: currentTimestamp,
+          },function(error) {
+                if (error) {
+                  console.log("Problem storing child." + error);
+                }
+              });
+        writeMins(count,userId);
+        refCurrent.child("ticket").remove();
+        console.log(userId+" was written to request system.");
+        
+        const contestsRef = admin.database().ref('Contests/Pool1');
+        contestsRef.child('numberMouktijies').transaction(function(numberMouktijies) {
+          return (numberMouktijies|| 0) + 1});
+
+      
+      } else{
+        console.log(userId+" he has a ticket of another type.");
+      }
+      } else{
+        console.log("IMPORTANT - "+userId+" does not have a ticket. HOW DID HE END UP HERE?")
+      }
+  });
+} else {
+  console.log("mouktijies limit reached, or time ran out.");
+}
+});
+  
+});
+
+
+//NEED TO DO A SEPERATE FUNCTION THAT CALCULATES MINUTES. USE IT SEPERATELY. DO NOT INCREMENT MONEY WHEN MOUKTIJIES ENTER.
+//make the getCount function callable and use it when ...
+
+function count10Mins(){
+  var currentTimestamp = new Date().getTime();
+  var tenMinsAgo = currentTimestamp - 600000;
+  var count = 0;
+
+  admin.database().ref('Request_System/Pool1').once('value').then(function(snapshot) {
+  snapshot.forEach(function(childSnapshot) {
+    if(childSnapshot.key > tenMinsAgo){
+      count++;
+      }
+    });
+  });
+
+  return count;
+}
+
+
+
+function writeMins(retValue, uid){
+  var unit = 3.5;
+  var x= (retValue+1) * unit;
+  var z1 = ((-0.1)*x);
+
+  var y = ((32*x)*(Math.pow(3, z1)) + (217/x) + (Math.pow(x, -0.3)))/2;
+
+  console.log("no players entered," + retValue);
+  console.log(y);  
+  
+  console.log(uid);
+  admin.database().ref('/profiles/'+uid+'/participates/pool1/minsAllowed').set(y);
+}
+
+
+//Allow mouktijies one hour and then start putting other people in the game.
+function mouktijiesStart(){
+  var currentTimestamp = new Date().getTime();
+  admin.database().ref('Contests/Pool1/mouktijiesStart').set(currentTimestamp);
+  console.log("mouktijiesStart was written. "+currentTimestamp);
+
+  //allow them one hour.
+  var mouktijiesTimeStop = currentTimestamp + (10 * 60000);
+  admin.database().ref('Contests/Pool1/mouktijiesStop').set(mouktijiesTimeStop);
+  console.log("mouktijiesStop was written. "+mouktijiesTimeStop);
+}
+
+
+//joinContest.
+exports.joinContest =functions.https.onCall((data,context)=>{
+  return new Promise((resolve, reject) => {
+  const userId = context.auth.uid;
+  var currentTimestamp = new Date().getTime();
+
+  admin.database().ref('Contests/Pool1').once('value').then(function(snapshot) {
+    var numberMouktijies = snapshot.child("numberMouktijies").val();
+    var maxMouktijies = snapshot.child("maxMouktijies").val();
+    var mouktijiesStop = snapshot.child("mouktijiesStop").val();
+
+    admin.database().ref('/profiles/'+userId).once('value').then(function(data) {
+    if(data.hasChild("participates")){
+      console.log("eshi, lets go to the dashboard");
+      resolve('inContestDashboard.html');} 
+    else if(data.hasChild("ticket")){
+        if(currentTimestamp<mouktijiesStop && numberMouktijies<maxMouktijies){
+          if(data.child("ticket").val()=="bronze"){
+            console.log("all criteria fullfilled, mouktijis can enter "+userId);
+            resolve('ticketPool1.html');}
+
+        } else{
+          console.log("mouktijies limit reached, or time ran out.");
+          resolve('joinContest.html');
+        }
+      
+      } else if(currentTimestamp < mouktijiesStop && (data.hasChild("ticket")==false)){
+        console.log("mouktijies still going, but we dont have a ticket we have to wait");
+        resolve('waiting.html');
+      }
+    else{
+      console.log("en eshi, lets go to joinContest")
+      resolve('joinContest.html');}
+  });
+
+  
+  });
+
+  });
+});

@@ -91,40 +91,14 @@
 
               $("#joinContest").click(function(){
 
-                // window.location.href = "joinContest.html";
-                
-              //TODO: DECOMMENT THIS :P
+              const result = firebase.functions().httpsCallable('joinContest');
+              result().then(result=>{
+                console.log(result.data);
+                window.location.href= result.data;
+              });
 
-              var userId = user.uid
-              var database = firebase.database();
-              var ref = database.ref('/profiles/'+userId);
-              ref.on('value', gotData, errData);
-              function gotData(data){
-                if(data.hasChild("participates")){
-                  console.log("eshi");
-                  window.location.href = "inContestDashBoard.html";} 
-                  else if(data.hasChild("ticket")){
 
-                    if(data.child("ticket").val()=="bronze"){
-                      window.location.href = "ticketPool1.html";}
-                  
-                  }
-                else{
-                  console.log("en eshi")
-                  window.location.href = "joinContest.html";}
-              }
-            })
-            
-
-              function errData(err) {
-                $("#joinContest").click(function(){
-                  window.location.href = "joinContest.html";})
-                console.log('Error!');
-                console.log(err);
-              }
-
-              
-
+              });
 
 
 
@@ -185,7 +159,8 @@
     </section>
 
     <div class="brickLayer">
-      <p>Credit: <span id="noOfBricks">Loading...</span> <img src="https://img.icons8.com/wired/64/000000/brick-wall.png" class="icon-brick"/></p>
+      <p> <span id="noOfBricks">...</span> <img src="https://img.icons8.com/wired/64/000000/brick-wall.png" class="icon-brick"/>
+       <span id="ticket">...</span> <img src="https://img.icons8.com/pastel-glyph/64/000000/feather.png" class="icon-brick"/></p>
     </div>
 
     <section>
