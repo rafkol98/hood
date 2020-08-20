@@ -139,9 +139,9 @@
               
           <button id="btn-Request" type="submit">Request Invite</button>
          
-          
+          <p style="margin-top: 10px; font-style: italic; font-size: large;">Number of people joined the last 10 mins: <span id="noPeople10">...</span> </p>
         </div>
-
+        
     </div>
   </section>
 
@@ -165,6 +165,13 @@
              }
             }
           });
+
+          const numberPeople10 = firebase.functions().httpsCallable('countUsers10');
+          numberPeople10().then(result=>{
+                console.log(result.data);
+                $("#noPeople10").html(result.data);
+              });
+
 
 
 

@@ -750,7 +750,7 @@ exports.enterTicket =functions.https.onCall((data,context)=>{
       
         //Write user under Request System.
         refPool.child(currentTimestamp).set(userId);
-        var count = count10Mins();
+        count10Mins(userId);
 
         //currentUser 
         refCurrent.child("participates").child("pool1").set({
@@ -761,7 +761,7 @@ exports.enterTicket =functions.https.onCall((data,context)=>{
                   console.log("Problem storing child." + error);
                 }
               });
-        writeMins(count,userId);
+        // writeMins(count,userId);
         refCurrent.child("ticket").remove();
         console.log(userId+" was written to request system.");
         
@@ -788,20 +788,44 @@ exports.enterTicket =functions.https.onCall((data,context)=>{
 //NEED TO DO A SEPERATE FUNCTION THAT CALCULATES MINUTES. USE IT SEPERATELY. DO NOT INCREMENT MONEY WHEN MOUKTIJIES ENTER.
 //make the getCount function callable and use it when ...
 
-function count10Mins(){
+function count10Mins(uid){
   var currentTimestamp = new Date().getTime();
   var tenMinsAgo = currentTimestamp - 600000;
   var count = 0;
 
   admin.database().ref('Request_System/Pool1').once('value').then(function(snapshot) {
-  snapshot.forEach(function(childSnapshot) {
-    if(childSnapshot.key > tenMinsAgo){
-      count++;
+    snapshot.forEach(function(childSnapshot) {
+      if(childSnapshot.key > tenMinsAgo){
+        console.log("count10 pirama"+ childSnapshot.key);
+        count++;
       }
+      
     });
+    console.log("count before call"+count);
+    writeMins(count,uid);
   });
 
-  return count;
+    
+
+  // snapshot.ref.parent.once('value').then((datasnapshot) => {
+  
+  //   datasnapshot.forEach(function(childSnapshot) {
+  //     if(childSnapshot.key > tenMinsAgo){
+  //       count++;
+  //     }
+  //   });
+  //   return count
+
+  // admin.database().ref('Request_System/Pool1').once('value').then(function(snapshot) {
+  // snapshot.forEach(function(childSnapshot) {
+  //   if(childSnapshot.key > tenMinsAgo){
+  //     count++;
+  //     }
+  //   });
+  // });
+  // console.log(count);
+  // return count;
+  
 }
 
 
@@ -874,3 +898,10 @@ exports.joinContest =functions.https.onCall((data,context)=>{
 
   });
 });
+
+exports.countUsers10 = functions.https.onCall((data,context)=>{
+  console.log("called");
+  var x = count10Mins();
+  return x;
+});
+
