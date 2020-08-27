@@ -479,7 +479,8 @@ function initialize() {
   admin.database().ref('Contests/Pool1/brickWorth').set(0);
   admin.database().ref('Contests/Pool1/bonusPerOneBricker').set(0);
   admin.database().ref('Contests/Pool1/completedRequest').set(0);
-  admin.database().ref('Contests/Pool1/numberMouktijies').set(0);
+  //set numberMouktijies to 1 because ADMIN is also a mouktijis.
+  admin.database().ref('Contests/Pool1/numberMouktijies').set(1);
   admin.database().ref('Contests/Pool1/maxMouktijies').set(50);
   admin.database().ref('Contests/Pool1/started').set(false);
 
