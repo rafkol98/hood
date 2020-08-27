@@ -166,11 +166,7 @@
             }
           });
 
-          const numberPeople10 = firebase.functions().httpsCallable('countUsers10');
-          numberPeople10().then(result=>{
-                console.log(result.data);
-                $("#noPeople10").html(result.data);
-              });
+          
 
 
 
@@ -185,6 +181,7 @@
   </script>
 
 <script src="js/requestButton.js"></script>
+<script src="./js/pool1.js"></script>
 
 
     </body>

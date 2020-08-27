@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
 
-    <title>Dashboard</title>
+    <title>Stats For Nerds</title>
     <!-- <script src="https://gstatic.com/firebasejs/6.3.1/firebase-app.js"></script>
     <script src="https://gstatic.com/firebasejs/6.3.1/firebase-auth.js"></script>
     <script src="https://gstatic.com/firebasejs/6.3.1/firebase-database.js"></script>
@@ -33,9 +33,10 @@
     <script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-database.js"></script>
     <script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-functions.js"></script>
 
-    <script src="js/dashboard.js"></script>
+    <!-- <script src="js/dashboard.js"></script> -->
 
     <script src ="js/noOfBricks.js"></script>
+
 
 
     <script>
@@ -54,7 +55,9 @@
         firebase.initializeApp(firebaseConfig);
       </script>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 
+<script src="js/stats.js"></script>
 
   </head>
   <body>
@@ -80,106 +83,61 @@
     </div>
 
     <section>
-      <div class="bg_inside" >
         <div class="container">
 
         
-        <h2>Your Dashboard</h2>
-        <div class="gapp"></div>
-        <div class="row">
-
-          <div class="col-md-4 col-md-pull-4 text-center order-sm-6" >
-            <div class="cardDashBoard text-center" style="height:250px !important">
-              <div class="card-body">
-               
-                
-                <p class="dashboard-title-left" style="font-size:20px !important">NEXT RANDOMIZER:</p>
-                <p class="card-text dashboard-number-big" id="randomizerNext" style='font-size: 80px;'>...</p>
-              </div>
-            </div>
-          </div>
-    
-          <div class="col-md-8 col-md-push-8 order-sm-1" >
-            <div class="cardDashBoard text-center" style="height:250px !important">
-              <div class="card-body">
-                <p class="dashboard-title" >DATE & TIME ENTERED CONTEST:</p>
-                <p class="card-text dashboard-numbers" id="dateEntered" style="font-size: 34px; margin-top: 40px;">Loading...</p>
-              </div>
-            
-            </div>
-             
-          </div>
-
-
-
-        </div>
-
+        <h2>STATISTICS</h2>
 
         <div class="row">
-
-          <div class="col-md-7 col-md-pull-7 text-center order-sm-6" >
-            <div class="cardDashBoard text-center">
-              <div class="card-body">
-                <p class="dashboard-title-left">DATE FIRST INVITEE: <span class="orange dashboard-numbers" id="dateFirst" style="font-size:20px !important">  Loading...</span></p>
-                
-                <p class="card-text dashboard-numbers"></p>
-                <p class="dashboard-title-left" style="font-size:20px !important">MINS ALLOWED ONCE YOU GET YOUR FIRST INVITEE:</p>
-                <p class="card-text dashboard-number-big" id="minsAllowed" style='font-size: 90px;'>...</p>
-              </div>
-            </div>
-          </div>
-    
-          <div class="col-md-5 col-md-push-5 order-sm-1" >
-            <div class="cardDashBoard text-center">
-              <div class="card-body">
-                <p class="dashboard-title">NUMBER OF PEOPLE INVITED:</p>
-                
-                <p class="card-text dashboard-numbers" id="peopleClicked">Loading...</p>
-                <p class="dashboard-title">POSSIBLE BRICKS EARNED:</p>
-                <p class="card-text dashboard-numbers" id="possibleBricks">Loading...</p>
-              </div>
-            
-            </div>
-             
-          </div>
-
-
-
-        </div>
-
-          <!-- <div class="row">
-            <div class="col-md-6 col-md-push-6 order-sm-1" >
-              <div class="cardDashBoard text-center" style="height:250px !important">
-                <div class="card-body">
-                  <p class="dashboard-title">NEXT RANDOMIZER SELECTION:</p>
-                  
-                  <p class="card-text dashboard-number-big" id="randomizerNext" style="padding-top: 10px;">Loading...</p>
-                  
-                </div>
-              </div>
-            </div>
-
             <div class="col-md-6 col-md-pull-6 text-center order-sm-6" >
-              <div class="cardDashBoard text-center" style="height:250px !important">
-                <div class="card-body">
-                  
-       
-                  <p class="dashboard-title-left">WEBSITE TRAFFIC LAST HOUR:</p>
-                  <p class="card-text dashboard-number-big" id="trafficLastHour">Loading...</p>
-                </div>
-              </div>
+              <canvas id="personal"></canvas>
             </div>
-  
-
-          </div> -->
-
-
-
-
-
+            <div class="col-md-6 col-md-push-6 order-sm-1" >
+              <!-- <canvas id="percCut"></canvas>  -->
+            </div>
           </div>
+     
+        <div class="gapp"></div>
+    
+        <h4 style="margin-top: 12px;">Stats of previous week!</h4>
+        <div class="row">
+          
+          <div class="col-md-4 col-md-pull-4 text-center order-sm-6" >
+          <button class="btn btn-new" id="pool1">Pool 1</button>
           </div>
+          <div class="col-md-4 col-md-pull-4 text-center order-sm-6" >
+            <button class="btn btn-new" id="pool2">Pool 2</button>
+          </div>
+          <div class="col-md-4 col-md-pull-4 text-center order-sm-6" >
+              <button class="btn btn-new" id="pool3">Pool 3</button>
+          </div>
+        </div>
 
-       
+
+
+
+        </div>
+
+
+        <script>
+          firebase.auth().onAuthStateChanged(function (user){
+          if(user){
+            $("#pool1").click(function(){
+              window.location.href = "lastPool1Stats.html";
+            });
+
+            $("#manageMyAccount").click(function(){
+            window.location.href = "pool2.html";
+          });
+
+          $("#withdrawMyBricks").click(function(){
+            window.location.href = "pool3.html";
+              });
+            }
+          });
+        </script>
+
+
+
     </body>
 </html>

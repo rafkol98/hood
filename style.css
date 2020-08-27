@@ -706,3 +706,15 @@ a {
 }
 
 
+#noPeople10{
+    font-size: 22px;
+    color: rgba(255, 255, 255, 0.8) ;
+   
+}
+
+
+.bg_inside {
+    background-image: url(images/banner_in_pages@2x.png);
+    background-color: rgba(32, 32, 32, 0.7);
+    background-blend-mode: saturation;
+}

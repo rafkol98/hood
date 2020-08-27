@@ -465,6 +465,7 @@ function calculatePecentage(moneyTotal) {
 
 
 function initialize() {
+  //INITIALISATION POOL1.
   admin.database().ref('Contests/Pool1/percentageCut').set(0);
   admin.database().ref('Contests/Pool1/moneyProfit').set(0);
   admin.database().ref('Contests/Pool1/moneySpread').set(0);
@@ -480,6 +481,7 @@ function initialize() {
   admin.database().ref('Contests/Pool1/completedRequest').set(0);
   admin.database().ref('Contests/Pool1/numberMouktijies').set(0);
   admin.database().ref('Contests/Pool1/maxMouktijies').set(50);
+  admin.database().ref('Contests/Pool1/started').set(false);
 
   console.log("IMPORTANT - pool1 was initialized.");
   
@@ -868,6 +870,9 @@ exports.joinContest =functions.https.onCall((data,context)=>{
     var numberMouktijies = snapshot.child("numberMouktijies").val();
     var maxMouktijies = snapshot.child("maxMouktijies").val();
     var mouktijiesStop = snapshot.child("mouktijiesStop").val();
+    var started = snapshot.child("started").val();
+
+    if(started){
 
     admin.database().ref('/profiles/'+userId).once('value').then(function(data) {
     if(data.hasChild("participates")){
@@ -893,15 +898,26 @@ exports.joinContest =functions.https.onCall((data,context)=>{
       resolve('joinContest.html');}
   });
 
-  
+  } else{
+    console.log("competition did not start yet");
+    resolve('notYet.html');
+  }
   });
 
   });
 });
 
-exports.countUsers10 = functions.https.onCall((data,context)=>{
-  console.log("called");
-  var x = count10Mins();
-  return x;
+
+function startIt(){
+  admin.database().ref('Contests/Pool1/started').set(true);
+}
+
+
+exports.started = functions.database.ref('Contests/Pool1/started')
+.onUpdate((change, context)=>{
+  mouktijiesStart();
 });
 
+exports.startPool = functions.https.onRequest((data,context)=>{
+  startIt();
+});

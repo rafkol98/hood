@@ -87,7 +87,7 @@
 
         
         <h2>YOU HAVE TO WAIT A BIT MORE...</h2>
-        <p style="text-align: left;">Now its time for the ticket-holders to join the contest...You will be able to join the contest shortly.</p>
+        <p style="text-align: left;">Now its time for the ticket-holders to join the contest. You will be able to join the contest shortly.</p>
         <!-- <p id="demo">alo</p> -->
         <div class="gapp"></div>
         <div class="row">
@@ -105,43 +105,58 @@
             </div>
           </div>
     
-          <!-- <div class="col-md-8 col-md-push-8 order-sm-1" >
+          <div class="col-md-4 col-md-push-4 order-sm-1" >
             <div class="cardDashBoard text-center" style="height:250px !important">
               <div class="card-body">
-                <p class="dashboard-title" >DATE & TIME ENTERED CONTEST:</p>
-                <p class="card-text dashboard-numbers" id="dateEntered" style="font-size: 34px; margin-top: 40px;">Loading...</p>
+                <p class="dashboard-title" >SOMETHING HERE:</p>
+                <p class="card-text dashboard-numbers" id="" style="font-size: 34px; margin-top: 40px;">Loading...</p>
               </div>
             
             </div>
              
-          </div>  -->
-
-
+          </div> 
 
         </div>
-        </div>
-
-        <div class="container_graphs">
+        <h4 style="margin-top: 12px;">Stats of previous week!</h4>
+        <p style="text-align: left;">While you are waiting take the chance to look at the last week stats of the pools.</p>
         <div class="row">
-          <div class="col-md-6 col-md-pull-6 text-center order-sm-6" >
-            <!-- <div class="cardDashBoard text-center"> -->
-              <!-- <div class="card-body"> -->
-            <canvas id="myChart"></canvas>
-            <!-- </div> -->
-            <!-- </div>   -->
+          
+          <div class="col-md-4 col-md-pull-4 text-center order-sm-6" >
+          <button class="btn btn-new" id="pool1">Pool 1</button>
           </div>
-          <div class="col-md-6 col-md-push-6 order-sm-1" >
+          <div class="col-md-4 col-md-pull-4 text-center order-sm-6" >
+            <button class="btn btn-new" id="pool2">Pool 2</button>
+          </div>
+          <div class="col-md-4 col-md-pull-4 text-center order-sm-6" >
+              <button class="btn btn-new" id="pool3">Pool 3</button>
           </div>
         </div>
 
-      </div>
 
 
 
+        </div>
 
 
-          
+        <script>
+          firebase.auth().onAuthStateChanged(function (user){
+          if(user){
+            $("#pool1").click(function(){
+              window.location.href = "lastPool1Stats.html";
+            });
 
-          <script src="./js/charts.js"></script>
+            $("#manageMyAccount").click(function(){
+            window.location.href = "pool2.html";
+          });
+
+          $("#withdrawMyBricks").click(function(){
+            window.location.href = "pool3.html";
+              });
+            }
+          });
+        </script>
+
+
+
     </body>
 </html>
