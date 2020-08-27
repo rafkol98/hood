@@ -136,7 +136,8 @@
       </style>
 
   </head>
-  <body class="bg_Logged">
+  <body>
+    <div class="bg_Logged">
     <div class="loader2" style="display: none">
       <h2>Loading your bricks.</h2>
       <br>
@@ -175,8 +176,9 @@
       <div class="col-md-7 col-md-pull-7 text-center order-sm-6" >
         <div class="card text-center">
           <div class="card-body">
-            <h3 class="card-title">CURRENT MARKET POOL RAISED:</h3>
-            
+            <!-- <h3 class="card-title">CURRENT MARKET POOL RAISED:</h3> -->
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+            <h3 id="word" class="card-title">BRICKS RAISED POOL1</h3>
             <p class="card-text money" id="moneyRaised">Loading...</p>
             <p class="card-text">or, <span id="bitTextId">...</span> <img src="images/icon_bit@2x.png" alt="bitcoin" class="icon-bit"> </p>
           </div>
@@ -207,21 +209,62 @@
   <script>
     $(function(){
 
-          firebase.database().ref('/Contests/Pool1').child("moneySpread").once('value').then(function(snapshot) {
-            // var username = (snapshot.val() && snapshot.val().username) || 'Anonymous';
-            var moneySpread = snapshot.val();
-            console.log(moneySpread);
-            $("#moneyRaised").html(moneySpread+" Bricks");
-            // $(".loader2").hide();
+          // firebase.database().ref('/Contests/Pool1').child("moneySpread").once('value').then(function(snapshot) {
+          firebase.database().ref('/Contests').once('value').then(function(snapshot) {
+            
+          // var username = (snapshot.val() && snapshot.val().username) || 'Anonymous';
+          var moneySpread = snapshot.child("Pool1").child("moneySpread").val();
+          console.log(moneySpread);
+
+          $("#moneyRaised").html(moneySpread+" Bricks");
+
+          count = 0;
+          // wordsArray = ["BRICKS RAISED POOL1", "BRICKS RAISED POOL2", "BRICKS RAISED POOL3"];
+          arrayMarket = [moneySpread,"100","230"];
+
+
+          count = 0;
+          wordsArray = ["BRICKS RAISED POOL1", "BRICKS RAISED POOL2", "BRICKS RAISED POOL3"];
+          setInterval(function () {
+            count++;
+            $("#word").fadeOut(400, function () {
+              $(this).text(wordsArray[count % wordsArray.length]).fadeIn(400);
+            });
+
+            $("#moneyRaised").fadeOut(400, function () {
+              $(this).text(arrayMarket[count % arrayMarket.length]+" Bricks").fadeIn(400);
+            });
+
+          }, 10000);
+
+          // var count2 =0;
+          // setInterval2(function () {
+          //   count2++;
+          //   $("#word").fadeOut(400, function () {
+          //     $(this).text(arrayMarket[count2 % arrayMarket.length]).fadeIn(400);
+          //   });
+
+          // }, 180000);
+          //   // $(".loader2").hide();
           });
 
         });
      
 
-
-
- 
   </script>
+
+  <!-- <script>
+    $(function () {
+      count = 0;
+      wordsArray = ["BRICKS RAISED POOL1", "BRICKS RAISED POOL2", "BRICKS RAISED POOL3"];
+      setInterval(function () {
+        count++;
+        $("#word").fadeOut(400, function () {
+          $(this).text(wordsArray[count % wordsArray.length]).fadeIn(400);
+        });
+      }, 10000);
+    });
+  </script> -->
 
 
 <script>
@@ -237,6 +280,6 @@
 </script>
 
 
-  
-      </body>
+</div>
+</body>
 </html>
