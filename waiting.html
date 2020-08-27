@@ -55,6 +55,8 @@
         firebase.initializeApp(firebaseConfig);
       </script>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
 <script src="js/countDown.js"></script>
 
   </head>
@@ -84,23 +86,26 @@
         <div class="container">
 
         
-        <h2>CONTENT DID NOT START YET</h2>
+        <h2>YOU HAVE TO WAIT A BIT MORE...</h2>
+        <p style="text-align: left;">Now its time for the ticket-holders to join the contest...You will be able to join the contest shortly.</p>
         <!-- <p id="demo">alo</p> -->
         <div class="gapp"></div>
         <div class="row">
+          
 
-          <div class="col-md-4 col-md-pull-4 text-center order-sm-6" >
+         
+            <div class="col-md-8 col-md-pull-8 text-center order-sm-6" >
             <div class="cardDashBoard text-center" style="height:250px !important">
               <div class="card-body">
                
                 
-                <p class="dashboard-title-left" style="font-size:20px !important">CONTEST STARTS IN:</p>
+                <p class="dashboard-title-left" style="font-size:28px !important">YOU CAN JOIN IN:</p>
                 <p class="card-text dashboard-number-big" id="demo" style='font-size: 60px;'>...</p>
               </div>
             </div>
           </div>
     
-          <div class="col-md-8 col-md-push-8 order-sm-1" >
+          <!-- <div class="col-md-8 col-md-push-8 order-sm-1" >
             <div class="cardDashBoard text-center" style="height:250px !important">
               <div class="card-body">
                 <p class="dashboard-title" >DATE & TIME ENTERED CONTEST:</p>
@@ -109,7 +114,7 @@
             
             </div>
              
-          </div>
+          </div>  -->
 
 
 
@@ -118,7 +123,9 @@
 
         <div class="row">
 
-          <div class="col-md-7 col-md-pull-7 text-center order-sm-6" >
+          <canvas id="myChart"></canvas>
+
+          <!-- <div class="col-md-7 col-md-pull-7 text-center order-sm-6" >
             <div class="cardDashBoard text-center">
               <div class="card-body">
                 <p class="dashboard-title-left">DATE FIRST INVITEE: <span class="orange dashboard-numbers" id="dateFirst" style="font-size:20px !important">  Loading...</span></p>
@@ -142,7 +149,7 @@
             
             </div>
              
-          </div>
+          </div> -->
 
 
 
@@ -156,6 +163,6 @@
 
           </div>
 
-       
+          <script src="./js/charts.js"></script>
     </body>
 </html>

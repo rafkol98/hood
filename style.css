@@ -505,7 +505,7 @@ hr.style-two {
     font-style: italic;
     font-size: 60px;
     font-weight: 300;
-    color: #F95700FF;
+    color: rgb(249, 87, 0);
     transition: width 2s, height 2s, transform 1s;
 }
 
