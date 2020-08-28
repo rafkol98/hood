@@ -191,6 +191,65 @@ database.ref('Logistics/History/Pool1').once('value').then(function(snapshot) {
 });
 
 
+//Graph that plots how many people entered the last 10 mins.
+database.ref('Graphs/Pool1').once('value').then(function(snapshot) {
+
+    var chartTitles = [1,2,3,4,5,6,7,8,9,10];
+    var chartData = [];
+    
+    snapshot.forEach(function(child) {
+
+        var peopleEntered = child.val();
+       
+        
+
+        //add the total players and date to arrays.
+        // chartTitles.push(date);
+        chartData.push(peopleEntered);
+    });
+
+
+    var comparePlayers = document.getElementById('peopleEntered10').getContext('2d');
+    var chart = new Chart(comparePlayers, {
+        // The type of chart we want to create
+        type: 'line',
+
+        // The data for our dataset
+        data: {
+            labels: chartTitles,
+            datasets: [{
+                label: 'Compare People',
+                backgroundColor: ['rgb(249, 87, 0)'],
+                borderColor: 'black',
+                data: chartData
+            }]
+        },
+
+        // Configuration options go here
+        options: {
+            title:{
+                display:true,
+                text:'PEOPLE ENTERED LAST 10 MINUTES',
+                fontColor: 'white',
+                fontSize:20
+
+            },
+            legend:{
+                display:false,
+                position:'bottom',
+                labels:{
+                    fontColor:'#fff'
+                }
+            },
+        }
+    });
+
+});
+
+
+
+
+
 
 }});
 

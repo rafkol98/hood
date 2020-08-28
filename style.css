@@ -718,3 +718,7 @@ a {
     background-color: rgba(32, 32, 32, 0.7);
     background-blend-mode: saturation;
 }
+
+.canvasLogged {
+   padding: 20px !important;
+}

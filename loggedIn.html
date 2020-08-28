@@ -36,6 +36,8 @@
    
      <script src ="js/noOfBricks.js"></script>
 
+   
+
     <script>
         // Your web app's Firebase configuration
         var firebaseConfig = {
@@ -51,6 +53,10 @@
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
       </script>
+
+      <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
+      <script src="js/charts.js"></script>
 
       <script>
         firebase.auth().onAuthStateChanged(function (user)
@@ -170,7 +176,7 @@
 
     <section>
       <div class="container">
-      <div class="gap"></div>
+      <div class="gapp"></div>
       <div class="row">
      
       <div class="col-md-7 col-md-pull-7 text-center order-sm-6" >
@@ -183,6 +189,17 @@
             <p class="card-text">or, <span id="bitTextId">...</span> <img src="images/icon_bit@2x.png" alt="bitcoin" class="icon-bit"> </p>
           </div>
         </div>
+
+        <div class="gap"></div>
+
+        <div class="card text-center">
+          <div class="card-body">
+            <!-- <h3 class="card-title">CURRENT MARKET POOL RAISED:</h3> -->
+            <!-- TO CHANGE MAKE VISIBILITY HIDDEN AND CHANGE IT PROGRAMMATICALLY WHEN THE OTHER ONE IS BEING DISPLAYED. -->
+            <canvas id="peopleEntered10" class="canvasLogged" width="400" height="200"></canvas>
+          </div>
+        </div>
+       
       </div>
 
       <div class="col-md-5 col-md-push-5 order-sm-1" >
@@ -191,7 +208,7 @@
           <button type="button" class="btn btn-new" id="joinContest">This week's contest</button>
           <button type="button" class="btn btn-new" id="manageMyAccount">Manage my account</button>
           <button type="button" class="btn btn-new" id="statsForNerds">Stats for Nerds!</button>
-          <button type="button" class="btn btn-new" id="withdrawMyBricks">Withdraw bricks</button>
+          <!-- <button type="button" class="btn btn-new" id="withdrawMyBricks">Withdraw bricks</button> -->
         
      
       </div>
