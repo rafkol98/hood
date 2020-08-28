@@ -163,9 +163,11 @@ exports.getCount = functions.database.ref('Request_System/Pool1/{userID}')
 exports.taskRunner = functions.runWith({memory:'2GB'}).pubsub
 .schedule('* * * * *').onRun(async context => {
   var currentTimestamp = new Date().getTime();
+  minsEntered();
 
 
   admin.database().ref('Request_System/Pool1').limitToFirst(1).once('value').then(function(snapshot) {
+
     var uidOfDisplayer = snapshot.val(); 
     
     var keyX;
@@ -932,3 +934,50 @@ exports.started = functions.database.ref('Contests/Pool1/started')
 exports.startPool = functions.https.onRequest((data,context)=>{
   startIt();
 });
+
+
+
+function minsEntered(){
+  var currentTimestamp = new Date().getTime();
+  var tenMinsAgo = currentTimestamp - 600000;
+  var count = 0;
+
+  //count how many players 10 last minutes. 
+  admin.database().ref('Request_System/Pool1').once('value').then(function(snapshot) {
+    snapshot.forEach(function(childSnapshot) {
+      if(childSnapshot.key > tenMinsAgo){
+        console.log("count10 pirama"+ childSnapshot.key);
+        count++;
+      }
+      
+    });
+
+    //if graphs/pool1 childrenCount == 10, remove first value, write new one.
+
+
+    //TODO: ADD CURRENT TIMESTAMP AS KEY AND COUNT AS VALUE UNDER GRAPHS/POOL1 TABLE.
+
+    admin.database().ref('Graphs/Pool1').once('value').then(function(snapshot) {
+      if(snapshot.numChildren()==10){
+        
+        admin.database().ref('Graphs/Pool1').limitToFirst(1).once('value').then(function(childsnapshot) {
+          var timestampDelete = childsnapshot.key;
+
+          //delete first value out of the 10/
+          admin.database().ref('Graphs/Pool1/'+timestampDelete).remove();
+     
+          //add the new one.
+          admin.database().ref('Graphs/Pool1/'+currentTimestamp).set(count);
+          console.log("count value for realtime graph was updated. "+count+" , for time: "+currentTimestamp);
+        });
+      } else{
+        admin.database().ref('Graphs/Pool1/'+currentTimestamp).set(count);
+        console.log("count value for realtime graph was updated. "+count+" , for time: "+currentTimestamp);
+      }
+      });
+    
+   
+
+  });
+
+}
