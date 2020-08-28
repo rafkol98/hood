@@ -958,22 +958,33 @@ function minsEntered(){
     //TODO: ADD CURRENT TIMESTAMP AS KEY AND COUNT AS VALUE UNDER GRAPHS/POOL1 TABLE.
 
     admin.database().ref('Graphs/Pool1').once('value').then(function(snapshot) {
-      if(snapshot.numChildren()==10){
-        
+      if(snapshot.numChildren()<10){
+        admin.database().ref('Graphs/Pool1/'+currentTimestamp).set(count);
+        console.log("count value for realtime graph was updated. "+count+" , for time: "+currentTimestamp);
+    
+      } else{
+        console.log("i went in to else, graph.")
         admin.database().ref('Graphs/Pool1').limitToFirst(1).once('value').then(function(childsnapshot) {
-          var timestampDelete = childsnapshot.key;
+
+          childsnapshot.forEach(function(child) {
+           
+          var timestampDelete = child.key;
+          console.log("timestampDelete "+timestampDelete);
 
           //delete first value out of the 10/
           admin.database().ref('Graphs/Pool1/'+timestampDelete).remove();
+          console.log("deleted from graphs.")
      
           //add the new one.
           admin.database().ref('Graphs/Pool1/'+currentTimestamp).set(count);
           console.log("count value for realtime graph was updated. "+count+" , for time: "+currentTimestamp);
+        
+            
+          });
+
         });
-      } else{
-        admin.database().ref('Graphs/Pool1/'+currentTimestamp).set(count);
-        console.log("count value for realtime graph was updated. "+count+" , for time: "+currentTimestamp);
-      }
+
+          }
       });
     
    
