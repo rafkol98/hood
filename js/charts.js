@@ -130,13 +130,68 @@ firebase.auth().onAuthStateChanged(function (user){
         }
     });
 
-
-
-
-
-
     });
 });
+
+
+database.ref('Logistics/History/Pool1').once('value').then(function(snapshot) {
+
+    var chartTitles = [];
+    var chartData = [];
+    
+    snapshot.forEach(function(child) {
+        var timestamp = Number(child.key);
+        var date = new Date(timestamp).toDateString();
+
+        var numberMouktijies = child.child("numberMouktijies").val();
+        var numberPeoplePayed = child.child("numberOfPeople").val();
+        var totalPlayers= numberMouktijies+numberPeoplePayed;
+
+        //add the total players and date to arrays.
+        chartTitles.push(date);
+        chartData.push(totalPlayers);
+    });
+
+
+    var comparePlayers = document.getElementById('comparePlayers').getContext('2d');
+    var chart = new Chart(comparePlayers, {
+        // The type of chart we want to create
+        type: 'line',
+
+        // The data for our dataset
+        data: {
+            labels: chartTitles,
+            datasets: [{
+                label: 'Compare People',
+                backgroundColor: ['rgb(249, 87, 0)'],
+                borderColor: 'black',
+                data: chartData
+            }]
+        },
+
+        // Configuration options go here
+        options: {
+            title:{
+                display:true,
+                text:'PEOPLE PARTICIPATED PER CONTEST',
+                fontColor: 'white',
+                fontSize:20
+
+            },
+            legend:{
+                display:false,
+                position:'bottom',
+                labels:{
+                    fontColor:'#fff'
+                }
+            },
+        }
+    });
+
+});
+
+
+
 }});
 
 

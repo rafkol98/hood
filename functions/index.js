@@ -530,16 +530,22 @@ function allocateBricks(){
         const bricksAllocatedRef = admin.database().ref('Logistics/Pool1');
 
         console.log("peopleInvited "+ peopleInvited+"for" +userUid);
+
+
+        var currentTimestamp = new Date().getTime();
         
         //if peopleInvited is not 1, then allocate bricks normally.
         if(peopleInvited!=1){
            
               if(bricksAllocate+bricksEarned <= moneySpread){
-                
+
+                //write how many bricks he earned in this contest
+                bricksEarnedRef.child('bricksEarnedLast').child(currentTimestamp).set(bricksEarned);
+                  console.log("bricksEarnedLast added.");
+
                 bricksEarnedRef.child('currentBricks').transaction(function(currentBricks) {
                 return (currentBricks|| 0) + bricksEarned});
                 console.log("bricksEarned was added to current bricks.");
-                
                 
                 bricksAllocatedRef.child('bricksAllocated').transaction(function(bricksAllocated) {
                 return (bricksAllocated|| 0) + bricksEarned});
@@ -562,6 +568,10 @@ function allocateBricks(){
           var bricksEarnedPlusBonus = bricksEarned + bonusPerOneBricker;
           if(bricksAllocate+bricksEarnedPlusBonus <= moneySpread){
 
+            //write how many bricks he earned in this contest
+            bricksEarnedRef.child('bricksEarnedLast').child(currentTimestamp).set(bricksEarnedPlusBonus);
+              console.log("bricksEarnedLast added.");
+
             bricksEarnedRef.child('currentBricks').transaction(function(currentBricks) {
             return (currentBricks|| 0) + bricksEarnedPlusBonus});
             console.log("bricksEarned was added to current bricks.");
@@ -582,6 +592,7 @@ function allocateBricks(){
    });
    console.log("FINISHED 2..");
    makeItHistory();
+  
 
   });
     } else{
@@ -663,7 +674,8 @@ function makeItHistory(){
     });
     console.log("FINISHED 3..");
     // initialize();
-    moveToLogistics();  
+    moveToLogistics(); 
+   
 });
 
 }
@@ -678,6 +690,7 @@ function moveToLogistics(){
       console.log("moved it to logistics/history.");
       console.log("FINISHED 4..");
       clearRequestSystem();
+  
   });
 
 }
@@ -747,9 +760,6 @@ exports.enterTicket =functions.https.onCall((data,context)=>{
       if(ticket.val()=="bronze"){
       
       console.log("userId "+userId+" fullfils the criteria.");
-
-
-        
       
         //Write user under Request System.
         refPool.child(currentTimestamp).set(userId);
