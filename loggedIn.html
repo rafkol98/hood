@@ -1,308 +1,299 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta
+        name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css">
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+        <link rel="stylesheet" href="style.css">
 
-    <title>Account</title>
-      
-    <script src="https://gstatic.com/firebasejs/6.3.1/firebase-app.js"></script>
-    <script src="https://gstatic.com/firebasejs/6.3.1/firebase-auth.js"></script>
-    <script src="https://gstatic.com/firebasejs/6.3.1/firebase-database.js"></script>
-    <script src="https://gstatic.com/firebasejs/6.3.1/firebase-storage.js"></script>
+        <title>Account</title>
 
-     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+        <script src="https://gstatic.com/firebasejs/6.3.1/firebase-app.js"></script>
+        <script src="https://gstatic.com/firebasejs/6.3.1/firebase-auth.js"></script>
+        <script src="https://gstatic.com/firebasejs/6.3.1/firebase-database.js"></script>
+        <script src="https://gstatic.com/firebasejs/6.3.1/firebase-storage.js"></script>
 
-     <script src="https://www.gstatic.com/firebasejs/5.9.4/firebase.js"></script>
-     <!-- The core Firebase JS SDK is always required and must be listed first -->
-     <script src="https://www.gstatic.com/firebasejs/7.3.0/firebase-app.js"></script>
-     
-     <!-- TODO: Add SDKs for Firebase products that you want to use
-          https://firebase.google.com/docs/web/setup#available-libraries -->
-     <!-- Add Firebase products that you want to use -->
-     <script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-auth.js"></script>
-     
-     <script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-database.js"></script>
-     <script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-functions.js"></script>
- 
-   
-     <script src ="js/noOfBricks.js"></script>
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 
-   
+        <script src="https://www.gstatic.com/firebasejs/5.9.4/firebase.js"></script>
+        <!-- The core Firebase JS SDK is always required and must be listed first -->
+        <script src="https://www.gstatic.com/firebasejs/7.3.0/firebase-app.js"></script>
 
-    <script>
-        // Your web app's Firebase configuration
-        var firebaseConfig = {
-          apiKey: "AIzaSyAjn39FIOAD4iH-KyFl6G5ygJjLCfxX6lM",
-          authDomain: "hood-project-883de.firebaseapp.com",
-          databaseURL: "https://hood-project-883de.firebaseio.com",
-          projectId: "hood-project-883de",
-          storageBucket: "hood-project-883de.appspot.com",
-          messagingSenderId: "895762021353",
-          appId: "1:895762021353:web:de05bbebaa562e44092978",
-          measurementId: "G-TMSQNRF5DN"
-        };
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-      </script>
+        <!-- TODO: Add SDKs for Firebase products that you want to use
+                  https://firebase.google.com/docs/web/setup#available-libraries -->
+        <!-- Add Firebase products that you want to use -->
+        <script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-auth.js"></script>
 
-      <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+        <script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-database.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-functions.js"></script>
 
-      <script src="js/charts.js"></script>
 
-      <script>
-        firebase.auth().onAuthStateChanged(function (user)
-        {
+        <script src="js/noOfBricks.js"></script>
 
-          if(user){
-            $("#nav_signOut").one("click", function(e) {
-              firebase.auth().signOut().then(function() {
-              console.log('Signed Out');
-            }, function(error) {
-              console.error('Sign Out Error', error);
+
+        <script>
+            // Your web app's Firebase configuration
+            var firebaseConfig = {
+                apiKey: "AIzaSyAjn39FIOAD4iH-KyFl6G5ygJjLCfxX6lM",
+                authDomain: "hood-project-883de.firebaseapp.com",
+                databaseURL: "https://hood-project-883de.firebaseio.com",
+                projectId: "hood-project-883de",
+                storageBucket: "hood-project-883de.appspot.com",
+                messagingSenderId: "895762021353",
+                appId: "1:895762021353:web:de05bbebaa562e44092978",
+                measurementId: "G-TMSQNRF5DN"
+            };
+            // Initialize Firebase
+            firebase.initializeApp(firebaseConfig);
+        </script>
+
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
+        <script src="js/charts.js"></script>
+
+        <script>
+            firebase.auth().onAuthStateChanged(function (user) {
+
+                if (user) {
+                    $("#nav_signOut").one("click", function (e) {
+                        firebase.auth().signOut().then(function () {
+                            console.log('Signed Out');
+                        }, function (error) {
+                            console.error('Sign Out Error', error);
+                        });
+
+                    });
+                }
+
+            });
+        </script>
+
+        <script>
+            // If user hasChild "participatesIn" - he joined a contest take him to the joinedContest.html else take him to invitation.html page.
+
+            firebase.auth().onAuthStateChanged(function (user) {
+                if (user) {
+                    $("#buyBricks").click(function () {
+                        window.location.href = "buyBricks.html";
+                    });
+
+                    $("#manageMyAccount").click(function () {
+                        window.location.href = "manageAccount.html";
+                    });
+
+                    $("#withdrawMyBricks").click(function () {
+                        window.location.href = "withdrawBricks.html";
+                    });
+
+                    $("#statsForNerds").click(function () {
+                        window.location.href = "statsForNerds.html";
+                    });
+
+
+                    $("#joinContest").click(function () {
+
+                        const result = firebase.functions().httpsCallable('joinContest');
+                        result().then(result => {
+                            console.log(result.data);
+                            window.location.href = result.data;
+                        });
+
+
+                    });
+
+
+                }
             });
 
-          });
-          }
-
-        }
-        );
-      </script>
-
-      <script>
-        //If user hasChild "participatesIn" - he joined a contest take him to the joinedContest.html else take him to invitation.html page.
-        
-          firebase.auth().onAuthStateChanged(function (user){
-            if(user){
-              $("#buyBricks").click(function(){
-                window.location.href = "buyBricks.html";
-              });
-
-              $("#manageMyAccount").click(function(){
-              window.location.href = "manageAccount.html";
-            });
-
-            $("#withdrawMyBricks").click(function(){
-              window.location.href = "withdrawBricks.html";
-            });
-
-            $("#statsForNerds").click(function(){
-              window.location.href = "statsForNerds.html";
-            });
+        </script>
 
 
-              $("#joinContest").click(function(){
+        <style>
+            .loader,
+            .loader2 {
+                position: fixed;
+                padding: 0;
+                margin: 0;
 
-              const result = firebase.functions().httpsCallable('joinContest');
-              result().then(result=>{
-                console.log(result.data);
-                window.location.href= result.data;
-              });
+                top: 0;
+                left: 0;
 
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.5);
+                z-index: 999;
 
-              });
+                display: flex;
+                flex-direction: column;
+                align-content: center;
+                align-items: center;
+                justify-content: center;
+            }
+        </style>
 
-
-
-            }});
-      
-      </script>
-
-
-
-
-      <style>
-        .loader, .loader2 {
-            position:fixed;
-            padding:0;
-            margin:0;
-  
-            top:0;
-            left:0;
-  
-            width: 100%;
-            height: 100%;
-            background:rgba(0, 0, 0, 0.5);
-            z-index: 999;
-  
-            display: flex;
-            flex-direction: column;
-            align-content: center;
-            align-items: center;
-            justify-content: center;
-        }
-      </style>
-
-  </head>
-  <body>
-    <div class="bg_Logged">
-    <div class="loader2" style="display: none">
-      <h2>Loading your bricks.</h2>
-      <br>
-      <img src="images/25.gif" alt="">
-    </div>
-       <!--Navigation Menu-->
-       <section id="nav_bar">
-
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-          <a class="navbar-brand" href="index.html"><img src="" class="logoClass"></a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavDropdown">
-              <ul class="navbar-nav ml-auto">
-              
-                <li class="nav-item">
-                  <a class="nav-link" href="index.html" id="nav_signOut">Sign Out</a>
-                </li>
-                
+    </head>
+    <body>
+        <div class="bg_Logged">
+            <div class="loader2" style="display: none">
+                <h2>Loading your bricks.</h2>
+                <br>
+                <img src="images/25.gif" alt="">
             </div>
-          </nav>
+            <!--Navigation Menu-->
+            <section id="nav_bar">
 
-    </section>
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                    <a class="navbar-brand" href="index.html"><img src="" class="logoClass"></a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                        <ul class="navbar-nav ml-auto">
 
-    <div class="brickLayer">
-      <p> <span id="noOfBricks">...</span> <img src="https://img.icons8.com/wired/64/000000/brick-wall.png" class="icon-brick"/>
-       <span id="ticket">...</span> <img src="https://img.icons8.com/pastel-glyph/64/000000/feather.png" class="icon-brick"/></p>
-    </div>
+                            <li class="nav-item">
+                                <a class="nav-link" href="index.html" id="nav_signOut">Sign Out</a>
+                            </li>
 
-    <section>
-      <div class="container">
-      <div class="gapp"></div>
-      <div class="row">
-     
-      <div class="col-md-7 col-md-pull-7 text-center order-sm-6" >
-        <div class="card text-center">
-          <div class="card-body">
-            <!-- <h3 class="card-title">CURRENT MARKET POOL RAISED:</h3> -->
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-            <h3 id="word" class="card-title">BRICKS RAISED POOL1</h3>
-            <p class="card-text money" id="moneyRaised">Loading...</p>
-            <p class="card-text">or, <span id="bitTextId">...</span> <img src="images/icon_bit@2x.png" alt="bitcoin" class="icon-bit"> </p>
-          </div>
-        </div>
+                        </div>
+                    </nav>
 
-        <div class="gap"></div>
+                </section>
 
-        <div class="card text-center">
-          <div class="card-body">
-            <!-- <h3 class="card-title">CURRENT MARKET POOL RAISED:</h3> -->
-            <!-- TO CHANGE MAKE VISIBILITY HIDDEN AND CHANGE IT PROGRAMMATICALLY WHEN THE OTHER ONE IS BEING DISPLAYED. -->
-            <canvas id="peopleEntered10" class="canvasLogged" width="400" height="200"></canvas>
-          </div>
-        </div>
-       
-      </div>
+                <div class="brickLayer">
+                    <p>
+                        <span id="noOfBricks">...</span>
+                        <img src="https://img.icons8.com/wired/64/000000/brick-wall.png" class="icon-brick"/>
+                        <span id="ticket">...</span>
+                        <img src="https://img.icons8.com/pastel-glyph/64/000000/feather.png" class="icon-brick"/></p>
+                </div>
 
-      <div class="col-md-5 col-md-push-5 order-sm-1" >
-          
-          <button type="button" class="btn btn-new" id="buyBricks">Buy Bricks</button>
-          <button type="button" class="btn btn-new" id="joinContest">This week's contest</button>
-          <button type="button" class="btn btn-new" id="manageMyAccount">Manage my account</button>
-          <button type="button" class="btn btn-new" id="statsForNerds">Stats for Nerds!</button>
-          <button type="button" class="btn btn-new" id="withdrawMyBricks">Withdraw bricks</button>
-        
-     
-      </div>
-      
-      </div>
-      </div>
-  </section>
+                <section>
+                    <div class="container">
+                        <div class="gapp"></div>
+                        <div class="row">
 
-  <!-- <div class="gapp"></div> -->
+                            <div class="col-md-7 col-md-pull-7 text-center order-sm-6">
+                                <div class="card text-center">
+                                    <div
+                                        class="card-body">
+                                        <!-- <h3 class="card-title">CURRENT MARKET POOL RAISED:</h3> -->
+                                        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+                                        <h3 id="word" class="card-title">BRICKS RAISED POOL1</h3>
+                                        <p class="card-text money" id="moneyRaised">Loading...</p>
+                                        <p class="card-text">or,
+                                            <span id="bitTextId">...</span>
+                                            <img src="images/icon_bit@2x.png" alt="bitcoin" class="icon-bit">
+                                        </p>
+                                    </div>
+                                </div>
 
-  <section id="#footer">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 260"><path fill="#F95700FF" fill-opacity="1" d="M0,0L48,21.3C96,43,192,85,288,101.3C384,117,480,107,576,117.3C672,128,768,160,864,165.3C960,171,1056,149,1152,133.3C1248,117,1344,107,1392,101.3L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>
-    <!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#F95700FF" fill-opacity="1" d="M0,0L120,37.3C240,75,480,149,720,192C960,235,1200,245,1320,250.7L1440,256L1440,320L1320,320C1200,320,960,320,720,320C480,320,240,320,120,320L0,320Z"></path></svg> -->
-    <!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#F95700FF" fill-opacity="1" d="M0,64L80,96C160,128,320,192,480,224C640,256,800,256,960,261.3C1120,267,1280,277,1360,282.7L1440,288L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"></path></svg> -->
-    <!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#F95700FF" fill-opacity="1" d="M0,0L80,26.7C160,53,320,107,480,133.3C640,160,800,160,960,154.7C1120,149,1280,139,1360,133.3L1440,128L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"></path></svg> -->
-    <!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#F95700FF" fill-opacity="1" d="M0,32L1440,256L1440,320L0,320Z"></path></svg> -->
-    <!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#F95700FF" fill-opacity="1" d="M0,64L288,128L576,128L864,256L1152,128L1440,224L1440,320L1152,320L864,320L576,320L288,320L0,320Z"></path></svg> -->
-    <!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#b80000" fill-opacity="1" d="M0,224L1440,32L1440,320L0,320Z"></path></svg> -->
-     <!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#120F0F" fill-opacity="1" d="M0,32L180,96L360,192L540,256L720,224L900,288L1080,192L1260,64L1440,0L1440,320L1260,320L1080,320L900,320L720,320L540,320L360,320L180,320L0,320Z"></path></svg>  -->
-  </section>
-  <script>
-    $(function(){
+                                <div class="gap"></div>
 
-          // firebase.database().ref('/Contests/Pool1').child("moneySpread").once('value').then(function(snapshot) {
-          firebase.database().ref('/Contests').once('value').then(function(snapshot) {
-            
-          // var username = (snapshot.val() && snapshot.val().username) || 'Anonymous';
-          var moneySpread = snapshot.child("Pool1").child("moneySpread").val();
-          console.log(moneySpread);
+                                <div class="card text-center">
+                                    <div class="card-body">
+                                        <!-- <h3 class="card-title">CURRENT MARKET POOL RAISED:</h3> -->
+                                        <!-- TO CHANGE MAKE VISIBILITY HIDDEN AND CHANGE IT PROGRAMMATICALLY WHEN THE OTHER ONE IS BEING DISPLAYED. --><canvas id="peopleEntered10" class="canvasLogged" width="400" height="200"> </canvas>
+                                    </div>
+                                </div>
 
-          $("#moneyRaised").html(moneySpread+" Bricks");
+                            </div>
 
-          count = 0;
-          // wordsArray = ["BRICKS RAISED POOL1", "BRICKS RAISED POOL2", "BRICKS RAISED POOL3"];
-          arrayMarket = [moneySpread,"100","230"];
+                            <div class="col-md-5 col-md-push-5 order-sm-1">
 
+                                <button type="button" class="btn btn-new" id="buyBricks">Buy Bricks</button>
+                                <button type="button" class="btn btn-new" id="joinContest">This week's contest</button>
+                                <button type="button" class="btn btn-new" id="manageMyAccount">Manage my account</button>
+                                <button type="button" class="btn btn-new" id="withdrawMyBricks">Withdraw bricks</button>
+                                <button type="button" class="btn btn-new" id="statsForNerds">Stats for Nerds!</button>
 
-          count = 0;
-          wordsArray = ["BRICKS RAISED POOL1", "BRICKS RAISED POOL2", "BRICKS RAISED POOL3"];
-          setInterval(function () {
-            count++;
-            $("#word").fadeOut(400, function () {
-              $(this).text(wordsArray[count % wordsArray.length]).fadeIn(400);
-            });
+                            </div>
 
-            $("#moneyRaised").fadeOut(400, function () {
-              $(this).text(arrayMarket[count % arrayMarket.length]+" Bricks").fadeIn(400);
-            });
+                        </div>
+                    </div>
+                </section>
 
-          }, 10000);
+                <!-- <div class="gapp"></div> -->
 
-          // var count2 =0;
-          // setInterval2(function () {
-          //   count2++;
-          //   $("#word").fadeOut(400, function () {
-          //     $(this).text(arrayMarket[count2 % arrayMarket.length]).fadeIn(400);
-          //   });
+                <section id="#footer">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 1440 260">
+                        <path fill="#F95700FF" fill-opacity="1" d="M0,0L48,21.3C96,43,192,85,288,101.3C384,117,480,107,576,117.3C672,128,768,160,864,165.3C960,171,1056,149,1152,133.3C1248,117,1344,107,1392,101.3L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+                    </svg>
+                </section>
+                <script>
+                    $(function () { // firebase.database().ref('/Contests/Pool1').child("moneySpread").once('value').then(function(snapshot) {
+                        firebase.database().ref('/Contests').once('value').then(function (snapshot) { // var username = (snapshot.val() && snapshot.val().username) || 'Anonymous';
+                            var moneySpread = snapshot.child("Pool1").child("moneySpread").val();
+                            console.log(moneySpread);
 
-          // }, 180000);
-          //   // $(".loader2").hide();
-          });
+                            $("#moneyRaised").html(moneySpread + " Bricks");
 
-        });
-     
-
-  </script>
-
-  <!-- <script>
-    $(function () {
-      count = 0;
-      wordsArray = ["BRICKS RAISED POOL1", "BRICKS RAISED POOL2", "BRICKS RAISED POOL3"];
-      setInterval(function () {
-        count++;
-        $("#word").fadeOut(400, function () {
-          $(this).text(wordsArray[count % wordsArray.length]).fadeIn(400);
-        });
-      }, 10000);
-    });
-  </script> -->
+                            count = 0;
+                            // wordsArray = ["BRICKS RAISED POOL1", "BRICKS RAISED POOL2", "BRICKS RAISED POOL3"];
+                            arrayMarket = [moneySpread, "100", "230"];
 
 
-<script>
-   $("#clickMeLogged").click(function(){
-    console.log("clicked");
-    const sayHello = firebase.functions().httpsCallable('sayHello');
-    sayHello({name: 'rafael'}).then(result=>{
-      console.log(result.data);
-    });
+                            count = 0;
+                            wordsArray = ["BRICKS RAISED POOL1", "BRICKS RAISED POOL2", "BRICKS RAISED POOL3"];
+                            setInterval(function () {
+                                count ++;
+                                $("#word").fadeOut(400, function () {
+                                    $(this).text(wordsArray[count % wordsArray.length]).fadeIn(400);
+                                });
 
-  });
+                                $("#moneyRaised").fadeOut(400, function () {
+                                    $(this).text(arrayMarket[count % arrayMarket.length] + " Bricks").fadeIn(400);
+                                });
 
-</script>
+                            }, 10000);
+
+                            // var count2 =0;
+                            // setInterval2(function () {
+                            // count2++;
+                            // $("#word").fadeOut(400, function () {
+                            //     $(this).text(arrayMarket[count2 % arrayMarket.length]).fadeIn(400);
+                            // });
+
+                            // }, 180000);
+                            // // $(".loader2").hide();
+                        });
+
+                    });
+                </script>
+
+                <!-- <script>
+                    $(function () {
+                      count = 0;
+                      wordsArray = ["BRICKS RAISED POOL1", "BRICKS RAISED POOL2", "BRICKS RAISED POOL3"];
+                      setInterval(function () {
+                        count++;
+                        $("#word").fadeOut(400, function () {
+                          $(this).text(wordsArray[count % wordsArray.length]).fadeIn(400);
+                        });
+                      }, 10000);
+                    });
+                  </script> -->
 
 
-</div>
-</body>
+                <script>
+                    $("#clickMeLogged").click(function () {
+                        console.log("clicked");
+                        const sayHello = firebase.functions().httpsCallable('sayHello');
+                        sayHello({name: 'rafael'}).then(result => {
+                            console.log(result.data);
+                        });
+
+                    });
+                </script>
+
+
+            </div>
+        </body>
+    </body>
 </html>
