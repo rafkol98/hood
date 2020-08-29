@@ -50,8 +50,10 @@ exports.terminatorX =functions.https.onRequest((data,context)=>{
 });
 
 
-exports.getCount = functions.database.ref('Request_System/Pool1/{userID}')
-.onCreate((snapshot, context)=>{
+// exports.getCount = functions.database.ref('Request_System/Pool1/{userID}')
+// .onCreate((snapshot, context)=>{
+
+  function getCountF(uid){
 
   var currentTimestamp = new Date().getTime();
   var tenMinsAgo = currentTimestamp - 600000;
@@ -59,7 +61,7 @@ exports.getCount = functions.database.ref('Request_System/Pool1/{userID}')
 
   var unit = 3.5;
 
-  const uid = context.auth.uid;
+  // const uid = context.auth.uid;
 
 
   const contestsRef = admin.database().ref('Contests/Pool1');
@@ -73,7 +75,7 @@ exports.getCount = functions.database.ref('Request_System/Pool1/{userID}')
 
 
   //count how many people entered the last 10 mins.
-  return snapshot.ref.parent.once('value').then((datasnapshot) => {
+  return admin.database().ref('Request_System/Pool1').once('value').then((datasnapshot) => {
   
     datasnapshot.forEach(function(childSnapshot) {
       if(childSnapshot.key > tenMinsAgo){
@@ -153,7 +155,19 @@ exports.getCount = functions.database.ref('Request_System/Pool1/{userID}')
 
 // return count;
 
+};
+
+
+
+
+//Create graphs of movement in the pool.
+exports.taskGraph = functions.runWith({memory:'2GB'}).pubsub
+.schedule('*/5 * * * *').onRun(async context => {
+  minsEntered();
+
 });
+
+
 
 
 
@@ -163,9 +177,7 @@ exports.getCount = functions.database.ref('Request_System/Pool1/{userID}')
 exports.taskRunner = functions.runWith({memory:'2GB'}).pubsub
 .schedule('* * * * *').onRun(async context => {
   var currentTimestamp = new Date().getTime();
-  minsEntered();
-
-
+ 
   admin.database().ref('Request_System/Pool1').limitToFirst(1).once('value').then(function(snapshot) {
 
     var uidOfDisplayer = snapshot.val(); 
@@ -485,8 +497,11 @@ function initialize() {
   admin.database().ref('Contests/Pool1/numberMouktijies').set(1);
   admin.database().ref('Contests/Pool1/maxMouktijies').set(50);
   admin.database().ref('Contests/Pool1/started').set(false);
+  admin.database().ref('Graphs/Pool1').remove();
 
   console.log("IMPORTANT - pool1 was initialized.");
+
+
   
 }
 
@@ -736,6 +751,90 @@ function clearRequestSystem(){
 
 
 
+
+
+exports.enterPool1 =functions.https.onCall((data,context)=>{
+  const userId = context.auth.uid;
+  var currentTimestamp = new Date().getTime();
+
+  admin.database().ref('Contests/Pool1').once('value').then(function(snapshot) {
+
+    var mouktijiesStop = snapshot.child("mouktijiesStop").val();
+    var started = snapshot.child("started").val();
+
+if(currentTimestamp>=mouktijiesStop && started==true){
+
+console.log("clicked")
+
+//TODO:FIND UIDDISPLAYED.
+admin.database().ref('Request_System/Pool1').limitToFirst(1).once('value').then(function(snapshot) {
+var uidDisplayed = snapshot.val(); 
+
+for(key in uidDisplayed){
+  if(uidDisplayed.hasOwnProperty(key)) {
+  var valueDisplayed = uidDisplayed[key];
+  console.log(valueDisplayed);
+
+
+
+console.log("uidDisplayed"+valueDisplayed);
+
+
+var refPool = admin.database().ref('Request_System/Pool1');
+var refDisplProf = admin.database().ref('profiles/'+valueDisplayed+"/participates/pool1");
+var refCurrent = admin.database().ref('profiles/'+userId);
+
+refCurrent.once('value').then(function(snapshot) {
+
+  available_quantity = snapshot.val().currentBricks;
+  console.log(available_quantity);
+
+  if( available_quantity >=10){
+   
+    //Write user under Request System.
+    refPool.child(currentTimestamp).set(userId);
+    
+    //update displayer peopleInvited.
+    refDisplProf.child('peopleInvited').transaction(function(peopleInvited) {
+      return (peopleInvited || 0) + 1});
+
+    //currentUser 
+    refCurrent.child("participates").child("pool1").set({
+      peopleInvited: 0,
+      timestampEntered: currentTimestamp,
+      },function(error) {
+            if (error) {
+              console.log("Problem storing email." + error);
+            }
+          });
+    
+     //-10 bricks.
+     refCurrent.child('currentBricks').transaction(function(bricks) {
+        return (bricks|| 0) - 10}).then((retValue) => {
+          getCountF(userId);
+        });
+    
+  } else{
+    //MAYBE TERMINATE ACCOUNT, THEY TRIED TO HACK THE SYSTEM.
+    console.log("Not enough bricks!")
+  }
+
+  });
+
+}}
+});
+
+} else{
+  console.log("Either the contest did not start OR the mouktijies still have time.")
+}
+});
+});
+
+
+
+
+
+
 exports.enterTicket =functions.https.onCall((data,context)=>{
   const userId = context.auth.uid;
 
@@ -952,43 +1051,10 @@ function minsEntered(){
       
     });
 
-    //if graphs/pool1 childrenCount == 10, remove first value, write new one.
-
-
-    //TODO: ADD CURRENT TIMESTAMP AS KEY AND COUNT AS VALUE UNDER GRAPHS/POOL1 TABLE.
-
-    admin.database().ref('Graphs/Pool1').once('value').then(function(snapshot) {
-      if(snapshot.numChildren()<10){
-        admin.database().ref('Graphs/Pool1/'+currentTimestamp).set(count);
-        console.log("count value for realtime graph was updated. "+count+" , for time: "+currentTimestamp);
+    //Write how many entered the last 10 minutes in the graph.
+    admin.database().ref('Graphs/Pool1/'+currentTimestamp).set(count);
+    console.log("count value for realtime graph was updated. "+count+" , for time: "+currentTimestamp);
     
-      } else{
-        console.log("i went in to else, graph.")
-        admin.database().ref('Graphs/Pool1').limitToFirst(1).once('value').then(function(childsnapshot) {
-
-          childsnapshot.forEach(function(child) {
-           
-          var timestampDelete = child.key;
-          console.log("timestampDelete "+timestampDelete);
-
-          //delete first value out of the 10/
-          admin.database().ref('Graphs/Pool1/'+timestampDelete).remove();
-          console.log("deleted from graphs.")
-     
-          //add the new one.
-          admin.database().ref('Graphs/Pool1/'+currentTimestamp).set(count);
-          console.log("count value for realtime graph was updated. "+count+" , for time: "+currentTimestamp);
-        
-            
-          });
-
-        });
-
-          }
-      });
-    
-   
-
   });
 
 }

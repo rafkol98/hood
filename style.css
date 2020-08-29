@@ -106,7 +106,7 @@ p {
 }
 
 .navbar{
-    background-image: linear-gradient(to right, #121212,#020202);
+    background-image: linear-gradient(to right, #151515,#080808);
     padding-left: 5%;
     padding-right: 5%;
     transition: 1s;
@@ -625,7 +625,7 @@ button[disabled]{
 
   .bg_Logged{
     background-image: url(images/bg_black_logged@2x.png);
-    background-color: rgba(32, 32, 32, 0.7);
+    background-color: rgba(32, 32, 32, 0.6);
     background-blend-mode: saturation;
   }
 
