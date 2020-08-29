@@ -50,6 +50,20 @@ exports.terminatorX =functions.https.onRequest((data,context)=>{
 });
 
 
+//Generate a random encrypted string.
+exports.encrypt=functions.https.onCall((data,context)=>{
+  return new Promise((resolve, reject) => {
+  var result           = '';
+  var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  var charactersLength = characters.length;
+  for ( var i = 0; i < 10; i++ ) {
+     result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  resolve(result);
+
+});
+});
+
 // exports.getCount = functions.database.ref('Request_System/Pool1/{userID}')
 // .onCreate((snapshot, context)=>{
 
@@ -201,6 +215,8 @@ exports.taskRunner = functions.runWith({memory:'2GB'}).pubsub
         var minsAllowed = Number(snapshot.child("minsAllowed").val());
         console.log("minsAllowed "+minsAllowed);
       
+        //only execute if timestamp1st exists.
+        if(snapshot.child("timestamp1st").exists() == true )
           if(peopleInvited >= 1){
             var expectedTimeRemove = timestamp1st + (minsAllowed * 60000);
             console.log("expected "+expectedTimeRemove);

@@ -149,30 +149,36 @@
   <script>
     $(function(){
 
-      firebase.auth().onAuthStateChanged(function (user){
-        if(user){
-          var userId = user.uid;
+      // firebase.auth().onAuthStateChanged(function (user){
+      //   if(user){
+      //     var userId = user.uid;
         
-          //Get the first uid user.
-          firebase.database().ref('/Request_System/').child("Pool1").limitToFirst(1).once('value').then(function(snapshot) {
-            var uidOfUser = snapshot.val();
-            for(key in uidOfUser){
-                if(uidOfUser.hasOwnProperty(key)) {
-                var value = uidOfUser[key];
-                //do something with value;
-                localStorage.setItem("uidReq",value);
-                $("#playerId").html(value);
-             }
-            }
-          });
+      //     //Get the first uid user.
+      //     firebase.database().ref('/Request_System/').child("Pool1").limitToFirst(1).once('value').then(function(snapshot) {
+      //       var uidOfUser = snapshot.val();
+      //       for(key in uidOfUser){
+      //           if(uidOfUser.hasOwnProperty(key)) {
+      //           var value = uidOfUser[key];
+      //           //do something with value;
+      //           localStorage.setItem("uidReq",value);
+      //           $("#playerId").html(value);
+      //        }
+      //       }
+      //     });
 
           
 
 
 
 
-        }
-      });
+      //   }
+      // });
+
+      const result = firebase.functions().httpsCallable('encrypt');
+              result().then(result=>{
+                console.log(result.data);
+                $("#playerId").html(result.data);
+              });
     });
 
 
