@@ -32,6 +32,14 @@ $(".bricks").click(function(){
                     if(user){
                       var database = firebase.database();
                       var userId = user.uid;
+
+                  
+                      //add bricks to logistics.
+                      const addToLogistics = database.ref('Logistics/Bricks');
+                      addToLogistics.child('bricksTotalBought').transaction(function(bricksTotalBought) {
+                            return (bricksTotalBought|| 0) + quantity});
+
+
                       var ref = database.ref('/profiles/').child(userId).child("transactions").child(resp.result.txn_id);
                       ref.set({
                         bricks: quantity,
