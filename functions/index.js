@@ -35,6 +35,7 @@ exports.findRiders = functions.https.onRequest((request,response) =>{
 }
 );
 
+
 exports.terminatorX =functions.https.onRequest((data,context)=>{
   console.log("IMPORTANT - pool termination method was called!");
   //find freeRiders - losers of this pool, give them ticket for the next pool.
@@ -541,7 +542,7 @@ function initialize() {
 
   console.log("IMPORTANT - pool1 was initialized.");
 
-
+  findTotalFloaters();
   
 }
 
@@ -696,7 +697,7 @@ function findFreeRiders(){
   console.log("1 called");
 
 admin.database().ref('profiles').once('value').then(function(snapshot) {
-    
+    var count = 0;
   snapshot.forEach((child) => {
       var uid = child.key;
       var pool1 = child.child("participates").child("pool1");
@@ -705,9 +706,12 @@ admin.database().ref('profiles').once('value').then(function(snapshot) {
           console.log("i fullfil the criteria to be given a free ticket, "+uid);
           admin.database().ref('/profiles/'+uid+'/ticket').set("bronze");
           console.log("written.")
+          count++;
         }
       }
     });
+    //ADD THE NUMBER OF SPENDERS - FREERIDERS OF THIS CYCLE TO THE FLOATERS TABLE.
+    admin.database().ref('/Floaters/Pool1/numberOfSpendersPreviousCycle').set(count);
     console.log("FINISHED 1..");
     allocateBricks();
   });
@@ -991,11 +995,26 @@ function writeMins(retValue, uid){
 
   var y = ((32*x)*(Math.pow(3, z1)) + (217/x) + (Math.pow(x, -0.3)))/2;
 
-  console.log("no players entered," + retValue);
-  console.log(y);  
-  
-  console.log(uid);
-  admin.database().ref('/profiles/'+uid+'/participates/pool1/minsAllowed').set(y);
+  var roundedY = Math.ceil(y)
+  console.log("rounded Y"+roundedY);
+
+    //read multiplier.
+    admin.database().ref('Contests/Pool1/multiplier').once('value').then(function(snapshot) {
+      var multiplier = snapshot.val();
+      console.log("multiplier"+multiplier);
+      var timeOfDisplay = roundedY *  multiplier;
+      console.log("no players entered," + retValue);
+      console.log("y is : "+y+" time of display is : "+timeOfDisplay);  
+      if(timeOfDisplay ==0 ){
+        timeOfDisplay=1;
+      }
+    
+    console.log(uid);
+    const writeMins = admin.database().ref('/profiles/'+uid+'/participates/pool1/minsAllowed');
+    return writeMins.set(timeOfDisplay);
+
+      });
+
 }
 
 
@@ -1098,3 +1117,36 @@ function minsEntered(){
   });
 
 }
+
+//find the total number of floaters.
+function findTotalFloaters(){
+  //find people that have more bricks than the current entry price.
+  admin.database().ref('profiles').once('value').then(function(snapshot) {
+    var count = 0;
+  snapshot.forEach((child) => {
+      //TODO: change this later to be dynamic.
+      var priceEntry = 10;
+      var currentBricks = child.child("currentBricks").val();
+      if(currentBricks>=priceEntry){
+          count++;
+      }
+    });
+    console.log("count moreThanEntryPice "+ count);
+    //ADD THE NUMBER OF SPENDERS - FREERIDERS OF THIS CYCLE TO THE FLOATERS TABLE.
+    return admin.database().ref('/Floaters/Pool1/peopleMoreThanEntryPrice').set(count).then(()=>{
+      admin.database().ref('Floaters').once('value').then(function(snapshot) {
+        //POOL1.
+        var numberOfSpendersPreviousCycle = snapshot.child("Pool1").child("numberOfSpendersPreviousCycle").val();
+        var peopleMoreThanEntryPrice = snapshot.child("Pool1").child("peopleMoreThanEntryPrice").val();
+
+        //write totalFloaters.
+        var totalFloaters = numberOfSpendersPreviousCycle + peopleMoreThanEntryPrice; 
+        admin.database().ref('/Floaters/Pool1/totalFloaters').set(totalFloaters);
+
+    });
+    });
+  });
+
+}
+
+
