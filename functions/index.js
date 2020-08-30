@@ -1081,6 +1081,13 @@ exports.joinContest =functions.https.onCall((data,context)=>{
 
 function startIt(){
   admin.database().ref('Contests/Pool1/started').set(true);
+  admin.database().ref('Floaters/Pool1/totalFloaters').once('value').then(function(snapshot) {
+    var totalFloaters = snapshot.val();
+    console.log("totalFloaters "+ totalFloaters);
+
+    var multiplier = ((-0.000015) * totalFloaters) + 1.9;
+    admin.database().ref('Contests/Pool1/multiplier').set(multiplier);
+  });
 }
 
 
