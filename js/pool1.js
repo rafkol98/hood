@@ -4,7 +4,7 @@ firebase.auth().onAuthStateChanged(function (user){
     var database = firebase.database();
     var userId = user.uid;
     var currentTimestamp = new Date().getTime();
-    var tenMinsAgo = currentTimestamp - 600000;
+    var tenMinsAgo = currentTimestamp - 300000;
     var count = 0;
   
     database.ref('Request_System/Pool1').once('value').then(function(snapshot) {

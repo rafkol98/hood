@@ -70,7 +70,7 @@ exports.encrypt=functions.https.onCall((data,context)=>{
   function getCountF(uid){
 
   var currentTimestamp = new Date().getTime();
-  var tenMinsAgo = currentTimestamp - 600000;
+  var fiveMinsAgo = currentTimestamp - 300000;
   var count =0;
 
   var unit = 3.5;
@@ -92,7 +92,7 @@ exports.encrypt=functions.https.onCall((data,context)=>{
   return admin.database().ref('Request_System/Pool1').once('value').then((datasnapshot) => {
   
     datasnapshot.forEach(function(childSnapshot) {
-      if(childSnapshot.key > tenMinsAgo){
+      if(childSnapshot.key > fiveMinsAgo){
         count++;
       }
     });
@@ -101,14 +101,28 @@ exports.encrypt=functions.https.onCall((data,context)=>{
     var x= (retValue+1) * unit;
     var z1 = ((-0.1)*x);
 
-    var y = ((32*x)*(Math.pow(3, z1)) + (217/x) + (Math.pow(x, -0.3)))/2;
+    var y = (((32*x)*(Math.pow(3, z1)) + (217/x) + (Math.pow(x, -0.3)))/2)*1.1;
+    var roundedY = Math.ceil(y)
+    console.log("rounded Y"+roundedY);
 
-    console.log("no players entered," + retValue);
-    console.log(y);  
+    //read multiplier.
+    admin.database().ref('Contests/Pool1/multiplier').once('value').then(function(snapshot) {
+      var multiplier = snapshot.val();
+      console.log("multiplier"+multiplier);
+      var timeOfDisplay = roundedY *  multiplier;
+      console.log("no players entered," + retValue);
+      console.log("y is : "+y+" time of display is : "+timeOfDisplay);  
+      if(timeOfDisplay ==0 ){
+        timeOfDisplay=1;
+      }
     
     console.log(uid);
     const writeMins = admin.database().ref('/profiles/'+uid+'/participates/pool1/minsAllowed');
-    return writeMins.set(y);
+    return writeMins.set(timeOfDisplay);
+
+      });
+
+    
   }).then((retValue) => {
 
 
@@ -511,8 +525,18 @@ function initialize() {
   admin.database().ref('Contests/Pool1/completedRequest').set(0);
   //set numberMouktijies to 1 because ADMIN is also a mouktijis.
   admin.database().ref('Contests/Pool1/numberMouktijies').set(1);
-  admin.database().ref('Contests/Pool1/maxMouktijies').set(50);
   admin.database().ref('Contests/Pool1/started').set(false);
+  admin.database().ref('Contests/Pool1/maxTimeDisplay').set(141);
+  admin.database().ref('Contests/Pool1/minTimeDisplay').set(1);
+
+  //TODO: make function that calculates this variables before the start of the pool.
+  //VARIABLES.
+  admin.database().ref('Contests/Pool1/durationCycleHours').set(0);
+  admin.database().ref('Contests/Pool1/multiplier').set(0);
+  admin.database().ref('Contests/Pool1/randomizerFreq').set(0);
+  admin.database().ref('Contests/Pool1/minsAllowedMouktijies').set(0);
+  admin.database().ref('Contests/Pool1/maxMouktijies').set(50);
+
   admin.database().ref('Graphs/Pool1').remove();
 
   console.log("IMPORTANT - pool1 was initialized.");
@@ -920,12 +944,12 @@ exports.enterTicket =functions.https.onCall((data,context)=>{
 
 function count10Mins(uid){
   var currentTimestamp = new Date().getTime();
-  var tenMinsAgo = currentTimestamp - 600000;
+  var fiveMinsAgo = currentTimestamp - 300000;
   var count = 0;
 
   admin.database().ref('Request_System/Pool1').once('value').then(function(snapshot) {
     snapshot.forEach(function(childSnapshot) {
-      if(childSnapshot.key > tenMinsAgo){
+      if(childSnapshot.key > fiveMinsAgo){
         console.log("count10 pirama"+ childSnapshot.key);
         count++;
       }
@@ -940,7 +964,7 @@ function count10Mins(uid){
   // snapshot.ref.parent.once('value').then((datasnapshot) => {
   
   //   datasnapshot.forEach(function(childSnapshot) {
-  //     if(childSnapshot.key > tenMinsAgo){
+  //     if(childSnapshot.key > fiveMinsAgo){
   //       count++;
   //     }
   //   });
@@ -948,7 +972,7 @@ function count10Mins(uid){
 
   // admin.database().ref('Request_System/Pool1').once('value').then(function(snapshot) {
   // snapshot.forEach(function(childSnapshot) {
-  //   if(childSnapshot.key > tenMinsAgo){
+  //   if(childSnapshot.key > fiveMinsAgo){
   //     count++;
   //     }
   //   });
@@ -1054,13 +1078,13 @@ exports.startPool = functions.https.onRequest((data,context)=>{
 
 function minsEntered(){
   var currentTimestamp = new Date().getTime();
-  var tenMinsAgo = currentTimestamp - 600000;
+  var fiveMinsAgo = currentTimestamp - 300000;
   var count = 0;
 
   //count how many players 10 last minutes. 
   admin.database().ref('Request_System/Pool1').once('value').then(function(snapshot) {
     snapshot.forEach(function(childSnapshot) {
-      if(childSnapshot.key > tenMinsAgo){
+      if(childSnapshot.key > fiveMinsAgo){
         console.log("count10 pirama"+ childSnapshot.key);
         count++;
       }
