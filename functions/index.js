@@ -536,7 +536,7 @@ function initialize() {
   admin.database().ref('Contests/Pool1/multiplier').set(0);
   admin.database().ref('Contests/Pool1/randomizerFreq').set(0);
   admin.database().ref('Contests/Pool1/minsAllowedMouktijies').set(0);
-  admin.database().ref('Contests/Pool1/maxMouktijies').set(50);
+  admin.database().ref('Contests/Pool1/maxMouktijies').set(2);
 
   admin.database().ref('Graphs/Pool1').remove();
 
@@ -1020,14 +1020,28 @@ function writeMins(retValue, uid){
 
 //Allow mouktijies one hour and then start putting other people in the game.
 function mouktijiesStart(){
+
+  admin.database().ref('Floaters/Pool1/numberOfSpendersPreviousCycle').once('value').then(function(snapshot) {
+  
+  var numberOfSpendersPreviousCycle = snapshot.val();
+  
+
   var currentTimestamp = new Date().getTime();
   admin.database().ref('Contests/Pool1/mouktijiesStart').set(currentTimestamp);
   console.log("mouktijiesStart was written. "+currentTimestamp);
 
+  var minsAllowedMouktijies = (0.001 * numberOfSpendersPreviousCycle) + 10;
+  var roundedMins = Math.ceil(minsAllowedMouktijies);
+  console.log("roundedMins allowed mouktijies "+ roundedMins);
+  
+
+  admin.database().ref('Contests/Pool1/minsAllowedMouktijies').set(roundedMins);
+
   //allow them one hour.
-  var mouktijiesTimeStop = currentTimestamp + (10 * 60000);
+  var mouktijiesTimeStop = currentTimestamp + (roundedMins * 60000);
   admin.database().ref('Contests/Pool1/mouktijiesStop').set(mouktijiesTimeStop);
   console.log("mouktijiesStop was written. "+mouktijiesTimeStop);
+  });
 }
 
 
@@ -1080,14 +1094,25 @@ exports.joinContest =functions.https.onCall((data,context)=>{
 
 
 function startIt(){
+  //Set started to true.
   admin.database().ref('Contests/Pool1/started').set(true);
-  admin.database().ref('Floaters/Pool1/totalFloaters').once('value').then(function(snapshot) {
-    var totalFloaters = snapshot.val();
+  //Calculate multiplier value.
+  admin.database().ref('Floaters/Pool1').once('value').then(function(snapshot) {
+    var totalFloaters = snapshot.child('totalFloaters').val();
     console.log("totalFloaters "+ totalFloaters);
 
+    //Write multiplier value.
     var multiplier = ((-0.000015) * totalFloaters) + 1.9;
     admin.database().ref('Contests/Pool1/multiplier').set(multiplier);
+
+    //find maxMouktijies.
+    var numberOfSpendersPreviousCycle = snapshot.child('numberOfSpendersPreviousCycle').val();
+    var maxMouktijies = (0.02 * numberOfSpendersPreviousCycle) + 50
+    console.log("numberOfSpendersPreviousCycle read: "+numberOfSpendersPreviousCycle+" ,maxMouktijies: "+maxMouktijies);
+    //write maxMouktijies.
+    admin.database().ref('Contests/Pool1/maxMouktijies').set(maxMouktijies);
   });
+
 }
 
 
@@ -1149,6 +1174,13 @@ function findTotalFloaters(){
         //write totalFloaters.
         var totalFloaters = numberOfSpendersPreviousCycle + peopleMoreThanEntryPrice; 
         admin.database().ref('/Floaters/Pool1/totalFloaters').set(totalFloaters);
+        console.log("totalFloaters written "+ totalFloaters);
+
+        //calculate duration of Cycle in Hours.
+        var durationCycleHours = (0.001 * totalFloaters)+ 144;
+        var roundedCycleHours = Math.ceil(durationCycleHours)
+        console.log("rounded cycle hours "+ roundedCycleHours)
+        admin.database().ref('Contests/Pool1/durationCycleHours').set(roundedCycleHours);
 
     });
     });
