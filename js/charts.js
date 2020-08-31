@@ -219,7 +219,7 @@ database.ref('Graphs/Pool1').once('value').then(function(snapshot) {
         data: {
             labels: chartTitles,
             datasets: [{
-                label: 'People Joined 10 Last Minutes',
+                label: 'People Joined 5 Last Minutes',
                 backgroundColor: ['rgb(249, 87, 0)'],
                 borderColor: 'black',
                 data: chartData
@@ -230,7 +230,7 @@ database.ref('Graphs/Pool1').once('value').then(function(snapshot) {
         options: {
             title:{
                 display:true,
-                text:'PEOPLE ENTERED LAST 10 MINUTES',
+                text:'PEOPLE ENTERED LAST 5 MINUTES',
                 fontColor: 'white',
                 fontSize:20
 

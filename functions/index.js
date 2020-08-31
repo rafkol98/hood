@@ -211,6 +211,7 @@ exports.taskRunner = functions.runWith({memory:'2GB'}).pubsub
   var timestampEndCycle = snapshotX.child("timestampEndCycle").val();
   var durationCycleHours = snapshotX.child("durationCycleHours").val();
   var durationInMilli = (durationCycleHours * 60) * 60000;
+  var finished = snapshotX.child("finished").val();
   
 
   console.log("timestampEndCycle "+ timestampEndCycle +" durationCycleHours "+ durationCycleHours+ " durationInMilli "+durationInMilli);
@@ -291,12 +292,14 @@ exports.taskRunner = functions.runWith({memory:'2GB'}).pubsub
     //MOST IMPORTANT SECTION. THIS AUTOMATICALLY TERMINATES A CONTEST AND STARTS A NEW ONE AFTER X HOURS. THIS MAKES THE
     //WHOLE SYSTEM AUTOMATIC.
   else{
+    console.log("We are in the else.");
     //TERMINATE CONTEST BY MAKING FINISHED TRUE.
     if(finished == false){
     //make started false which will basically terminate the contest. No other users will be allowed to get in the contest.
     // admin.database().ref('Contests/Pool1/started').set(false);
     admin.database().ref('Contests/Pool1/finished').set(true);
     findFreeRiders();
+    console.log("THE CONTEST WILL AUTOMATICALLY TERMINATE.")
     }
     //IF THE CONTEST IS ALREADY FINISHED, DO CHECKS TO SEE IF ITS TIME TO START THE NEW CONTEST.
     else{
@@ -305,15 +308,11 @@ exports.taskRunner = functions.runWith({memory:'2GB'}).pubsub
     
     if(currentTimestamp >= dateNewContest){
       console.log("VERY IMPORTANT!! - NEW CONTEST IS ABOUT TO START.");
-      initialize().then(function () {
-        startIt();
-      });
+      initialize();
     }
     } 
    
   }
-
-
 
 });
 
@@ -548,7 +547,6 @@ function calculatePecentage(moneyTotal) {
 
 
 function initialize() {
-  return new Promise(function(resolve, reject) {
   //INITIALISATION POOL1.
   admin.database().ref('Contests/Pool1/percentageCut').set(0);
   admin.database().ref('Contests/Pool1/moneyProfit').set(0);
@@ -583,8 +581,6 @@ function initialize() {
   console.log("IMPORTANT - pool1 was initialized.");
 
   findTotalFloaters();
-  resolve();
-  });
 }
 
 //Automatically allocate bricks to users.
@@ -846,8 +842,10 @@ exports.enterPool1 =functions.https.onCall((data,context)=>{
 
     var mouktijiesStop = snapshot.child("mouktijiesStop").val();
     var started = snapshot.child("started").val();
+    var finished = snapshot.child("finished").val();
+    console.log("finished: "+finished);
 
-if(currentTimestamp>=mouktijiesStop && started==true){
+if((currentTimestamp>=mouktijiesStop) && (started==true) && (finished==false)){
 
 console.log("clicked")
 
@@ -934,11 +932,12 @@ exports.enterTicket =functions.https.onCall((data,context)=>{
     var numberMouktijies = snapshot.child("numberMouktijies").val();
     var maxMouktijies = snapshot.child("maxMouktijies").val();
     var mouktijiesStop = snapshot.child("mouktijiesStop").val();
+    var finished = snapshot.child("finished").val();
     var currentTimestamp = new Date().getTime();
-    console.log("numberMouktijies "+ numberMouktijies+" , maxMouktijies"+ maxMouktijies+", mouktijiesStop "+mouktijiesStop+", currentTimestamp "+currentTimestamp);
+    console.log("numberMouktijies "+ numberMouktijies+" , maxMouktijies"+ maxMouktijies+", mouktijiesStop "+mouktijiesStop+", currentTimestamp "+currentTimestamp+", finished "+finished);
 
     //only execute if numberOfMouktijies is less than maxMouktijies and if the mouktijies time period didn't ran out.
-    if(numberMouktijies < maxMouktijies && (currentTimestamp<mouktijiesStop)){
+    if(numberMouktijies < maxMouktijies && (currentTimestamp<mouktijiesStop) && (finished==false)){
 
     refCurrent.once('value').then(function(snapshot) {
     var ticket = snapshot.child("ticket");
@@ -977,7 +976,7 @@ exports.enterTicket =functions.https.onCall((data,context)=>{
       }
   });
 } else {
-  console.log("mouktijies limit reached, or time ran out.");
+  console.log("mouktijies limit reached, or time ran out, or contest was finished.");
 }
 });
   
@@ -1097,9 +1096,16 @@ exports.joinContest =functions.https.onCall((data,context)=>{
     var maxMouktijies = snapshot.child("maxMouktijies").val();
     var mouktijiesStop = snapshot.child("mouktijiesStop").val();
     var started = snapshot.child("started").val();
+    var finished = snapshot.child("finished").val();
 
     if(started){
 
+      //check if contest was finished.
+      if(finished){
+        console.log("contest has finished!");
+        resolve('finished.html');
+      } else{
+        
     admin.database().ref('/profiles/'+userId).once('value').then(function(data) {
     if(data.hasChild("participates")){
       console.log("eshi, lets go to the dashboard");
@@ -1123,7 +1129,7 @@ exports.joinContest =functions.https.onCall((data,context)=>{
       console.log("en eshi, lets go to joinContest")
       resolve('joinContest.html');}
   });
-
+    }
   } else{
     console.log("competition did not start yet");
     resolve('notYet.html');
@@ -1234,7 +1240,9 @@ function findTotalFloaters(){
         var durationInMilli = (roundedCycleHours * 60) * 60000;
         var currentTimestamp = new Date().getTime();
         var timestampEndCycle = currentTimestamp + durationInMilli;
-        admin.database().ref('Contests/Pool1/timestampEndCycle').set(timestampEndCycle);
+        admin.database().ref('Contests/Pool1/timestampEndCycle').set(timestampEndCycle).then(()=>{
+          startIt();
+        });
 
     });
     });
