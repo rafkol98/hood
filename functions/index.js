@@ -206,6 +206,16 @@ exports.taskGraph = functions.runWith({memory:'2GB'}).pubsub
 exports.taskRunner = functions.runWith({memory:'2GB'}).pubsub
 .schedule('* * * * *').onRun(async context => {
   var currentTimestamp = new Date().getTime();
+
+  admin.database().ref('Contests/Pool1').once('value').then(function(snapshotX) {
+  var timestampEndCycle = snapshotX.child("timestampEndCycle").val();
+  var durationCycleHours = snapshotX.child("durationCycleHours").val();
+  var durationInMilli = (durationCycleHours * 60) * 60000;
+  
+
+  console.log("timestampEndCycle "+ timestampEndCycle +" durationCycleHours "+ durationCycleHours+ " durationInMilli "+durationInMilli);
+
+  if((currentTimestamp < timestampEndCycle)){
  
   admin.database().ref('Request_System/Pool1').limitToFirst(1).once('value').then(function(snapshot) {
 
@@ -276,8 +286,36 @@ exports.taskRunner = functions.runWith({memory:'2GB'}).pubsub
   }
 
 });
+  } 
+  
+    //MOST IMPORTANT SECTION. THIS AUTOMATICALLY TERMINATES A CONTEST AND STARTS A NEW ONE AFTER X HOURS. THIS MAKES THE
+    //WHOLE SYSTEM AUTOMATIC.
+  else{
+    //TERMINATE CONTEST BY MAKING FINISHED TRUE.
+    if(finished == false){
+    //make started false which will basically terminate the contest. No other users will be allowed to get in the contest.
+    // admin.database().ref('Contests/Pool1/started').set(false);
+    admin.database().ref('Contests/Pool1/finished').set(true);
+    findFreeRiders();
+    }
+    //IF THE CONTEST IS ALREADY FINISHED, DO CHECKS TO SEE IF ITS TIME TO START THE NEW CONTEST.
+    else{
+      var dateNewContest = timestampEndCycle + durationInMilli;
+    console.log("IMPORTANT! - dateNewContest "+ dateNewContest);
+    
+    if(currentTimestamp >= dateNewContest){
+      console.log("VERY IMPORTANT!! - NEW CONTEST IS ABOUT TO START.");
+      initialize().then(function () {
+        startIt();
+      });
+    }
+    } 
+   
+  }
 
 
+
+});
 
 
 });
@@ -510,6 +548,7 @@ function calculatePecentage(moneyTotal) {
 
 
 function initialize() {
+  return new Promise(function(resolve, reject) {
   //INITIALISATION POOL1.
   admin.database().ref('Contests/Pool1/percentageCut').set(0);
   admin.database().ref('Contests/Pool1/moneyProfit').set(0);
@@ -527,6 +566,7 @@ function initialize() {
   //set numberMouktijies to 1 because ADMIN is also a mouktijis.
   admin.database().ref('Contests/Pool1/numberMouktijies').set(1);
   admin.database().ref('Contests/Pool1/started').set(false);
+  admin.database().ref('Contests/Pool1/finished').set(false);
   admin.database().ref('Contests/Pool1/maxTimeDisplay').set(141);
   admin.database().ref('Contests/Pool1/minTimeDisplay').set(1);
 
@@ -543,7 +583,8 @@ function initialize() {
   console.log("IMPORTANT - pool1 was initialized.");
 
   findTotalFloaters();
-  
+  resolve();
+  });
 }
 
 //Automatically allocate bricks to users.
@@ -1037,7 +1078,7 @@ function mouktijiesStart(){
 
   admin.database().ref('Contests/Pool1/minsAllowedMouktijies').set(roundedMins);
 
-  //allow them one hour.
+  //allow them x minutes.
   var mouktijiesTimeStop = currentTimestamp + (roundedMins * 60000);
   admin.database().ref('Contests/Pool1/mouktijiesStop').set(mouktijiesTimeStop);
   console.log("mouktijiesStop was written. "+mouktijiesTimeStop);
@@ -1126,7 +1167,7 @@ exports.startPool = functions.https.onRequest((data,context)=>{
 });
 
 
-
+//USED FOR THE GRAPHS.
 function minsEntered(){
   var currentTimestamp = new Date().getTime();
   var fiveMinsAgo = currentTimestamp - 300000;
@@ -1149,6 +1190,13 @@ function minsEntered(){
   });
 
 }
+
+
+
+
+
+
+
 
 //find the total number of floaters.
 function findTotalFloaters(){
@@ -1182,10 +1230,17 @@ function findTotalFloaters(){
         console.log("rounded cycle hours "+ roundedCycleHours)
         admin.database().ref('Contests/Pool1/durationCycleHours').set(roundedCycleHours);
 
+        //write when the cycle will end.
+        var durationInMilli = (roundedCycleHours * 60) * 60000;
+        var currentTimestamp = new Date().getTime();
+        var timestampEndCycle = currentTimestamp + durationInMilli;
+        admin.database().ref('Contests/Pool1/timestampEndCycle').set(timestampEndCycle);
+
     });
     });
   });
 
 }
+
 
 
