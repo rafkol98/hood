@@ -1117,7 +1117,7 @@ exports.joinContest =functions.https.onCall((data,context)=>{
       //check if contest was finished.
       if(finished){
         console.log("contest has finished!");
-        resolve('finished.html');
+        resolve('joinContestClosed.html');
       } else{
         
     admin.database().ref('/profiles/'+userId).once('value').then(function(data) {

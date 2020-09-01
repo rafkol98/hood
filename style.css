@@ -33,8 +33,10 @@ h4 {
 }
 
 h5{
-    font-size: 18px;
+    font-size: 22px;
     padding: 5px;
+    color: white;
+    text-decoration: underline;
 }
 
 h6{
@@ -62,6 +64,13 @@ p {
 
 }
 
+.dashboard-numbers2 {
+    font-style: italic;
+    font-size: 20px ;
+    font-weight: 300;
+    color: #F95700FF !important;
+    transition: 2s;
+}
 
 .dashboard-numbers {
     font-style: italic;
@@ -455,7 +464,7 @@ hr.style-two {
 
 .card {
     /* border: 1px solid rgb(58, 58, 58); */
-    border: 3px ridge black;
+    border: 2px ridge black;
     background-color: rgb(14,14,14,0.4) !important;
     margin-left: 20% !important;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2) !important;
@@ -721,4 +730,12 @@ a {
 
 .canvasLogged {
    padding: 20px !important;
+}
+
+.hidden{
+    visibility: hidden;
+}
+
+.cHeight{
+    height: 520px !important;
 }

@@ -35,22 +35,22 @@ $(function () {
 
                 var currentHour = new Date().getHours();
 
-                if (currentHour >= 3 && currentHour < 6) {
-                    $("#randomizerNext").html("06:00");
-                } else if (currentHour >= 6 && currentHour < 9) {
-                    $("#randomizerNext").html("09:00");
-                } else if (currentHour >= 9 && currentHour < 12) {
-                    $("#randomizerNext").html("12:00");
-                } else if (currentHour >= 12 && currentHour < 15) {
-                    $("#randomizerNext").html("15:00");
-                } else if (currentHour >= 15 && currentHour < 18) {
-                    $("#randomizerNext").html("18:00");
-                } else if (currentHour >= 18 && currentHour < 21) {
-                    $("#randomizerNext").html("21:00");
-                } else if (currentHour >= 21) {
-                    $("#randomizerNext").html("00:00");
-                } else if (currentHour < 3) {
-                    $("#randomizerNext").html("03:00");
+                if (currentHour >= 1 && currentHour < 4) {
+                    $("#randomizerNext").html("04:00");
+                } else if (currentHour >= 4 && currentHour < 7) {
+                    $("#randomizerNext").html("07:00");
+                } else if (currentHour >= 7 && currentHour < 10) {
+                    $("#randomizerNext").html("10:00");
+                } else if (currentHour >= 10 && currentHour < 13) {
+                    $("#randomizerNext").html("13:00");
+                } else if (currentHour >= 13 && currentHour < 16) {
+                    $("#randomizerNext").html("16:00");
+                } else if (currentHour >= 16 && currentHour < 19) {
+                    $("#randomizerNext").html("19:00");
+                } else if (currentHour >= 19 && currentHour < 22) {
+                    $("#randomizerNext").html("22:00");
+                } else {
+                    $("#randomizerNext").html("01:00");
                 }
 
 
