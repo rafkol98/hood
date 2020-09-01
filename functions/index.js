@@ -305,6 +305,7 @@ exports.taskRunner = functions.runWith({memory:'2GB'}).pubsub
     else{
       var dateNewContest = timestampEndCycle + durationInMilli;
     console.log("IMPORTANT! - dateNewContest "+ dateNewContest);
+    admin.database().ref('Contests/Pool1/dateNewContest').set(dateNewContest);
     
     if(currentTimestamp >= dateNewContest){
       console.log("VERY IMPORTANT!! - NEW CONTEST IS ABOUT TO START.");
@@ -324,7 +325,7 @@ exports.taskRunner = functions.runWith({memory:'2GB'}).pubsub
 
 // '0 */4 * * *'
 exports.taskRandomizer = functions.runWith({memory:'2GB'}).pubsub
-.schedule('0 */4 * * *').onRun(async context => {
+.schedule('0 */3 * * *').onRun(async context => {
    admin.database().ref('Request_System/Pool1').limitToFirst(1).once('value').then(function(snapshot) {
    
     
@@ -576,6 +577,8 @@ function initialize() {
   admin.database().ref('Contests/Pool1/minsAllowedMouktijies').set(0);
   admin.database().ref('Contests/Pool1/maxMouktijies').set(2);
 
+
+  admin.database().ref('Logistics/Pool1/bricksAllocated').set(0);
   admin.database().ref('Graphs/Pool1').remove();
 
   console.log("IMPORTANT - pool1 was initialized.");
@@ -623,6 +626,7 @@ function allocateBricks(){
 
         const bricksEarnedRef = admin.database().ref('profiles/'+userUid);
         const bricksAllocatedRef = admin.database().ref('Logistics/Pool1');
+        const bricksAllocatedTotalRef = admin.database().ref('Logistics/Bricks');
 
         console.log("peopleInvited "+ peopleInvited+"for" +userUid);
 
@@ -645,6 +649,11 @@ function allocateBricks(){
                 bricksAllocatedRef.child('bricksAllocated').transaction(function(bricksAllocated) {
                 return (bricksAllocated|| 0) + bricksEarned});
                 console.log("bricksEarned was added to bricksAllocated.");
+
+                bricksAllocatedTotalRef.child('bricksTotalAllocated').transaction(function(bricksTotalAllocated) {
+                  return (bricksTotalAllocated|| 0) + bricksEarned});
+                  console.log("bricksEarned was added to bricksAllocatedTotal in the Bricks section.");
+
 
               } else{
                 console.log("IMPORTANT - The bricks were not allocated to user "+userUid+" beceause there would be a problem with balance.")
@@ -675,6 +684,11 @@ function allocateBricks(){
             bricksAllocatedRef.child('bricksAllocated').transaction(function(bricksAllocated) {
             return (bricksAllocated|| 0) + bricksEarnedPlusBonus});
             console.log("bricksEarned was added to bricksAllocated.");
+
+            bricksAllocatedTotalRef.child('bricksTotalAllocated').transaction(function(bricksTotalAllocated) {
+              return (bricksTotalAllocated|| 0) + bricksEarnedPlusBonus});
+              console.log("bricksEarned was added to bricksAllocatedTotal in the Bricks section.");
+
             
           } else{
             console.log("IMPORTANT - The bricks were not allocated to user "+userUid+" beceause there would be a problem with balance.")
@@ -1179,6 +1193,12 @@ function minsEntered(){
   var fiveMinsAgo = currentTimestamp - 300000;
   var count = 0;
 
+  admin.database().ref('Contests/Pool1').once('value').then(function(snapshot) {
+
+  var finished = snapshot.child("finished").val();
+  console.log("finished value "+ finished);
+
+  if(!finished){
   //count how many players 10 last minutes. 
   admin.database().ref('Request_System/Pool1').once('value').then(function(snapshot) {
     snapshot.forEach(function(childSnapshot) {
@@ -1194,7 +1214,11 @@ function minsEntered(){
     console.log("count value for realtime graph was updated. "+count+" , for time: "+currentTimestamp);
     
   });
+  } else {
+    console.log("Contest has finished.")
+  }
 
+});
 }
 
 
