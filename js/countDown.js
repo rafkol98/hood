@@ -7,7 +7,12 @@ var countDownDate = new Date("Jan 5, 2021 15:37:25").getTime();
 var database = firebase.database();
 var userId = user.uid;
 database.ref('Contests/Pool1').once('value').then(function(snapshot) {
+var durationCycle = snapshot.child("durationCycleHours").val();
 var mouktijiesStop = snapshot.child("mouktijiesStop").val();
+
+
+
+
 console.log("mouktijiesStop");
 var x = setInterval(function() {
 
@@ -25,11 +30,11 @@ var x = setInterval(function() {
     
   // Output the result in an element with id="demo"
   document.getElementById("demo").innerHTML = minutes + "m " + seconds + "s ";
-    
+  document.getElementById("durationCycle").innerHTML = durationCycle+" hours";
   // If the count down is over, write some text 
   if (distance < 0) {
     clearInterval(x);
-    document.getElementById("demo").innerHTML = "EXPIRED";
+    document.getElementById("demo").innerHTML = "NOW!";
   }
 }, 1000);
 });}});
