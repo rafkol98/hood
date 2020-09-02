@@ -951,7 +951,7 @@ exports.enterTicket =functions.https.onCall((data,context)=>{
     console.log("numberMouktijies "+ numberMouktijies+" , maxMouktijies"+ maxMouktijies+", mouktijiesStop "+mouktijiesStop+", currentTimestamp "+currentTimestamp+", finished "+finished);
 
     //only execute if numberOfMouktijies is less than maxMouktijies and if the mouktijies time period didn't ran out.
-    if(numberMouktijies < maxMouktijies && (currentTimestamp<mouktijiesStop) && (finished==false)){
+    if((numberMouktijies < maxMouktijies || (currentTimestamp<mouktijiesStop)) && (finished==false)){
 
     refCurrent.once('value').then(function(snapshot) {
     var ticket = snapshot.child("ticket");
