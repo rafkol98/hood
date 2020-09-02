@@ -33,3 +33,30 @@ $("#btn-Request").click(function () {
         }
     });
 });
+
+
+$("#btn-Request2").click(function () {
+
+    firebase.auth().onAuthStateChanged(function (user) {
+        if (user) {
+
+            var database = firebase.database();
+            var userId = user.uid;
+
+            var refCurrent = database.ref('/profiles/' + userId);
+
+            refCurrent.once('value').then(function (snapshot) {
+
+                available_quantity = snapshot.val().currentBricks;
+                console.log(available_quantity);
+                //if user has more than 40 bricks, call function.
+                if (available_quantity >= 40) {
+                    const enter = firebase.functions().httpsCallable('enterPool2');
+                    enter();
+                } else{
+                    alert("Not enough bricks!");
+                }
+            });
+        }
+    });
+});

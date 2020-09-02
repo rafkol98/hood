@@ -15,7 +15,7 @@ exports.dashboard =functions.https.onCall((data,context)=>{
 });
 
 exports.initializeHood = functions.https.onRequest((request,response) =>{
-  initialize();
+  initialize2();
 }
 );
 
@@ -30,7 +30,7 @@ exports.startMouktijiesTimer = functions.https.onRequest((request,response) =>{
 );
 
 exports.findRiders = functions.https.onRequest((request,response) =>{
-  findFreeRiders();
+  // findFreeRiders();
   clearRequestSystem();
 }
 );
@@ -159,7 +159,7 @@ exports.encrypt=functions.https.onCall((data,context)=>{
 
     admin.database().ref('Contests/Pool1/moneyTotal').once('value').then(function(snapshot) {
       var moneyTotal = snapshot.val();
-      calculatePecentage(moneyTotal);
+      calculatePecentage(moneyTotal,1);
       });
 
   })
@@ -185,6 +185,123 @@ exports.encrypt=functions.https.onCall((data,context)=>{
 // return count;
 
 };
+
+
+
+
+
+
+function getCount2(uid){
+
+  var currentTimestamp = new Date().getTime();
+  var fiveMinsAgo = currentTimestamp - 300000;
+  var count =0;
+
+  var unit = 3.5;
+
+  // const uid = context.auth.uid;
+
+
+  const contestsRef = admin.database().ref('Contests/Pool2');
+  contestsRef.child('moneyTotal').transaction(function(moneyTotal) {
+        return (moneyTotal|| 0) + 40});
+
+  contestsRef.child('numberOfPeople').transaction(function(numberOfPeople) {
+        return (numberOfPeople|| 0) + 1});
+
+
+
+
+  //count how many people entered the last 10 mins.
+  return admin.database().ref('Request_System/Pool2').once('value').then((datasnapshot) => {
+  
+    datasnapshot.forEach(function(childSnapshot) {
+      if(childSnapshot.key > fiveMinsAgo){
+        count++;
+      }
+    });
+    return count
+}).then((retValue) => {
+    var x= (retValue+1) * unit;
+    var z1 = ((-0.1)*x);
+
+    var y = (((32*x)*(Math.pow(3, z1)) + (217/x) + (Math.pow(x, -0.3)))/2)*1.1;
+    var roundedY = Math.ceil(y)
+    console.log("rounded Y"+roundedY);
+
+    //read multiplier.
+    admin.database().ref('Contests/Pool2/multiplier').once('value').then(function(snapshot) {
+      var multiplier = snapshot.val();
+      console.log("multiplier"+multiplier);
+      var timeOfDisplay = roundedY *  multiplier;
+      console.log("no players entered," + retValue);
+      console.log("y is : "+y+" time of display is : "+timeOfDisplay);  
+      if(timeOfDisplay ==0 ){
+        timeOfDisplay=1;
+      }
+    
+    console.log(uid);
+    const writeMins = admin.database().ref('/profiles/'+uid+'/participates/pool2/minsAllowed');
+    return writeMins.set(timeOfDisplay);
+
+      });
+
+    
+  }).then((retValue) => {
+
+
+    admin.database().ref('Request_System/Pool2').limitToFirst(1).once('value').then(function(snapshot) {
+          var uidOfDisplayer = snapshot.val(); 
+          
+          
+          for(key in uidOfDisplayer){
+            if(uidOfDisplayer.hasOwnProperty(key)) {
+            var value = uidOfDisplayer[key];
+            console.log(value);
+
+          
+            admin.database().ref('profiles/'+value+'/participates/pool2/peopleInvited').once('value').then(function(snapshot) {
+              var peopleInvited = snapshot.val();
+            
+                if(peopleInvited == 1){
+                  admin.database().ref('profiles/'+value+'/participates/pool2/timestamp1st').set(currentTimestamp);
+                  console.log("success");
+                } else{
+                  console.log("more than 1");
+                }
+            
+            });
+          
+          
+          }
+        }
+
+
+    });
+      
+
+    admin.database().ref('Contests/Pool2/moneyTotal').once('value').then(function(snapshot) {
+      var moneyTotal = snapshot.val();
+      calculatePecentage(moneyTotal,2);
+      });
+
+  })
+
+
+
+};
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -298,7 +415,7 @@ exports.taskRunner = functions.runWith({memory:'2GB'}).pubsub
     //make started false which will basically terminate the contest. No other users will be allowed to get in the contest.
     // admin.database().ref('Contests/Pool1/started').set(false);
     admin.database().ref('Contests/Pool1/finished').set(true);
-    findFreeRiders();
+    findFreeRiders(1);
     console.log("THE CONTEST WILL AUTOMATICALLY TERMINATE.")
     }
     //IF THE CONTEST IS ALREADY FINISHED, DO CHECKS TO SEE IF ITS TIME TO START THE NEW CONTEST.
@@ -309,13 +426,137 @@ exports.taskRunner = functions.runWith({memory:'2GB'}).pubsub
     
     if(currentTimestamp >= dateNewContest){
       console.log("VERY IMPORTANT!! - NEW CONTEST IS ABOUT TO START.");
-      initialize();
+      initialize(1);
     }
     } 
    
   }
 
 });
+
+
+
+//POOL2
+admin.database().ref('Contests/Pool2').once('value').then(function(snapshotX) {
+  var timestampEndCycle = snapshotX.child("timestampEndCycle").val();
+  var durationCycleHours = snapshotX.child("durationCycleHours").val();
+  var durationInMilli = (durationCycleHours * 60) * 60000;
+  var finished = snapshotX.child("finished").val();
+  
+
+  console.log("timestampEndCycle "+ timestampEndCycle +" durationCycleHours "+ durationCycleHours+ " durationInMilli "+durationInMilli);
+
+  if((currentTimestamp < timestampEndCycle)){
+ 
+  admin.database().ref('Request_System/Pool2').limitToFirst(1).once('value').then(function(snapshot) {
+
+    var uidOfDisplayer = snapshot.val(); 
+    
+    var keyX;
+    snapshot.forEach((child) => {
+       keyX = child.key;
+      console.log("here"+keyX);
+    });
+    
+    for(key in uidOfDisplayer){
+      if(uidOfDisplayer.hasOwnProperty(key)) {
+      var value = uidOfDisplayer[key];
+      console.log(value);
+
+    
+      admin.database().ref('profiles/'+value+'/participates/pool2').once('value').then(function(snapshot) {
+        var peopleInvited = snapshot.child("peopleInvited").val();
+        var timestamp1st = snapshot.child("timestamp1st").val();
+        console.log("timestamp "+timestamp1st);
+        var minsAllowed = Number(snapshot.child("minsAllowed").val());
+        console.log("minsAllowed "+minsAllowed);
+      
+        //only execute if timestamp1st exists.
+        if(snapshot.child("timestamp1st").exists() == true )
+          if(peopleInvited >= 1){
+            var expectedTimeRemove = timestamp1st + (minsAllowed * 60000);
+            console.log("expected "+expectedTimeRemove);
+            if(currentTimestamp >= expectedTimeRemove){
+              //write that he completedRequest = true.
+              admin.database().ref('profiles/'+value+'/participates/pool2').child("completedRequest").set(true);
+              
+              //Check if he is an one bricker, add him to the counter.
+              if(peopleInvited==1){
+                const oneBrickerPlusOne = admin.database().ref('Contests/Pool2');
+                oneBrickerPlusOne.child('numberOneBrickers').transaction(function(numberOneBrickers) {
+                      return (numberOneBrickers|| 0) + 1});
+                      console.log("oneBricker counter incremented");
+
+                admin.database().ref('Contests/Pool2').once('value').then(function(snapshot) {
+                  var sumBonusOneBrick = snapshot.child("sumBonusOneBrick").val();
+                  var numberOneBrickers = snapshot.child("numberOneBrickers").val();
+                  var bonusPerOneBricker = sumBonusOneBrick/numberOneBrickers;
+                  admin.database().ref('Contests/Pool2/bonusPerOneBricker').set(bonusPerOneBricker);
+                  console.log("bonusPerOneBricker was written. value:"+bonusPerOneBricker);
+                });
+              }
+
+              //remove him from the request system.
+              admin.database().ref('Request_System/Pool2/'+keyX).remove();
+              console.log(value+" deleted from request system.");
+
+              const completedRequestPlusOne = admin.database().ref('Contests/Pool2');
+              completedRequestPlusOne.child('completedRequest').transaction(function(completedRequest) {
+                    return (completedRequest|| 0) + 1});
+              console.log("Completed Request count was incremented by 1.");
+            } else{
+              console.log("still have time");
+            }
+          } else{
+            console.log("less than 1");
+          }
+      
+      });
+ 
+    }
+  }
+
+});
+  } 
+  
+    //MOST IMPORTANT SECTION. THIS AUTOMATICALLY TERMINATES A CONTEST AND STARTS A NEW ONE AFTER X HOURS. THIS MAKES THE
+    //WHOLE SYSTEM AUTOMATIC.
+  else{
+    console.log("We are in the else.");
+    //TERMINATE CONTEST BY MAKING FINISHED TRUE.
+    if(finished == false){
+    //make started false which will basically terminate the contest. No other users will be allowed to get in the contest.
+    // admin.database().ref('Contests/Pool2/started').set(false);
+    admin.database().ref('Contests/Pool2/finished').set(true);
+    findFreeRiders(2);
+    console.log("THE CONTEST WILL AUTOMATICALLY TERMINATE.")
+    }
+    //IF THE CONTEST IS ALREADY FINISHED, DO CHECKS TO SEE IF ITS TIME TO START THE NEW CONTEST.
+    else{
+      var dateNewContest = timestampEndCycle + durationInMilli;
+    console.log("IMPORTANT! - dateNewContest "+ dateNewContest);
+    admin.database().ref('Contests/Pool2/dateNewContest').set(dateNewContest);
+    
+    if(currentTimestamp >= dateNewContest){
+      console.log("VERY IMPORTANT!! - NEW CONTEST IS ABOUT TO START.");
+      initialize(2);
+    }
+    } 
+   
+  }
+
+});
+
+
+
+
+
+
+
+
+
+
+
 
 
 });
@@ -326,6 +567,8 @@ exports.taskRunner = functions.runWith({memory:'2GB'}).pubsub
 // '0 */4 * * *'
 exports.taskRandomizer = functions.runWith({memory:'2GB'}).pubsub
 .schedule('0 */3 * * *').onRun(async context => {
+
+  //POOL1.
    admin.database().ref('Request_System/Pool1').limitToFirst(1).once('value').then(function(snapshot) {
    
     
@@ -447,11 +690,142 @@ exports.taskRandomizer = functions.runWith({memory:'2GB'}).pubsub
 
 
 
+
+
+
+
+
+  //POOL2.
+  admin.database().ref('Request_System/Pool2').limitToFirst(1).once('value').then(function(snapshot) {
+   
+    
+    var timestampDisplayer;
+    snapshot.forEach((child) => {
+       timestampDisplayer = child.key;
+      console.log("here"+timestampDisplayer);
+    });
+
+  
+
+  admin.database().ref('Request_System/Pool2').once('value').then(function(snapshot) {
+    var numberOfChildren = snapshot.numChildren();
+    
+
+    if(numberOfChildren >2){
+      //Get a randomNumber from all the children.
+      var randomNum = Math.floor(Math.random() * numberOfChildren) + 1;
+      if(randomNum==1){
+        randomNum = randomNum+2;
+      } 
+      if(randomNum==2){
+        randomNum = randomNum+1;
+      }
+      
+      console.log("numberOfChildren "+numberOfChildren);
+      console.log("randomNum "+randomNum);
+      
+      var count = 0;
+      snapshot.forEach((child) => {
+        count++;
+        //if count is the random number.
+        if(count==randomNum){
+          //get uid of random selected.
+          var uidRandomer = child.val();
+          var keyRandomer = child.key;
+          console.log("key randomer"+keyRandomer);
+  
+          console.log("uidRandomer "+uidRandomer);
+          //new timestamp is timestamp of displayer+1.
+          var newTimestamp = Number(timestampDisplayer)+1;
+          console.log("newTimestamp"+newTimestamp);
+  
+       
+  
+          while(keyRandomer == newTimestamp){
+            newTimestamp++;
+            console.log("while used :P")
+          }
+  
+          //set newtimestamp under user's profiles node.
+          // const timestampRandom = admin.database().ref('/profiles/'+uidRandomer+'/participates/pool1/timestampRandom');
+          // timestampRandom.set(newTimestamp);
+  
+          //set newTimestamp with the uid of Randomer in the request system.
+          
+          
+          
+
+          
+          admin.database().ref('Request_System/Pool2/'+newTimestamp).once("value", snapshot => {
+            if (snapshot.exists()){
+                var uidExchange = snapshot.val();
+                //remove user.
+                admin.database().ref('Request_System/Pool2/'+newTimestamp).remove();
+
+                //generate a new timestamp.
+                var randomPlus = Math.floor(Math.random() * 100);
+                console.log("random plus "+randomPlus);
+                var exchTimestamp = Number(newTimestamp)+randomPlus;
+                console.log("exchTimestamp "+exchTimestamp);
+
+                //add again user under his new timestamp.
+                const exchangeRequest = admin.database().ref('Request_System/Pool2/'+exchTimestamp);
+                exchangeRequest.set(uidExchange);
+                console.log("child was exchanged..");
+
+                //remove randomer from his old location.
+                admin.database().ref('Request_System/Pool2/'+keyRandomer).remove();
+                console.log("randomer removed from inside.");
+
+                //add the to his new location- under newTimestamp.
+                const updateRequest = admin.database().ref('Request_System/Pool2/'+newTimestamp);
+                updateRequest.set(uidRandomer);
+                console.log("added.");
+  
+
+
+
+            } else{
+              admin.database().ref('Request_System/Pool2/'+keyRandomer).remove();
+              console.log("child removed.");
+
+              const updateRequest = admin.database().ref('Request_System/Pool2/'+newTimestamp);
+              updateRequest.set(uidRandomer);
+              console.log("added.");
+  
+            }
+         });
+
+
+          
+          
+        }
+     });
+
+
+
+    } else{
+      console.log("only 2 or less children in request system.")
+    }
+
+
+  });
+
+
+
+  });
+
+
+
+  
+
+
+
 });
 
 
 //Calculates percentage of cut.
-function calculatePecentage(moneyTotal) {
+function calculatePecentage(moneyTotal,num) {
   console.log("calculatePercentage() called.")
   //Get the moneytotal.
   
@@ -487,20 +861,20 @@ function calculatePecentage(moneyTotal) {
   console.log("pecentage cut "+percentage);
 
   //write percentage.
-  admin.database().ref('Contests/Pool1/percentageCut').set(percentage);
+  admin.database().ref('Contests/Pool'+num+'/percentageCut').set(percentage);
   console.log("percentageCut was written.");
 
   var moneyProfit = moneyTotal * (percentage/100);
 
-  admin.database().ref('Contests/Pool1/moneyProfit').set(moneyProfit);
+  admin.database().ref('Contests/Pool'+num+'/moneyProfit').set(moneyProfit);
   console.log("moneyProfit was written.");
 
   var moneySpread = moneyTotal - moneyProfit;
 
-  admin.database().ref('Contests/Pool1/moneySpread').set(moneySpread);
+  admin.database().ref('Contests/Pool'+num+'/moneySpread').set(moneySpread);
   console.log("moneySpread was written.");
 
-  admin.database().ref('Contests/Pool1').once('value').then(function(snapshot) {
+  admin.database().ref('Contests/Pool'+num).once('value').then(function(snapshot) {
     //numberOfPeople is 'total minus head' in the excel.
     var numberOfPeople = snapshot.child('numberOfPeople').val();
     var priceEntry = snapshot.child('priceEntry').val();
@@ -512,31 +886,31 @@ function calculatePecentage(moneyTotal) {
 
     //One bricker bonus percentage.
     var oneBrickExtraPercentage = biggestPercentagePossible - percentage;
-    admin.database().ref('Contests/Pool1/oneBrickExtraPercentage').set(oneBrickExtraPercentage);
+    admin.database().ref('Contests/Pool'+num+'/oneBrickExtraPercentage').set(oneBrickExtraPercentage);
     console.log("oneBrickExtraPercentage was written. value:"+oneBrickExtraPercentage);
 
     //Formula BrickWorth.
     var brickWorth = (moneySpread/numberOfPeople) - ((oneBrickExtraPercentage/100)*priceEntry);
     console.log("brickWorth before write"+brickWorth);
 
-    admin.database().ref('Contests/Pool1/brickWorth').set(brickWorth);
+    admin.database().ref('Contests/Pool'+num+'/brickWorth').set(brickWorth);
     console.log("brickWorth was written. value:"+brickWorth);
 
 
     //Calculate bonus for one brickers
     var sumBonusOneBrick = (oneBrickExtraPercentage/100) * moneyTotal;
-    admin.database().ref('Contests/Pool1/sumBonusOneBrick').set(sumBonusOneBrick);
+    admin.database().ref('Contests/Pool'+num+'/sumBonusOneBrick').set(sumBonusOneBrick);
     console.log("sumBonusOneBrick was written. value:"+sumBonusOneBrick);
 
     //Calculate exactly how much bricks extra FOR EACH one bricker.
     var numberOneBrickers;
 
-    admin.database().ref('Contests/Pool1/numberOneBrickers').once('value').then(function(snapshot) {
+    admin.database().ref('Contests/Pool'+num+'/numberOneBrickers').once('value').then(function(snapshot) {
       numberOneBrickers = snapshot.val();
       console.log("numberOneBrickers "+numberOneBrickers);
 
       var bonusPerOneBricker = sumBonusOneBrick/numberOneBrickers;
-      admin.database().ref('Contests/Pool1/bonusPerOneBricker').set(bonusPerOneBricker);
+      admin.database().ref('Contests/Pool'+num+'/bonusPerOneBricker').set(bonusPerOneBricker);
       console.log("bonusPerOneBricker was written. value:"+bonusPerOneBricker);
 
     });
@@ -547,57 +921,69 @@ function calculatePecentage(moneyTotal) {
 };
 
 
-function initialize() {
+
+function initialize(num) {
   //INITIALISATION POOL1.
-  admin.database().ref('Contests/Pool1/percentageCut').set(0);
-  admin.database().ref('Contests/Pool1/moneyProfit').set(0);
-  admin.database().ref('Contests/Pool1/moneySpread').set(0);
-  admin.database().ref('Contests/Pool1/moneyTotal').set(0);
-  admin.database().ref('Contests/Pool1/numberOfPeople').set(0);
-  admin.database().ref('Contests/Pool1/numberOneBrickers').set(0);
-  admin.database().ref('Contests/Pool1/oneBrickExtraPercentage').set(0);
-  admin.database().ref('Contests/Pool1/sumBonusOneBrick').set(0);
-  admin.database().ref('Contests/Pool1/biggestPercentagePossible').set(30);
-  admin.database().ref('Contests/Pool1/priceEntry').set(10);
-  admin.database().ref('Contests/Pool1/brickWorth').set(0);
-  admin.database().ref('Contests/Pool1/bonusPerOneBricker').set(0);
-  admin.database().ref('Contests/Pool1/completedRequest').set(0);
+  admin.database().ref('Contests/Pool'+num+'/percentageCut').set(0);
+  admin.database().ref('Contests/Pool'+num+'/moneyProfit').set(0);
+  admin.database().ref('Contests/Pool'+num+'/moneySpread').set(0);
+  admin.database().ref('Contests/Pool'+num+'/moneyTotal').set(0);
+  admin.database().ref('Contests/Pool'+num+'/numberOfPeople').set(0);
+  admin.database().ref('Contests/Pool'+num+'/numberOneBrickers').set(0);
+  admin.database().ref('Contests/Pool'+num+'/oneBrickExtraPercentage').set(0);
+  admin.database().ref('Contests/Pool'+num+'/sumBonusOneBrick').set(0);
+  admin.database().ref('Contests/Pool'+num+'/biggestPercentagePossible').set(30);
+  admin.database().ref('Contests/Pool'+num+'/priceEntry').set(10);
+  admin.database().ref('Contests/Pool'+num+'/brickWorth').set(0);
+  admin.database().ref('Contests/Pool'+num+'/bonusPerOneBricker').set(0);
+  admin.database().ref('Contests/Pool'+num+'/completedRequest').set(0);
   //set numberMouktijies to 1 because ADMIN is also a mouktijis.
-  admin.database().ref('Contests/Pool1/numberMouktijies').set(1);
-  admin.database().ref('Contests/Pool1/started').set(false);
-  admin.database().ref('Contests/Pool1/finished').set(false);
-  admin.database().ref('Contests/Pool1/maxTimeDisplay').set(141);
-  admin.database().ref('Contests/Pool1/minTimeDisplay').set(1);
+  admin.database().ref('Contests/Pool'+num+'/numberMouktijies').set(1);
+  admin.database().ref('Contests/Pool'+num+'/started').set(false);
+  admin.database().ref('Contests/Pool'+num+'/finished').set(false);
+  admin.database().ref('Contests/Pool'+num+'/maxTimeDisplay').set(141);
+  admin.database().ref('Contests/Pool'+num+'/minTimeDisplay').set(1);
 
   //TODO: make function that calculates this variables before the start of the pool.
   //VARIABLES.
-  admin.database().ref('Contests/Pool1/durationCycleHours').set(0);
-  admin.database().ref('Contests/Pool1/multiplier').set(0);
-  admin.database().ref('Contests/Pool1/randomizerFreq').set(0);
-  admin.database().ref('Contests/Pool1/minsAllowedMouktijies').set(0);
-  admin.database().ref('Contests/Pool1/maxMouktijies').set(2);
+  admin.database().ref('Contests/Pool'+num+'/durationCycleHours').set(0);
+  admin.database().ref('Contests/Pool'+num+'/multiplier').set(0);
+  admin.database().ref('Contests/Pool'+num+'/randomizerFreq').set(0);
+  admin.database().ref('Contests/Pool'+num+'/minsAllowedMouktijies').set(0);
+  admin.database().ref('Contests/Pool'+num+'/maxMouktijies').set(2);
 
 
-  admin.database().ref('Logistics/Pool1/bricksAllocated').set(0);
-  admin.database().ref('Graphs/Pool1').remove();
+  admin.database().ref('Logistics/Pool'+num+'/bricksAllocated').set(0);
+  admin.database().ref('Graphs/Pool'+num+'').remove();
 
-  console.log("IMPORTANT - pool1 was initialized.");
+  console.log("IMPORTANT - pool"+num+" was initialized.");
 
-  findTotalFloaters();
+  findTotalFloaters(num);
+
 }
 
+
 //Automatically allocate bricks to users.
-function allocateBricks(){
+function allocateBricks(num){
   var brickWorth;
   console.log("2 called");
-  admin.database().ref('Contests/Pool1/brickWorth').once('value').then(function(snapshot) {
+  admin.database().ref('Contests/Pool'+num+'/brickWorth').once('value').then(function(snapshot) {
     brickWorth = snapshot.val();
     console.log("brickWorth value "+brickWorth);
 
+    var brickShould;
+
+    if(num == 1){
+      brickShould = 7;
+    } else if(num == 2){
+      brickShould = 28;
+    }
+
   //Check that brickWorth is equal to 7, as it should be.
-  if(brickWorth == 7 ){
+  // if(num == 1 ){
+  if(brickWorth == brickShould ){
       console.log("Allocation going good, brickWorth was correct");
-      admin.database().ref('Logistics/Pool1/bricksAllocated').set(0);
+      admin.database().ref('Logistics/Pool'+num+'/bricksAllocated').set(0);
       console.log("bricksAllocated set to 0. time for new calculations.")
 
   admin.database().ref('profiles').once('value').then(function(snapshot) {
@@ -605,27 +991,27 @@ function allocateBricks(){
      var userUid = child.key;
    
      //if child participates in pool1.
-     if(child.child("participates").child("pool1").exists()){
+     if(child.child("participates").child("pool"+num).exists()){
        //get number of people the user invited.
-        var peopleInvited = child.child("participates").child("pool1").child("peopleInvited").val();
+        var peopleInvited = child.child("participates").child("pool"+num).child("peopleInvited").val();
 
         var bricksEarned = brickWorth * peopleInvited;
         console.log("bricksEarned for user "+ userUid+" are: "+bricksEarned);
 
         var moneySpread, bricksAllocate;
         //CHECK IF bricksAllocated+bricksEarned <= moneySpread FROM CONTESTS TABLE. ONLY DO THE TRANSACTION THEN!
-        admin.database().ref('Contests/Pool1/moneySpread').once('value').then(function(snapshot) {
+        admin.database().ref('Contests/Pool'+num+'/moneySpread').once('value').then(function(snapshot) {
           moneySpread = snapshot.val();
           console.log("moneySpread value "+moneySpread);
         
 
-        admin.database().ref('Logistics/Pool1/bricksAllocated').once('value').then(function(snapshot) {
+        admin.database().ref('Logistics/Pool'+num+'/bricksAllocated').once('value').then(function(snapshot) {
           bricksAllocate = snapshot.val();
           console.log("bricksAllocated value "+bricksAllocate);
         
 
         const bricksEarnedRef = admin.database().ref('profiles/'+userUid);
-        const bricksAllocatedRef = admin.database().ref('Logistics/Pool1');
+        const bricksAllocatedRef = admin.database().ref('Logistics/Pool'+num);
         const bricksAllocatedTotalRef = admin.database().ref('Logistics/Bricks');
 
         console.log("peopleInvited "+ peopleInvited+"for" +userUid);
@@ -663,7 +1049,7 @@ function allocateBricks(){
         //Calculations for oneBrickers.
         else if(peopleInvited==1){
           var bonusPerOneBricker;
-          admin.database().ref('Contests/Pool1/bonusPerOneBricker').once('value').then(function(snapshot) {
+          admin.database().ref('Contests/Pool'+num+'/bonusPerOneBricker').once('value').then(function(snapshot) {
             bonusPerOneBricker = snapshot.val();
           
           console.log("bonusPerOneBricker "+bonusPerOneBricker);
@@ -700,12 +1086,12 @@ function allocateBricks(){
      }
    });
    console.log("FINISHED 2..");
-   makeItHistory();
+   makeItHistory(num);
   
 
   });
     } else{
-      console.log("brickWorth was not 7. It was "+brickWorth);
+      console.log("brickWorth was not "+brickShould+". It was "+brickWorth);
     }
     
   });
@@ -744,77 +1130,84 @@ function allocateBricks(){
 
 
 //find free riders. give free ticket. bronze pool1, silver pool2, gold pool3
-function findFreeRiders(){
+function findFreeRiders(num){
   console.log("1 called");
 
 admin.database().ref('profiles').once('value').then(function(snapshot) {
     var count = 0;
   snapshot.forEach((child) => {
       var uid = child.key;
-      var pool1 = child.child("participates").child("pool1");
+      var pool1 = child.child("participates").child("pool"+num);
       if(pool1.exists()){
         if((pool1.child("timestamp1st").exists() == false ) && (pool1.child("peopleInvited").val() == 0)){
           console.log("i fullfil the criteria to be given a free ticket, "+uid);
-          admin.database().ref('/profiles/'+uid+'/ticket').set("bronze");
+
+          //write ticket according to pool participating.
+          if(num == 1){
+            admin.database().ref('/profiles/'+uid+'/ticket').set("bronze");
+          } else if (num == 2){
+            admin.database().ref('/profiles/'+uid+'/ticket').set("silver");
+          }
+          
           console.log("written.")
           count++;
         }
       }
     });
     //ADD THE NUMBER OF SPENDERS - FREERIDERS OF THIS CYCLE TO THE FLOATERS TABLE.
-    admin.database().ref('/Floaters/Pool1/numberOfSpendersPreviousCycle').set(count);
+    admin.database().ref('/Floaters/Pool'+num+'/numberOfSpendersPreviousCycle').set(count);
     console.log("FINISHED 1..");
-    allocateBricks();
+    allocateBricks(num);
   });
  
 }
 
 //move current pool to history for user.
-function makeItHistory(){
+function makeItHistory(num){
   admin.database().ref('profiles').once('value').then(function(snapshot) {
     console.log("3 called");
     var currentTimestamp = new Date().getTime();
     snapshot.forEach((child) => {
       var uid = child.key;
-      var pool1 = child.child("participates").child("pool1");
+      var pool1 = child.child("participates").child("pool"+num);
       if(pool1.exists()){
-        admin.database().ref('/profiles/'+uid+'/history/pool1/'+currentTimestamp).set(pool1.val());
+        admin.database().ref('/profiles/'+uid+'/history/pool'+num+'/'+currentTimestamp).set(pool1.val());
         console.log("successfully made it history.")
-        admin.database().ref('/profiles/'+uid+'/participates/pool1').remove();
-        console.log("deleted pool1-participates succesfully.");
+        admin.database().ref('/profiles/'+uid+'/participates/pool'+num).remove();
+        console.log("deleted pool"+num+"-participates succesfully.");
       }
     });
     console.log("FINISHED 3..");
     // initialize();
-    moveToLogistics(); 
+    moveToLogistics(num); 
    
 });
 
 }
 
 //
-function moveToLogistics(){
-  admin.database().ref('Contests/Pool1').once('value').then(function(snapshot) {
+function moveToLogistics(num){
+  admin.database().ref('Contests/Pool'+num).once('value').then(function(snapshot) {
     console.log("4 called");
       var pool1 = snapshot.val();
       var currentTimestamp = new Date().getTime();
-      admin.database().ref('Logistics/History/Pool1/'+currentTimestamp).set(pool1);
+      admin.database().ref('Logistics/History/Pool'+num+'/'+currentTimestamp).set(pool1);
       console.log("moved it to logistics/history.");
       console.log("FINISHED 4..");
-      clearRequestSystem();
+      clearRequestSystem(num);
   
   });
 
 }
 
-function clearRequestSystem(){
+function clearRequestSystem(num){
   console.log("5 called");
   var currentTimestamp = new Date().getTime();
-  admin.database().ref('Request_System/Pool1').remove();
-  admin.database().ref('Request_System/Pool1/'+currentTimestamp).set("ADMIN");
-  admin.database().ref('profiles/ADMIN/participates/pool1/timestampEntered').set(currentTimestamp);
-  admin.database().ref('profiles/ADMIN/participates/pool1/minsAllowed').set(10);
-  admin.database().ref('profiles/ADMIN/participates/pool1/peopleInvited').set(0);
+  admin.database().ref('Request_System/Pool'+num).remove();
+  admin.database().ref('Request_System/Pool'+num+'/'+currentTimestamp).set("ADMIN");
+  admin.database().ref('profiles/ADMIN/participates/pool'+num+'/timestampEntered').set(currentTimestamp);
+  admin.database().ref('profiles/ADMIN/participates/pool'+num+'/minsAllowed').set(10);
+  admin.database().ref('profiles/ADMIN/participates/pool'+num+'/peopleInvited').set(0);
   
   
 
@@ -932,6 +1325,101 @@ refCurrent.once('value').then(function(snapshot) {
 
 
 
+//Enter pool2.
+exports.enterPool2 =functions.https.onCall((data,context)=>{
+  const userId = context.auth.uid;
+  var currentTimestamp = new Date().getTime();
+
+  admin.database().ref('Contests/Pool2').once('value').then(function(snapshot) {
+
+    var mouktijiesStop = snapshot.child("mouktijiesStop").val();
+    var started = snapshot.child("started").val();
+    var finished = snapshot.child("finished").val();
+    console.log("finished: "+finished);
+
+if((currentTimestamp>=mouktijiesStop) && (started==true) && (finished==false)){
+
+console.log("clicked")
+
+//TODO:FIND UIDDISPLAYED.
+admin.database().ref('Request_System/Pool2').limitToFirst(1).once('value').then(function(snapshot) {
+var uidDisplayed = snapshot.val(); 
+
+for(key in uidDisplayed){
+  if(uidDisplayed.hasOwnProperty(key)) {
+  var valueDisplayed = uidDisplayed[key];
+  console.log(valueDisplayed);
+
+
+
+console.log("uidDisplayed"+valueDisplayed);
+
+
+var refPool = admin.database().ref('Request_System/Pool2');
+var refDisplProf = admin.database().ref('profiles/'+valueDisplayed+"/participates/pool2");
+var refCurrent = admin.database().ref('profiles/'+userId);
+
+refCurrent.once('value').then(function(snapshot) {
+
+  available_quantity = snapshot.val().currentBricks;
+  console.log(available_quantity);
+
+  if( available_quantity >=40){
+   
+    //Write user under Request System.
+    refPool.child(currentTimestamp).set(userId);
+    
+    //update displayer peopleInvited.
+    refDisplProf.child('peopleInvited').transaction(function(peopleInvited) {
+      return (peopleInvited || 0) + 1});
+
+    //currentUser 
+    refCurrent.child("participates").child("pool2").set({
+      peopleInvited: 0,
+      timestampEntered: currentTimestamp,
+      },function(error) {
+            if (error) {
+              console.log("Problem storing email." + error);
+            }
+          });
+    
+     //-40 bricks.
+     refCurrent.child('currentBricks').transaction(function(bricks) {
+        return (bricks|| 0) - 40}).then((retValue) => {
+          getCount2(userId);
+        });
+    
+  } else{
+    //MAYBE TERMINATE ACCOUNT, THEY TRIED TO HACK THE SYSTEM.
+    console.log("Not enough bricks!")
+  }
+
+  });
+
+}}
+});
+
+} else{
+  console.log("Either the contest did not start OR the mouktijies still have time.")
+}
+});
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 exports.enterTicket =functions.https.onCall((data,context)=>{
   const userId = context.auth.uid;
 
@@ -962,7 +1450,7 @@ exports.enterTicket =functions.https.onCall((data,context)=>{
       
         //Write user under Request System.
         refPool.child(currentTimestamp).set(userId);
-        count10Mins(userId);
+        count10Mins(userId,1);
 
         //currentUser 
         refCurrent.child("participates").child("pool1").set({
@@ -997,15 +1485,93 @@ exports.enterTicket =functions.https.onCall((data,context)=>{
 });
 
 
+
+
+exports.enterTicket2 =functions.https.onCall((data,context)=>{
+  const userId = context.auth.uid;
+
+  var refPool = admin.database().ref('/Request_System/Pool2');
+  var refCurrent = admin.database().ref('/profiles/'+userId);
+
+
+  //1. IF NUMBER MOUKTIJIES < 50 THEN => CONTINUE, ELSE STOP. xx.
+  //2. IF USER HAS TICKET BRONZE. xx
+
+  admin.database().ref('Contests/Pool2').once('value').then(function(snapshot) {
+    var numberMouktijies = snapshot.child("numberMouktijies").val();
+    var maxMouktijies = snapshot.child("maxMouktijies").val();
+    var mouktijiesStop = snapshot.child("mouktijiesStop").val();
+    var finished = snapshot.child("finished").val();
+    var currentTimestamp = new Date().getTime();
+    console.log("numberMouktijies "+ numberMouktijies+" , maxMouktijies"+ maxMouktijies+", mouktijiesStop "+mouktijiesStop+", currentTimestamp "+currentTimestamp+", finished "+finished);
+
+    //only execute if numberOfMouktijies is less than maxMouktijies and if the mouktijies time period didn't ran out.
+    if((numberMouktijies < maxMouktijies || (currentTimestamp<mouktijiesStop)) && (finished==false)){
+
+    refCurrent.once('value').then(function(snapshot) {
+    var ticket = snapshot.child("ticket");
+    if(ticket.exists()){
+      if(ticket.val()=="silver"){
+      
+      console.log("userId "+userId+" fullfils the criteria.");
+      
+        //Write user under Request System.
+        refPool.child(currentTimestamp).set(userId);
+        count10Mins(userId,2);
+
+        //currentUser 
+        refCurrent.child("participates").child("pool2").set({
+          peopleInvited: 0,
+          timestampEntered: currentTimestamp,
+          },function(error) {
+                if (error) {
+                  console.log("Problem storing child." + error);
+                }
+              });
+        // writeMins(count,userId);
+        refCurrent.child("ticket").remove();
+        console.log(userId+" was written to request system.");
+        
+        const contestsRef = admin.database().ref('Contests/Pool2');
+        contestsRef.child('numberMouktijies').transaction(function(numberMouktijies) {
+          return (numberMouktijies|| 0) + 1});
+
+      
+      } else{
+        console.log(userId+" he has a ticket of another type.");
+      }
+      } else{
+        console.log("IMPORTANT - "+userId+" does not have a ticket. HOW DID HE END UP HERE?")
+      }
+  });
+} else {
+  console.log("mouktijies limit reached, or time ran out, or contest was finished.");
+}
+});
+  
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
 //NEED TO DO A SEPERATE FUNCTION THAT CALCULATES MINUTES. USE IT SEPERATELY. DO NOT INCREMENT MONEY WHEN MOUKTIJIES ENTER.
 //make the getCount function callable and use it when ...
 
-function count10Mins(uid){
+function count10Mins(uid,num){
   var currentTimestamp = new Date().getTime();
   var fiveMinsAgo = currentTimestamp - 300000;
   var count = 0;
 
-  admin.database().ref('Request_System/Pool1').once('value').then(function(snapshot) {
+  admin.database().ref('Request_System/Pool'+num).once('value').then(function(snapshot) {
     snapshot.forEach(function(childSnapshot) {
       if(childSnapshot.key > fiveMinsAgo){
         console.log("count10 pirama"+ childSnapshot.key);
@@ -1014,7 +1580,7 @@ function count10Mins(uid){
       
     });
     console.log("count before call"+count);
-    writeMins(count,uid);
+    writeMins(count,uid,num);
   });
 
     
@@ -1042,7 +1608,7 @@ function count10Mins(uid){
 
 
 
-function writeMins(retValue, uid){
+function writeMins(retValue, uid, num){
   var unit = 3.5;
   var x= (retValue+1) * unit;
   var z1 = ((-0.1)*x);
@@ -1053,7 +1619,7 @@ function writeMins(retValue, uid){
   console.log("rounded Y"+roundedY);
 
     //read multiplier.
-    admin.database().ref('Contests/Pool1/multiplier').once('value').then(function(snapshot) {
+    admin.database().ref('Contests/Pool'+num+'/multiplier').once('value').then(function(snapshot) {
       var multiplier = snapshot.val();
       console.log("multiplier"+multiplier);
       var timeOfDisplay = roundedY *  multiplier;
@@ -1064,7 +1630,7 @@ function writeMins(retValue, uid){
       }
     
     console.log(uid);
-    const writeMins = admin.database().ref('/profiles/'+uid+'/participates/pool1/minsAllowed');
+    const writeMins = admin.database().ref('/profiles/'+uid+'/participates/pool'+num+'/minsAllowed');
     return writeMins.set(timeOfDisplay);
 
       });
@@ -1073,15 +1639,15 @@ function writeMins(retValue, uid){
 
 
 //Allow mouktijies one hour and then start putting other people in the game.
-function mouktijiesStart(){
+function mouktijiesStart(num){
 
-  admin.database().ref('Floaters/Pool1/numberOfSpendersPreviousCycle').once('value').then(function(snapshot) {
+  admin.database().ref('Floaters/Pool'+num+'/numberOfSpendersPreviousCycle').once('value').then(function(snapshot) {
   
   var numberOfSpendersPreviousCycle = snapshot.val();
   
 
   var currentTimestamp = new Date().getTime();
-  admin.database().ref('Contests/Pool1/mouktijiesStart').set(currentTimestamp);
+  admin.database().ref('Contests/Pool'+num+'/mouktijiesStart').set(currentTimestamp);
   console.log("mouktijiesStart was written. "+currentTimestamp);
 
   var minsAllowedMouktijies = (0.001 * numberOfSpendersPreviousCycle) + 10;
@@ -1089,11 +1655,11 @@ function mouktijiesStart(){
   console.log("roundedMins allowed mouktijies "+ roundedMins);
   
 
-  admin.database().ref('Contests/Pool1/minsAllowedMouktijies').set(roundedMins);
+  admin.database().ref('Contests/Pool'+num+'/minsAllowedMouktijies').set(roundedMins);
 
   //allow them x minutes.
   var mouktijiesTimeStop = currentTimestamp + (roundedMins * 60000);
-  admin.database().ref('Contests/Pool1/mouktijiesStop').set(mouktijiesTimeStop);
+  admin.database().ref('Contests/Pool'+num+'/mouktijiesStop').set(mouktijiesTimeStop);
   console.log("mouktijiesStop was written. "+mouktijiesTimeStop);
   });
 }
@@ -1160,24 +1726,24 @@ exports.joinContest =functions.https.onCall((data,context)=>{
 });
 
 
-function startIt(){
+function startIt(num){
   //Set started to true.
-  admin.database().ref('Contests/Pool1/started').set(true);
+  admin.database().ref('Contests/Pool'+num+'/started').set(true);
   //Calculate multiplier value.
-  admin.database().ref('Floaters/Pool1').once('value').then(function(snapshot) {
+  admin.database().ref('Floaters/Pool'+num).once('value').then(function(snapshot) {
     var totalFloaters = snapshot.child('totalFloaters').val();
     console.log("totalFloaters "+ totalFloaters);
 
     //Write multiplier value.
     var multiplier = ((-0.000015) * totalFloaters) + 1.9;
-    admin.database().ref('Contests/Pool1/multiplier').set(multiplier);
+    admin.database().ref('Contests/Pool'+num+'/multiplier').set(multiplier);
 
     //find maxMouktijies.
     var numberOfSpendersPreviousCycle = snapshot.child('numberOfSpendersPreviousCycle').val();
     var maxMouktijies = (0.02 * numberOfSpendersPreviousCycle) + 50
     console.log("numberOfSpendersPreviousCycle read: "+numberOfSpendersPreviousCycle+" ,maxMouktijies: "+maxMouktijies);
     //write maxMouktijies.
-    admin.database().ref('Contests/Pool1/maxMouktijies').set(maxMouktijies);
+    admin.database().ref('Contests/Pool'+num+'/maxMouktijies').set(maxMouktijies);
   });
 
 }
@@ -1185,11 +1751,17 @@ function startIt(){
 
 exports.started = functions.database.ref('Contests/Pool1/started')
 .onUpdate((change, context)=>{
-  mouktijiesStart();
+  mouktijiesStart(1);
 });
 
+exports.started2 = functions.database.ref('Contests/Pool2/started')
+.onUpdate((change, context)=>{
+  mouktijiesStart(2);
+});
+
+
 exports.startPool = functions.https.onRequest((data,context)=>{
-  startIt();
+  // startIt();
 });
 
 
@@ -1199,6 +1771,7 @@ function minsEntered(){
   var fiveMinsAgo = currentTimestamp - 300000;
   var count = 0;
 
+  //POOL1.
   admin.database().ref('Contests/Pool1').once('value').then(function(snapshot) {
 
   var finished = snapshot.child("finished").val();
@@ -1225,6 +1798,40 @@ function minsEntered(){
   }
 
 });
+
+
+ //POOL2.
+ admin.database().ref('Contests/Pool2').once('value').then(function(snapshot) {
+
+  var finished = snapshot.child("finished").val();
+  console.log("finished value "+ finished);
+
+  if(!finished){
+  //count how many players 10 last minutes. 
+  admin.database().ref('Request_System/Pool2').once('value').then(function(snapshot) {
+    snapshot.forEach(function(childSnapshot) {
+      if(childSnapshot.key > fiveMinsAgo){
+        console.log("count10 pirama"+ childSnapshot.key);
+        count++;
+      }
+      
+    });
+
+    //Write how many entered the last 10 minutes in the graph.
+    admin.database().ref('Graphs/Pool2/'+currentTimestamp).set(count);
+    console.log("count value for realtime graph was updated. "+count+" , for time: "+currentTimestamp);
+    
+  });
+  } else {
+    console.log("Contest has finished.")
+  }
+
+});
+
+
+
+
+
 }
 
 
@@ -1235,7 +1842,7 @@ function minsEntered(){
 
 
 //find the total number of floaters.
-function findTotalFloaters(){
+function findTotalFloaters(num){
   //find people that have more bricks than the current entry price.
   admin.database().ref('profiles').once('value').then(function(snapshot) {
     var count = 0;
@@ -1249,29 +1856,29 @@ function findTotalFloaters(){
     });
     console.log("count moreThanEntryPice "+ count);
     //ADD THE NUMBER OF SPENDERS - FREERIDERS OF THIS CYCLE TO THE FLOATERS TABLE.
-    return admin.database().ref('/Floaters/Pool1/peopleMoreThanEntryPrice').set(count).then(()=>{
+    return admin.database().ref('/Floaters/Pool'+num+'/peopleMoreThanEntryPrice').set(count).then(()=>{
       admin.database().ref('Floaters').once('value').then(function(snapshot) {
-        //POOL1.
-        var numberOfSpendersPreviousCycle = snapshot.child("Pool1").child("numberOfSpendersPreviousCycle").val();
-        var peopleMoreThanEntryPrice = snapshot.child("Pool1").child("peopleMoreThanEntryPrice").val();
+        //POOL'+num+'.
+        var numberOfSpendersPreviousCycle = snapshot.child("Pool"+num).child("numberOfSpendersPreviousCycle").val();
+        var peopleMoreThanEntryPrice = snapshot.child("Pool"+num).child("peopleMoreThanEntryPrice").val();
 
         //write totalFloaters.
         var totalFloaters = numberOfSpendersPreviousCycle + peopleMoreThanEntryPrice; 
-        admin.database().ref('/Floaters/Pool1/totalFloaters').set(totalFloaters);
+        admin.database().ref('/Floaters/Pool'+num+'/totalFloaters').set(totalFloaters);
         console.log("totalFloaters written "+ totalFloaters);
 
         //calculate duration of Cycle in Hours.
         var durationCycleHours = (0.001 * totalFloaters)+ 144;
         var roundedCycleHours = Math.ceil(durationCycleHours)
         console.log("rounded cycle hours "+ roundedCycleHours)
-        admin.database().ref('Contests/Pool1/durationCycleHours').set(roundedCycleHours);
+        admin.database().ref('Contests/Pool'+num+'/durationCycleHours').set(roundedCycleHours);
 
         //write when the cycle will end.
         var durationInMilli = (roundedCycleHours * 60) * 60000;
         var currentTimestamp = new Date().getTime();
         var timestampEndCycle = currentTimestamp + durationInMilli;
-        admin.database().ref('Contests/Pool1/timestampEndCycle').set(timestampEndCycle).then(()=>{
-          startIt();
+        admin.database().ref('Contests/Pool'+num+'/timestampEndCycle').set(timestampEndCycle).then(()=>{
+          startIt(num);
         });
 
     });
