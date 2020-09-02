@@ -1130,8 +1130,14 @@ exports.joinContest =functions.https.onCall((data,context)=>{
             console.log("all criteria fullfilled, mouktijis can enter "+userId);
             resolve('ticketPool1.html');}
 
+        } else if(currentTimestamp>=mouktijiesStop && numberMouktijies<maxMouktijies){
+          if(data.child("ticket").val()=="bronze"){
+            console.log("all criteria fullfilled, mouktijis can enter "+userId+" the limit of free mouktijies was not reached before, so he can enter without precedence.");
+            resolve('ticketPool1.html');}
+
+
         } else{
-          console.log("mouktijies limit reached, or time ran out.");
+          console.log("mouktijies limit reached and time ran out.");
           resolve('joinContest.html');
         }
       
