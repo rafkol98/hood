@@ -191,7 +191,7 @@ exports.encrypt=functions.https.onCall((data,context)=>{
 
 //Create graphs of movement in the pool.
 exports.taskGraph = functions.runWith({memory:'2GB'}).pubsub
-.schedule('*/5 * * * *').onRun(async context => {
+.schedule('*/3 * * * *').onRun(async context => {
   minsEntered();
 
 });

@@ -9,6 +9,7 @@
 
                 var card10 = document.getElementById("card10");
     
+                //POOL1.
                 //if its finished, make card10 content invisible.
                 if(!finished){
                    
@@ -18,6 +19,12 @@
 
                     card10.innerHTML = "<h3 class='card-title'>SMALL TIER POOL</h3> <h5>THIS CONTEST FINISHED</h5> <p>The new contests starts in:</p> <h3 id='countdown' class='dashboard-numbers2' style='text-align: center;'>Loading...</h3> <button type='button' class='btn btn-new' id='stats1'>SEE STATS</button>";  
                     card10.style.visibility = "visible";
+
+                    $("#stats1").click(function () {
+                        console.log("clicked");
+                          window.location.href = "lastPool1Stats.html";
+                      });
+                      
                 }
     
     
@@ -25,6 +32,9 @@
     
             });
         }
+
+
+        
     });
 
 

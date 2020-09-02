@@ -5,6 +5,12 @@ firebase.auth().onAuthStateChanged(function (user){
     var userId = user.uid;
     database.ref('Logistics/History/Pool1').limitToLast(1).once('value').then(function(snapshot) {
     snapshot.forEach(function(child) {
+    var bricksSpread = child.child("moneySpread").val();
+    var durationOfCycle = child.child("durationCycleHours").val();
+
+    $("#bricksSpread").html(bricksSpread + " Bricks");
+    $("#durationCycle").html(durationOfCycle + " Hours");
+
     var numberMouktijies = child.child("numberMouktijies").val();
     var numberPeoplePayed = child.child("numberOfPeople").val();
 
@@ -51,9 +57,7 @@ firebase.auth().onAuthStateChanged(function (user){
             legend:{
                 display:true,
                 position:'bottom',
-                labels:{
-                    fontColor:'#fff'
-                }
+                
             },
         }
     });

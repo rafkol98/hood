@@ -86,7 +86,7 @@ database.ref('profiles/'+userId).once('value').then(function(snapshot) {
         var ctx = document.getElementById('bricksPerContest').getContext('2d');
         var chart = new Chart(ctx, {
             // The type of chart we want to create
-            type: 'horizontalBar',
+            type: 'line',
     
             // The data for our dataset
             data: {
