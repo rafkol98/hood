@@ -415,7 +415,39 @@ exports.taskRunner = functions.runWith({memory:'2GB'}).pubsub
     //make started false which will basically terminate the contest. No other users will be allowed to get in the contest.
     // admin.database().ref('Contests/Pool1/started').set(false);
     admin.database().ref('Contests/Pool1/finished').set(true);
-    findFreeRiders(1);
+    
+    const oneBrickerPlusOne = admin.database().ref('Contests/Pool1');
+    admin.database().ref('Request_System/Pool1').limitToFirst(1).once('value').then(function(snapshot) {
+      var uidOfDisplayer = snapshot.val(); 
+      
+      
+      for(key in uidOfDisplayer){
+        if(uidOfDisplayer.hasOwnProperty(key)) {
+        var value = uidOfDisplayer[key];
+        console.log(value);
+
+      
+        admin.database().ref('profiles/'+value+'/participates/pool1/peopleInvited').once('value').then(function(snapshot) {
+          var peopleInvited = snapshot.val();
+
+
+          if(peopleInvited == 1){
+            oneBrickerPlusOne.child('numberOneBrickers').transaction(function(numberOneBrickers) {
+              return (numberOneBrickers|| 0) + 1});
+              console.log("oneBricker counter incremented");
+          }
+             
+
+          });
+        }
+      
+        findFreeRiders(1);
+      
+      }
+      
+      
+      });
+
     console.log("THE CONTEST WILL AUTOMATICALLY TERMINATE.")
     }
     //IF THE CONTEST IS ALREADY FINISHED, DO CHECKS TO SEE IF ITS TIME TO START THE NEW CONTEST.
@@ -528,7 +560,40 @@ admin.database().ref('Contests/Pool2').once('value').then(function(snapshotX) {
     //make started false which will basically terminate the contest. No other users will be allowed to get in the contest.
     // admin.database().ref('Contests/Pool2/started').set(false);
     admin.database().ref('Contests/Pool2/finished').set(true);
-    findFreeRiders(2);
+
+    const oneBrickerPlusOne = admin.database().ref('Contests/Pool2');
+    admin.database().ref('Request_System/Pool2').limitToFirst(1).once('value').then(function(snapshot) {
+      var uidOfDisplayer = snapshot.val(); 
+      
+      
+      for(key in uidOfDisplayer){
+        if(uidOfDisplayer.hasOwnProperty(key)) {
+        var value = uidOfDisplayer[key];
+        console.log(value);
+
+      
+        admin.database().ref('profiles/'+value+'/participates/pool2/peopleInvited').once('value').then(function(snapshot) {
+          var peopleInvited = snapshot.val();
+
+
+          if(peopleInvited == 1){
+            oneBrickerPlusOne.child('numberOneBrickers').transaction(function(numberOneBrickers) {
+              return (numberOneBrickers|| 0) + 1});
+              console.log("oneBricker counter incremented");
+          }
+             
+
+          });
+        }
+      
+        findFreeRiders(2);
+      
+      }
+      
+      
+      });
+
+    
     console.log("THE CONTEST WILL AUTOMATICALLY TERMINATE.")
     }
     //IF THE CONTEST IS ALREADY FINISHED, DO CHECKS TO SEE IF ITS TIME TO START THE NEW CONTEST.
@@ -854,7 +919,7 @@ function calculatePecentage(moneyTotal,num) {
       percentage = 20;
     } else if (moneyTotal >= 100 && moneyTotal < 120) {
       percentage = 15;
-    } else if (moneyTotal >= 120 && moneyTotal < 140) {
+    } else if (moneyTotal >= 120) {
       percentage = 10;
     }
 
@@ -933,7 +998,13 @@ function initialize(num) {
   admin.database().ref('Contests/Pool'+num+'/oneBrickExtraPercentage').set(0);
   admin.database().ref('Contests/Pool'+num+'/sumBonusOneBrick').set(0);
   admin.database().ref('Contests/Pool'+num+'/biggestPercentagePossible').set(30);
-  admin.database().ref('Contests/Pool'+num+'/priceEntry').set(10);
+
+  if(num == 1){
+    admin.database().ref('Contests/Pool'+num+'/priceEntry').set(10);
+  } else if(num ==2){
+    admin.database().ref('Contests/Pool'+num+'/priceEntry').set(40);
+  }
+  
   admin.database().ref('Contests/Pool'+num+'/brickWorth').set(0);
   admin.database().ref('Contests/Pool'+num+'/bonusPerOneBricker').set(0);
   admin.database().ref('Contests/Pool'+num+'/completedRequest').set(0);
@@ -1133,6 +1204,15 @@ function allocateBricks(num){
 function findFreeRiders(num){
   console.log("1 called");
 
+
+
+  return admin.database().ref('Contests/Pool'+num).once('value').then((datasnapshot) => {
+    var moneyTotal = datasnapshot.child("moneyTotal").val();
+    console.log("moneyTotal "+moneyTotal);
+
+    return calculatePecentage(moneyTotal, num);
+}).then(() => {
+
 admin.database().ref('profiles').once('value').then(function(snapshot) {
     var count = 0;
   snapshot.forEach((child) => {
@@ -1159,7 +1239,7 @@ admin.database().ref('profiles').once('value').then(function(snapshot) {
     console.log("FINISHED 1..");
     allocateBricks(num);
   });
- 
+});
 }
 
 //move current pool to history for user.
