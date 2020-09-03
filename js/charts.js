@@ -27,6 +27,12 @@ firebase.auth().onAuthStateChanged(function (user){
     var completedRequest = child.child("completedRequest").val();
     var numberOneBrickers = child.child("numberOneBrickers").val();
     var moreThan1 = completedRequest - numberOneBrickers;
+
+    if(moreThan1<0){
+        moreThan1=0;
+    }
+
+
     var gainedTicket = totalPlayers - (moreThan1+numberOneBrickers);
          
     
