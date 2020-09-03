@@ -27,7 +27,7 @@
         <script src="https://www.gstatic.com/firebasejs/7.3.0/firebase-app.js"></script>
 
         <!-- TODO: Add SDKs for Firebase products that you want to use
-                  https://firebase.google.com/docs/web/setup#available-libraries -->
+                          https://firebase.google.com/docs/web/setup#available-libraries -->
         <!-- Add Firebase products that you want to use -->
         <script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-auth.js"></script>
 
@@ -88,6 +88,11 @@
                         window.location.href = "manageAccount.html";
                     });
 
+                    $("#dashboard").click(function () {
+                        window.location.href = "inContestDashboard.html";
+                    });
+
+
                     $("#withdrawMyBricks").click(function () {
                         window.location.href = "withdrawBricks.html";
                     });
@@ -98,14 +103,19 @@
 
 
                     $("#joinContest").click(function () {
+                        firebase.database().ref('/Contests').once('value').then(function (snapshot) {
 
-                        const result = firebase.functions().httpsCallable('joinContest');
-                        result().then(result => {
-                            console.log(result.data);
-                            window.location.href = result.data;
+                            var finished1 = snapshot.child("Pool1").child("finished").val();
+                            var finished2 = snapshot.child("Pool2").child("finished").val();
+                            var finished3 = snapshot.child("Pool3").child("finished").val();
+                            // ALSO FINISHED 3...
+                            if (finished1 || finished2 || finished3) {
+                                window.location.href = "joinContestClosed.html";
+                            } else {
+                                window.location.href = "joinContest.html";
+                            }
+
                         });
-
-
                     });
 
 
@@ -209,6 +219,7 @@
 
                                 <button type="button" class="btn btn-new" id="buyBricks">Buy Bricks</button>
                                 <button type="button" class="btn btn-new" id="joinContest">This week's contest</button>
+                                <button type="button" class="btn btn-new" id="dashboard" style="display:none;">Your Dashboard</button>
                                 <button type="button" class="btn btn-new" id="manageMyAccount">Manage my account</button>
                                 <button type="button" class="btn btn-new" id="withdrawMyBricks">Withdraw bricks</button>
                                 <button type="button" class="btn btn-new" id="statsForNerds">Stats for Nerds!</button>
@@ -253,20 +264,23 @@
 
                             }, 10000);
 
-                           
+
                         });
 
                     });
                 </script>
 
-                <script>
-                    $("#clickMeLogged").click(function () {
-                        console.log("clicked");
-                        const sayHello = firebase.functions().httpsCallable('sayHello');
-                        sayHello({name: 'rafael'}).then(result => {
-                            console.log(result.data);
-                        });
 
+                <script>
+                    firebase.auth().onAuthStateChanged(function (user) {
+                        if (user) {
+                            var userId = user.uid;
+                            firebase.database().ref('/profiles/').child(userId).once('value').then(function (snapshot) {
+                                if(snapshot.hasChild("participates")){
+                                    $("#dashboard").css("display","block");
+                                }
+                            });
+                        }
                     });
                 </script>
 

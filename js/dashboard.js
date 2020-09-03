@@ -5,9 +5,19 @@ $(function () {
             var userId = user.uid;
 
 
-            database.ref('/profiles/' + userId + '/participates/pool1').once('value').then(function (snapshot) {
+            database.ref('/profiles/' + userId + '/participates').once('value').then(function (snapshot) {
 
-                var peopleInvited = snapshot.child("peopleInvited").val();
+                var num;
+                if(snapshot.hasChild("pool1")){
+                    num = 1;
+                } else if (snapshot.hasChild("pool2")){
+                    num = 2;
+                } else if (snapshot.hasChild("pool3")){
+                    num = 3;
+                }
+
+                console.log(num);
+                var peopleInvited = snapshot.child("pool"+num).child("peopleInvited").val();
                 $("#peopleClicked").html(peopleInvited);
 
                 if (peopleInvited == 1) {
@@ -17,17 +27,17 @@ $(function () {
                     $("#possibleBricks").html(possibleBricks);
                 }
 
-                var minsAllowed = parseInt(snapshot.child("minsAllowed").val(), 10)
+                var minsAllowed = parseInt(snapshot.child("pool"+num).child("minsAllowed").val(), 10)
                 $("#minsAllowed").html(minsAllowed);
 
-                var timestamp1st = snapshot.child("timestamp1st").val();
+                var timestamp1st = snapshot.child("pool"+num).child("timestamp1st").val();
                 if (timestamp1st == null) {
                     $("#dateFirst").html("Not yet &#128513;");
                 } else {
                     $("#dateFirst").html(convertLong(timestamp1st));
                 }
 
-                var timestampEntered = snapshot.child("timestampEntered").val();
+                var timestampEntered = snapshot.child("pool"+num).child("timestampEntered").val();
                 var time = convertLong(timestampEntered);
                 console.log(time);
                 $("#dateEntered").html(time);

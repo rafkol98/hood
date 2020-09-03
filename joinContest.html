@@ -56,16 +56,29 @@
 
               firebase.auth().onAuthStateChanged(function (user){
                   if(user){
+
                     $("#pool1").click(function(){
-                      window.location.href = "pool1.html";
+                      const result = firebase.functions().httpsCallable('joinContest');
+                        result().then(result => {
+                            console.log(result.data);
+                            window.location.href = result.data;
+                        });
                     });
 
                     $("#pool2").click(function(){
-                    window.location.href = "pool2.html";
+                      const result = firebase.functions().httpsCallable('joinContest2');
+                        result().then(result => {
+                            console.log(result.data);
+                            window.location.href = result.data;
+                        });
                   });
 
                   $("#pool3").click(function(){
-                    window.location.href = "pool3.html";
+                    const result = firebase.functions().httpsCallable('joinContest3');
+                        result().then(result => {
+                            console.log(result.data);
+                            window.location.href = result.data;
+                        });
                       });
                     }
                   });

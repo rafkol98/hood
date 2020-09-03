@@ -4,14 +4,18 @@ firebase.auth().onAuthStateChanged(function (user) {
     var userId = user.uid;
     database.ref('Contests').once('value').then(function(snapshot) {
         //TIER1.
-        var multiplier = snapshot.child("Pool1").child("multiplier").val();
-        var maxSpenders = snapshot.child("Pool1").child("maxMouktijies").val();
-        var durationCycle = snapshot.child("Pool1").child("durationCycleHours").val();
-        var spendersPrecedence = snapshot.child("Pool1").child("minsAllowedMouktijies").val();
+        for(var i=1; i<=3;i++){
+            var multiplier = snapshot.child("Pool"+i).child("multiplier").val();
+            var maxSpenders = snapshot.child("Pool"+i).child("maxMouktijies").val();
+            var durationCycle = snapshot.child("Pool"+i).child("durationCycleHours").val();
+            var spendersPrecedence = snapshot.child("Pool"+i).child("minsAllowedMouktijies").val();
+            
+
+            $("#multiplier"+i).html((Math.round(multiplier * 100) / 100).toFixed(2)+" (2 dp)");
+            // $("#maxSpenders"+i).html(parseInt(maxSpenders) + " People");
+            $("#duration"+i).html(durationCycle + " Hours");
+            // $("#spendersPre"+i).html(spendersPrecedence + " Mins");
+        }
         
-        $("#multiplier").html((Math.round(multiplier * 100) / 100).toFixed(2)+" (2 dp)");
-        // $("#maxSpenders").html(parseInt(maxSpenders) + " People");
-        $("#duration").html(durationCycle + " Hours");
-        // $("#spendersPre").html(spendersPrecedence + " Mins");
     });
     }});

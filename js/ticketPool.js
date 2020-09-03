@@ -11,3 +11,10 @@ $("#btn-EnterTicket2").click(function(){
   test();
 
 });
+
+$("#btn-EnterTicket3").click(function(){
+
+  const test = firebase.functions().httpsCallable('enterTicket3');
+  test();
+
+});

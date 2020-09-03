@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
 
-    <title>Stats For Nerds</title>
+    <title>Last Week Pool2 Statistics</title>
     <!-- <script src="https://gstatic.com/firebasejs/6.3.1/firebase-app.js"></script>
     <script src="https://gstatic.com/firebasejs/6.3.1/firebase-auth.js"></script>
     <script src="https://gstatic.com/firebasejs/6.3.1/firebase-database.js"></script>
@@ -57,11 +57,10 @@
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 
-<script src="js/stats.js"></script>
+<script src="js/countDown.js"></script>
 
   </head>
-  <body>
-    
+  <body onload="chartCall(3)">
        <!--Navigation Menu-->
        <section id="nav_bar">
 
@@ -83,73 +82,47 @@
        <span id="ticket">...</span> <img src="https://img.icons8.com/pastel-glyph/64/000000/feather.png" class="icon-brick"/></p>
     </div>
 
-    <section >
-      <div class="bg_inside">
-        <div class="container">
+    <section>
+     
 
-        
-        <h2>STATISTICS</h2>
-
+        <div class="container_graphs">
         <div class="row">
-          
             <div class="col-md-6 col-md-pull-6 text-center order-sm-6" >
-              <div class="card text-center s2">
-              <div class="card-body">
-              <canvas id="personal"></canvas>
-              </div>
-              </div>
+              <h2 class="center">Duration of Cycle:</h2>
+              <p class="card-text money center" id="durationCycle">Loading...</p>
             </div>
             <div class="col-md-6 col-md-push-6 order-sm-1" >
-              <div class="card text-center s2">
-                <div class="card-body">
-              <canvas id="bricksPerContest"></canvas> 
-              </div>
-              </div>
+              <h2 class="center">Bricks Raised:</h2>
+              <p class="card-text money center" id="bricksSpread">Loading...</p>
             </div>
-          </div>
-     
-        <div class="gap"></div>
-    
-        <h4 style="margin-top: 12px;">Stats of previous week!</h4>
+        </div>
+        <hr class="style-two">
         <div class="row">
-          
-          <div class="col-md-4 col-md-pull-4 text-center order-sm-6" >
-          <button class="btn btn-new" id="pool1">Pool 1</button>
+          <div class="col-md-6 col-md-pull-6 text-center order-sm-6" >
+            <canvas id="entrance"></canvas>
           </div>
-          <div class="col-md-4 col-md-pull-4 text-center order-sm-6" >
-            <button class="btn btn-new" id="pool2">Pool 2</button>
-          </div>
-          <div class="col-md-4 col-md-pull-4 text-center order-sm-6" >
-              <button class="btn btn-new" id="pool3">Pool 3</button>
+          <div class="col-md-6 col-md-push-6 order-sm-1" >
+            <canvas id="percCut"></canvas> 
           </div>
         </div>
-
-
-
-
+        <div class="gapp"></div>
+        <div class="row">
+            <div class="col-md-6 col-md-pull-6 text-center order-sm-6" >
+              <canvas id="numbers"></canvas>
+            </div>
+            <div class="col-md-6 col-md-push-6 order-sm-1" >
+              <canvas id="comparePlayers"></canvas> 
+            </div>
         </div>
 
-
-        <script>
-          firebase.auth().onAuthStateChanged(function (user){
-          if(user){
-            $("#pool1").click(function(){
-              window.location.href = "lastPool1Stats.html";
-            });
-
-            $("#pool2").click(function(){
-            window.location.href = "lastPool2Stats.html";
-          });
-
-          $("#pool3").click(function(){
-            window.location.href = "lastPool3Stats.html";
-              });
-            }
-          });
-        </script>
-
-
-        </section> 
       </div>
+
+
+
+
+
+          
+
+          <script src="./js/charts.js"></script>
     </body>
 </html>

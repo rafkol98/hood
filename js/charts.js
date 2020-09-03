@@ -1,9 +1,12 @@
+function chartCall(num){
+
+
 firebase.auth().onAuthStateChanged(function (user){
     if(user){
 
     var database = firebase.database();
     var userId = user.uid;
-    database.ref('Logistics/History/Pool1').limitToLast(1).once('value').then(function(snapshot) {
+    database.ref('Logistics/History/Pool'+num).limitToLast(1).once('value').then(function(snapshot) {
     snapshot.forEach(function(child) {
     var bricksSpread = child.child("moneySpread").val();
     var durationOfCycle = child.child("durationCycleHours").val();
@@ -138,7 +141,7 @@ firebase.auth().onAuthStateChanged(function (user){
 });
 
 
-database.ref('Logistics/History/Pool1').once('value').then(function(snapshot) {
+database.ref('Logistics/History/Pool'+num).once('value').then(function(snapshot) {
 
     var chartTitles = [];
     var chartData = [];
@@ -196,7 +199,7 @@ database.ref('Logistics/History/Pool1').once('value').then(function(snapshot) {
 
 
 //Graph that plots how many people entered the last 10 mins.
-database.ref('Graphs/Pool1').once('value').then(function(snapshot) {
+database.ref('Graphs/Pool'+num).once('value').then(function(snapshot) {
 
     var chartTitles = [];
     var chartData = [];
@@ -268,3 +271,4 @@ database.ref('Graphs/Pool1').once('value').then(function(snapshot) {
 
 
 
+}
