@@ -1,20 +1,20 @@
 $("#btn-EnterTicket").click(function(){
 
   const test = firebase.functions().httpsCallable('enterTicket');
-  test();
+  test({num: '1'});
 
 });
 
 $("#btn-EnterTicket2").click(function(){
 
-  const test = firebase.functions().httpsCallable('enterTicket2');
-  test();
+  const test = firebase.functions().httpsCallable('enterTicket');
+  test({num: '2'});
 
 });
 
 $("#btn-EnterTicket3").click(function(){
 
-  const test = firebase.functions().httpsCallable('enterTicket3');
-  test();
+  const test = firebase.functions().httpsCallable('enterTicket');
+  test({num: '3'});
 
 });

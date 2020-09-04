@@ -25,7 +25,7 @@ $("#btn-Request").click(function () {
                 //if user has more than 10 bricks, call function.
                 if (available_quantity >= 10) {
                     const enter = firebase.functions().httpsCallable('enterPool1');
-                    enter();
+                    enter({num: '1'});
                 } else{
                     alert("Not enough bricks!");
                 }
@@ -51,8 +51,8 @@ $("#btn-Request2").click(function () {
                 console.log(available_quantity);
                 //if user has more than 40 bricks, call function.
                 if (available_quantity >= 40) {
-                    const enter = firebase.functions().httpsCallable('enterPool2');
-                    enter();
+                    const enter = firebase.functions().httpsCallable('enterPool1');
+                    enter({num: '2'});
                 } else{
                     alert("Not enough bricks!");
                 }
@@ -78,8 +78,8 @@ $("#btn-Request3").click(function () {
                 console.log(available_quantity);
                 //if user has more than 100 bricks, call function.
                 if (available_quantity >= 100) {
-                    const enter = firebase.functions().httpsCallable('enterPool3');
-                    enter();
+                    const enter = firebase.functions().httpsCallable('enterPool1');
+                    enter({num: '3'});
                 } else{
                     alert("Not enough bricks!");
                 }

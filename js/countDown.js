@@ -6,7 +6,8 @@ var countDownDate = new Date("Jan 5, 2021 15:37:25").getTime();
 // Update the count down every 1 second
 var database = firebase.database();
 var userId = user.uid;
-database.ref('Contests/Pool1').once('value').then(function(snapshot) {
+var num = localStorage.getItem("num");
+database.ref('Contests/Pool'+num).once('value').then(function(snapshot) {
 var durationCycle = snapshot.child("durationCycleHours").val();
 var mouktijiesStop = snapshot.child("mouktijiesStop").val();
 

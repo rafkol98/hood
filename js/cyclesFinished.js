@@ -27,7 +27,7 @@
                             category="GOLD";
                         } 
 
-                        card10.innerHTML = "<h3 class='card-title'>"+category+" TIER POOL</h3> <h5>THIS CONTEST FINISHED</h5> <p>The new contests starts in:</p> <h3 id='countdown"+i+"' class='dashboard-numbers2' style='text-align: center;'>Loading...</h3> <button type='button' class='btn btn-new' id='stats1'>SEE STATS</button>";  
+                        card10.innerHTML = "<h3 class='card-title'>"+category+" TIER POOL</h3> <h5>THIS CONTEST FINISHED</h5> <p>The new contests starts in:</p> <h3 id='countdown' class='dashboard-numbers2' style='text-align: center;'>Loading...</h3> <button type='button' class='btn btn-new' id='stats1'>SEE STATS</button>";  
                         card10.style.visibility = "visible";
     
                         $("#stats1").click(function () {
