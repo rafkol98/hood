@@ -661,384 +661,14 @@ admin.database().ref('Contests/Pool3').once('value').then(function(snapshotX) {
 
 
 
-
 // '0 */4 * * *'
 exports.taskRandomizer = functions.runWith({memory:'2GB'}).pubsub
 .schedule('0 */3 * * *').onRun(async context => {
 
-  //POOL1.
-   admin.database().ref('Request_System/Pool1').limitToFirst(1).once('value').then(function(snapshot) {
-   
-    
-    var timestampDisplayer;
-    snapshot.forEach((child) => {
-       timestampDisplayer = child.key;
-      console.log("here"+timestampDisplayer);
-    });
-
-  
-
-  admin.database().ref('Request_System/Pool1').once('value').then(function(snapshot) {
-    var numberOfChildren = snapshot.numChildren();
-    
-
-    if(numberOfChildren >2){
-      //Get a randomNumber from all the children.
-      var randomNum = Math.floor(Math.random() * numberOfChildren) + 1;
-      if(randomNum==1){
-        randomNum = randomNum+2;
-      } 
-      if(randomNum==2){
-        randomNum = randomNum+1;
-      }
-      
-      console.log("numberOfChildren "+numberOfChildren);
-      console.log("randomNum "+randomNum);
-      
-      var count = 0;
-      snapshot.forEach((child) => {
-        count++;
-        //if count is the random number.
-        if(count==randomNum){
-          //get uid of random selected.
-          var uidRandomer = child.val();
-          var keyRandomer = child.key;
-          console.log("key randomer"+keyRandomer);
-  
-          console.log("uidRandomer "+uidRandomer);
-          //new timestamp is timestamp of displayer+1.
-          var newTimestamp = Number(timestampDisplayer)+1;
-          console.log("newTimestamp"+newTimestamp);
-  
-       
-  
-          while(keyRandomer == newTimestamp){
-            newTimestamp++;
-            console.log("while used :P")
-          }
-  
-          //set newtimestamp under user's profiles node.
-          // const timestampRandom = admin.database().ref('/profiles/'+uidRandomer+'/participates/pool1/timestampRandom');
-          // timestampRandom.set(newTimestamp);
-  
-          //set newTimestamp with the uid of Randomer in the request system.
-          
-          
-          
-
-          
-          admin.database().ref('Request_System/Pool1/'+newTimestamp).once("value", snapshot => {
-            if (snapshot.exists()){
-                var uidExchange = snapshot.val();
-                //remove user.
-                admin.database().ref('Request_System/Pool1/'+newTimestamp).remove();
-
-                //generate a new timestamp.
-                var randomPlus = Math.floor(Math.random() * 100);
-                console.log("random plus "+randomPlus);
-                var exchTimestamp = Number(newTimestamp)+randomPlus;
-                console.log("exchTimestamp "+exchTimestamp);
-
-                //add again user under his new timestamp.
-                const exchangeRequest = admin.database().ref('Request_System/Pool1/'+exchTimestamp);
-                exchangeRequest.set(uidExchange);
-                console.log("child was exchanged..");
-
-                //remove randomer from his old location.
-                admin.database().ref('Request_System/Pool1/'+keyRandomer).remove();
-                console.log("randomer removed from inside.");
-
-                //add the to his new location- under newTimestamp.
-                const updateRequest = admin.database().ref('Request_System/Pool1/'+newTimestamp);
-                updateRequest.set(uidRandomer);
-                console.log("added.");
-  
-
-
-
-            } else{
-              admin.database().ref('Request_System/Pool1/'+keyRandomer).remove();
-              console.log("child removed.");
-
-              const updateRequest = admin.database().ref('Request_System/Pool1/'+newTimestamp);
-              updateRequest.set(uidRandomer);
-              console.log("added.");
-  
-            }
-         });
-
-
-          
-          
-        }
-     });
-
-
-
-    } else{
-      console.log("only 2 or less children in request system.")
-    }
-
-
-  });
-
-
-
-  });
-
-
-
-
-
-
-
-
-  //POOL2.
-  admin.database().ref('Request_System/Pool2').limitToFirst(1).once('value').then(function(snapshot) {
-   
-    
-    var timestampDisplayer;
-    snapshot.forEach((child) => {
-       timestampDisplayer = child.key;
-      console.log("here"+timestampDisplayer);
-    });
-
-  
-
-  admin.database().ref('Request_System/Pool2').once('value').then(function(snapshot) {
-    var numberOfChildren = snapshot.numChildren();
-    
-
-    if(numberOfChildren >2){
-      //Get a randomNumber from all the children.
-      var randomNum = Math.floor(Math.random() * numberOfChildren) + 1;
-      if(randomNum==1){
-        randomNum = randomNum+2;
-      } 
-      if(randomNum==2){
-        randomNum = randomNum+1;
-      }
-      
-      console.log("numberOfChildren "+numberOfChildren);
-      console.log("randomNum "+randomNum);
-      
-      var count = 0;
-      snapshot.forEach((child) => {
-        count++;
-        //if count is the random number.
-        if(count==randomNum){
-          //get uid of random selected.
-          var uidRandomer = child.val();
-          var keyRandomer = child.key;
-          console.log("key randomer"+keyRandomer);
-  
-          console.log("uidRandomer "+uidRandomer);
-          //new timestamp is timestamp of displayer+1.
-          var newTimestamp = Number(timestampDisplayer)+1;
-          console.log("newTimestamp"+newTimestamp);
-  
-       
-  
-          while(keyRandomer == newTimestamp){
-            newTimestamp++;
-            console.log("while used :P")
-          }
-  
-          //set newtimestamp under user's profiles node.
-          // const timestampRandom = admin.database().ref('/profiles/'+uidRandomer+'/participates/pool1/timestampRandom');
-          // timestampRandom.set(newTimestamp);
-  
-          //set newTimestamp with the uid of Randomer in the request system.
-          
-          
-          
-
-          
-          admin.database().ref('Request_System/Pool2/'+newTimestamp).once("value", snapshot => {
-            if (snapshot.exists()){
-                var uidExchange = snapshot.val();
-                //remove user.
-                admin.database().ref('Request_System/Pool2/'+newTimestamp).remove();
-
-                //generate a new timestamp.
-                var randomPlus = Math.floor(Math.random() * 100);
-                console.log("random plus "+randomPlus);
-                var exchTimestamp = Number(newTimestamp)+randomPlus;
-                console.log("exchTimestamp "+exchTimestamp);
-
-                //add again user under his new timestamp.
-                const exchangeRequest = admin.database().ref('Request_System/Pool2/'+exchTimestamp);
-                exchangeRequest.set(uidExchange);
-                console.log("child was exchanged..");
-
-                //remove randomer from his old location.
-                admin.database().ref('Request_System/Pool2/'+keyRandomer).remove();
-                console.log("randomer removed from inside.");
-
-                //add the to his new location- under newTimestamp.
-                const updateRequest = admin.database().ref('Request_System/Pool2/'+newTimestamp);
-                updateRequest.set(uidRandomer);
-                console.log("added.");
-  
-
-
-
-            } else{
-              admin.database().ref('Request_System/Pool2/'+keyRandomer).remove();
-              console.log("child removed.");
-
-              const updateRequest = admin.database().ref('Request_System/Pool2/'+newTimestamp);
-              updateRequest.set(uidRandomer);
-              console.log("added.");
-  
-            }
-         });
-
-
-          
-          
-        }
-     });
-
-
-
-    } else{
-      console.log("only 2 or less children in request system.")
-    }
-
-
-  });
-
-
-
-  });
-
-
-
-
-
-
-    //POOL3.
-    admin.database().ref('Request_System/Pool3').limitToFirst(1).once('value').then(function(snapshot) {
-   
-    
-      var timestampDisplayer;
-      snapshot.forEach((child) => {
-         timestampDisplayer = child.key;
-        console.log("here"+timestampDisplayer);
-      });
-  
-    
-  
-    admin.database().ref('Request_System/Pool3').once('value').then(function(snapshot) {
-      var numberOfChildren = snapshot.numChildren();
-      
-  
-      if(numberOfChildren >2){
-        //Get a randomNumber from all the children.
-        var randomNum = Math.floor(Math.random() * numberOfChildren) + 1;
-        if(randomNum==1){
-          randomNum = randomNum+2;
-        } 
-        if(randomNum==2){
-          randomNum = randomNum+1;
-        }
-        
-        console.log("numberOfChildren "+numberOfChildren);
-        console.log("randomNum "+randomNum);
-        
-        var count = 0;
-        snapshot.forEach((child) => {
-          count++;
-          //if count is the random number.
-          if(count==randomNum){
-            //get uid of random selected.
-            var uidRandomer = child.val();
-            var keyRandomer = child.key;
-            console.log("key randomer"+keyRandomer);
-    
-            console.log("uidRandomer "+uidRandomer);
-            //new timestamp is timestamp of displayer+1.
-            var newTimestamp = Number(timestampDisplayer)+1;
-            console.log("newTimestamp"+newTimestamp);
-    
-         
-    
-            while(keyRandomer == newTimestamp){
-              newTimestamp++;
-              console.log("while used :P")
-            }
-    
-            //set newtimestamp under user's profiles node.
-            // const timestampRandom = admin.database().ref('/profiles/'+uidRandomer+'/participates/pool1/timestampRandom');
-            // timestampRandom.set(newTimestamp);
-    
-            //set newTimestamp with the uid of Randomer in the request system.
-            
-            
-            
-  
-            
-            admin.database().ref('Request_System/Pool3/'+newTimestamp).once("value", snapshot => {
-              if (snapshot.exists()){
-                  var uidExchange = snapshot.val();
-                  //remove user.
-                  admin.database().ref('Request_System/Pool3/'+newTimestamp).remove();
-  
-                  //generate a new timestamp.
-                  var randomPlus = Math.floor(Math.random() * 100);
-                  console.log("random plus "+randomPlus);
-                  var exchTimestamp = Number(newTimestamp)+randomPlus;
-                  console.log("exchTimestamp "+exchTimestamp);
-  
-                  //add again user under his new timestamp.
-                  const exchangeRequest = admin.database().ref('Request_System/Pool3/'+exchTimestamp);
-                  exchangeRequest.set(uidExchange);
-                  console.log("child was exchanged..");
-  
-                  //remove randomer from his old location.
-                  admin.database().ref('Request_System/Pool3/'+keyRandomer).remove();
-                  console.log("randomer removed from inside.");
-  
-                  //add the to his new location- under newTimestamp.
-                  const updateRequest = admin.database().ref('Request_System/Pool3/'+newTimestamp);
-                  updateRequest.set(uidRandomer);
-                  console.log("added.");
-    
-  
-  
-  
-              } else{
-                admin.database().ref('Request_System/Pool3/'+keyRandomer).remove();
-                console.log("child removed.");
-  
-                const updateRequest = admin.database().ref('Request_System/Pool3/'+newTimestamp);
-                updateRequest.set(uidRandomer);
-                console.log("added.");
-    
-              }
-           });
-  
-  
-            
-            
-          }
-       });
-  
-  
-  
-      } else{
-        console.log("only 2 or less children in request system.")
-      }
-  
-  
-    });
-  
-  
-  
-    });
-  
-
+  //Use the randomize function to randlomly select a player and put him second.
+  randomize(1);
+  randomize(2);
+  randomize(3);
 
 
 });
@@ -2024,3 +1654,117 @@ function findTotalFloaters(num){
 
 }
 
+
+function randomize(num){
+
+  admin.database().ref('Request_System/Pool'+num).limitToFirst(1).once('value').then(function(snapshot) {
+   console.log("num is: "+num);
+    
+    var timestampDisplayer;
+    snapshot.forEach((child) => {
+       timestampDisplayer = child.key;
+      console.log("here"+timestampDisplayer);
+    });
+
+  
+
+  admin.database().ref('Request_System/Pool'+num).once('value').then(function(snapshot) {
+    var numberOfChildren = snapshot.numChildren();
+    
+
+    if(numberOfChildren >2){
+      //Get a randomNumber from all the children.
+      var randomNum = Math.floor(Math.random() * numberOfChildren) + 1;
+      if(randomNum==1){
+        randomNum = randomNum+2;
+      } 
+      if(randomNum==2){
+        randomNum = randomNum+1;
+      }
+      
+      console.log("numberOfChildren "+numberOfChildren);
+      console.log("randomNum "+randomNum);
+      
+      var count = 0;
+      snapshot.forEach((child) => {
+        count++;
+        //if count is the random number.
+        if(count==randomNum){
+          //get uid of random selected.
+          var uidRandomer = child.val();
+          var keyRandomer = child.key;
+          console.log("key randomer"+keyRandomer);
+  
+          console.log("uidRandomer "+uidRandomer);
+          //new timestamp is timestamp of displayer+1.
+          var newTimestamp = Number(timestampDisplayer)+1;
+          console.log("newTimestamp"+newTimestamp);
+  
+       
+  
+          while(keyRandomer == newTimestamp){
+            newTimestamp++;
+            console.log("while used :P")
+          }
+  
+
+          admin.database().ref('Request_System/Pool'+num+'/'+newTimestamp).once("value", snapshot => {
+            if (snapshot.exists()){
+                var uidExchange = snapshot.val();
+                //remove user.
+                admin.database().ref('Request_System/Pool'+num+'/'+newTimestamp).remove();
+
+                //generate a new timestamp.
+                var randomPlus = Math.floor(Math.random() * 100);
+                console.log("random plus "+randomPlus);
+                var exchTimestamp = Number(newTimestamp)+randomPlus;
+                console.log("exchTimestamp "+exchTimestamp);
+
+                //add again user under his new timestamp.
+                const exchangeRequest = admin.database().ref('Request_System/Pool'+num+'/'+exchTimestamp);
+                exchangeRequest.set(uidExchange);
+                console.log("child was exchanged..");
+
+                //remove randomer from his old location.
+                admin.database().ref('Request_System/Pool'+num+'/'+keyRandomer).remove();
+                console.log("randomer removed from inside.");
+
+                //add the to his new location- under newTimestamp.
+                const updateRequest = admin.database().ref('Request_System/Pool'+num+'/'+newTimestamp);
+                updateRequest.set(uidRandomer);
+                console.log("added.");
+  
+
+
+
+            } else{
+              admin.database().ref('Request_System/Pool'+num+'/'+keyRandomer).remove();
+              console.log("child removed.");
+
+              const updateRequest = admin.database().ref('Request_System/Pool'+num+'/'+newTimestamp);
+              updateRequest.set(uidRandomer);
+              console.log("added.");
+  
+            }
+         });
+
+
+          
+          
+        }
+     });
+
+
+
+    } else{
+      console.log("only 2 or less children in request system.")
+    }
+
+
+  });
+
+
+
+  });
+
+}
