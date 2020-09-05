@@ -756,3 +756,19 @@ a {
     height: 300px !important;
     width: 100%;
 }
+
+.dropbtn{
+    color: white;
+    background-color: rgb(14,14,14,0.4) !important;
+
+}
+
+.dropbtn:hover{
+    color: rgb(249, 87, 0);
+    background-color: rgb(14,14,14,0.4) !important;
+
+}
+
+#tierShowing{
+    color: rgb(249, 87, 0);
+}
