@@ -28,7 +28,7 @@
         <script src="https://www.gstatic.com/firebasejs/7.3.0/firebase-app.js"></script>
 
         <!-- TODO: Add SDKs for Firebase products that you want to use
-                          https://firebase.google.com/docs/web/setup#available-libraries -->
+                                  https://firebase.google.com/docs/web/setup#available-libraries -->
         <!-- Add Firebase products that you want to use -->
         <script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-auth.js"></script>
 
@@ -138,7 +138,7 @@
 
                 width: 100%;
                 height: 100%;
-                background: rgba(0, 0, 0, 0.5);
+                background: rgba(0, 0, 0, 0.9);
                 z-index: 999;
 
                 display: flex;
@@ -150,13 +150,13 @@
         </style>
 
     </head>
-    <body onload="peopleEnteredCall(1)">
+    <body
+        onload="peopleEnteredCall(1)">
         <!-- <div class="sk-spinner sk-pulse"></div> -->
         <div class="bg_Logged">
-            <div class="loader2" style="display: none">
-                <h2>Loading your bricks.</h2>
+            <div class="loader2">
                 <br>
-                <img src="images/25.gif" alt="">
+                <img src="images/Ripple-1s-200px (1).gif" alt="">
             </div>
             <!--Navigation Menu-->
             <section id="nav_bar">
@@ -210,10 +210,12 @@
 
                                 <div class="card text-center">
                                     <div class="card-body">
-                                    <h3  class="card-title"><span id="cat">BRONZE</span> TIER</h3>
-                                    
-                                    <canvas id="peopleEntered10" class="canvasLogged" width="400" height="200"> </canvas>
-                                    
+                                        <h3 class="card-title">
+                                            <span id="cat">BRONZE</span>
+                                            CYCLE</h3>
+
+                                        <canvas id="peopleEntered10" class="canvasLogged" width="400" height="200"></canvas>
+
                                     </div>
                                 </div>
 
@@ -222,12 +224,12 @@
                             <div class="col-md-5 col-md-push-5 order-sm-1">
 
                                 <button type="button" class="btn btn-new" id="buyBricks">Buy Bricks</button>
-                                <button type="button" class="btn btn-new" id="joinContest">This week's contest</button>
-                                <button type="button" class="btn btn-new" id="dashboard" style="display:none;">Your Dashboard</button>
+                                <button type="button" class="btn btn-new" id="joinContest">Enter a Cycle</button>
+                                <button type="button" class="btn btn-new" id="dashboard" style="display:none;">Dashboard</button>
+                                <button type="button" class="btn btn-new" id="statsForNerds">Statistics</button>
                                 <button type="button" class="btn btn-new" id="manageMyAccount">Manage my account</button>
-                                <button type="button" class="btn btn-new" id="withdrawMyBricks">Withdraw bricks</button>
-                                <button type="button" class="btn btn-new" id="statsForNerds">Stats for Nerds!</button>
-
+                                 <button type="button" class="btn btn-new" id="withdrawMyBricks">Withdraw bricks</button>
+                                
                             </div>
 
                         </div>
@@ -255,7 +257,7 @@
 
 
                             count = 0;
-                            categoryArray = ["BRONZE","SILVER","GOLD"];
+                            categoryArray = ["BRONZE", "SILVER", "GOLD"];
                             wordsArray = ["BRICKS RAISED POOL1", "BRICKS RAISED POOL2", "BRICKS RAISED POOL3"];
                             setInterval(function () {
                                 count ++;
@@ -265,7 +267,7 @@
 
                                 $("#cat").fadeOut(400, function () {
                                     $(this).text(categoryArray[count % categoryArray.length]).fadeIn(400);
-                                    peopleEnteredCall((count % categoryArray.length)+1);
+                                    peopleEnteredCall((count % categoryArray.length) + 1);
                                 });
 
                                 $("#moneyRaised").fadeOut(400, function () {
@@ -286,8 +288,11 @@
                         if (user) {
                             var userId = user.uid;
                             firebase.database().ref('/profiles/').child(userId).once('value').then(function (snapshot) {
-                                if(snapshot.hasChild("participates")){
-                                    $("#dashboard").css("display","block");
+                                if (snapshot.hasChild("participates")) {
+                                    $("#dashboard").css("display", "block");
+                                    $(".loader2").fadeOut("slow");
+                                } else{
+                                    $(".loader2").fadeOut("slow");
                                 }
                             });
                         }
@@ -296,6 +301,9 @@
 
 
             </div>
-        </body>
 
+     
+
+           
+        </body>
 </html>
