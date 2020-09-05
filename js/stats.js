@@ -6,12 +6,34 @@ function statsCall(num) {
             var database = firebase.database();
             var userId = user.uid;
 
-            database.ref('profiles/' + userId + '/history/pool'+num).once('value').then(function (snapshot) {
+            database.ref('profiles/' + userId + '/history').once('value').then(function (snapshot) {
                 var chartTitles = [];
                 var chartData = [];
 
+
+                if(snapshot.hasChild("pool1")){
+                    // num = 1;
+                    // category = "BRONZE";
+                    $("#bronzeBtn").css("display", "block");
+                    // possiblePlusBonus = 7;
+                } 
+        
+                if (snapshot.hasChild("pool2")){
+            
+                    $("#silverBtn").css("display", "block");
+               
+                } 
+                
+                if (snapshot.hasChild("pool3")){
+                    // num = 3;
+      
+                    $("#goldBtn").css("display", "block");
+                
+                }
+
+
                 // add data to the chart.
-                snapshot.forEach(function (child) {
+                snapshot.child('pool'+num).forEach(function (child) {
                     var timestamp = Number(child.key);
                     console.log(timestamp);
                     var peopleInvited = child.child("peopleInvited").val();
