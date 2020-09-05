@@ -45,7 +45,7 @@ firebase.auth().onAuthStateChanged(function (user){
 
         // The data for our dataset
         data: {
-            labels: ['No. of people who payed', 'No. of people who entered with a ticket'],
+            labels: ['No. of users who payed to join', 'No. of users who joined with a ticket'],
             datasets: [{
                 label: 'People',
                 backgroundColor: ['rgb(249, 87, 0)','#FC8A17'],
@@ -115,7 +115,7 @@ firebase.auth().onAuthStateChanged(function (user){
 
         // The data for our dataset
         data: {
-            labels: ['More than 1 invitee','1 invitee' ,'Gained ticket'],
+            labels: ['Earners more than 1 deposit','Earners with 1 deposit' ,'Spenders'],
             datasets: [{
                 label: 'Number of people',
                 backgroundColor: ['rgb(249, 87, 0)','#FC8A17','#fad6a5'],
@@ -128,7 +128,7 @@ firebase.auth().onAuthStateChanged(function (user){
         options: {
             title:{
                 display:true,
-                text:'How the game went',
+                text:'Earners and Spenders',
                 fontColor: 'white',
                 fontSize:30
 
@@ -186,7 +186,7 @@ database.ref('Logistics/History/Pool'+num).once('value').then(function(snapshot)
         options: {
             title:{
                 display:true,
-                text:'PEOPLE PARTICIPATED PER CONTEST',
+                text:'Number of users per Cycle',
                 fontColor: 'white',
                 fontSize:20
 

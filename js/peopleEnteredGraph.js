@@ -42,7 +42,7 @@ function peopleEnteredCall(num) { // Graph that plots how many people entered th
                     options: {
                         title: {
                             display: true,
-                            text: 'PEOPLE ENTERED LAST 5 MINUTES',
+                            text: 'TRAFFIC INDICATOR CHART',
                             fontColor: 'white',
                             fontSize: 20
 

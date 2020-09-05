@@ -69,7 +69,7 @@ function statsCall(num) {
                     options: {
                         title: {
                             display: true,
-                            text: 'PEOPLE YOU INVITED PER CONTEST',
+                            text: 'NUMBER OF DEPOSITS PER CYCLE',
                             fontColor: 'white',
                             fontSize: 20
 
@@ -129,7 +129,7 @@ function statsCall(num) {
                         options: {
                             title: {
                                 display: true,
-                                text: 'BRICKS YOU EARNED PER CONTEST',
+                                text: 'BRICKS YOU EARNED PER CYCLE',
                                 fontColor: 'white',
                                 fontSize: 20
 
