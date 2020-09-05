@@ -60,7 +60,7 @@
 <script src="js/stats.js"></script>
 
   </head>
-  <body>
+  <body onload="statsCall(1)">
     
        <!--Navigation Menu-->
        <section id="nav_bar">
@@ -87,9 +87,25 @@
       <div class="bg_inside">
         <div class="container">
 
-        
-        <h2>STATISTICS</h2>
+          <div class="row">
 
+            <div class="col-md-4 col-md-pull-4 text-center order-sm-6">
+                <div class="dropdown">
+                    <button class="btn dropbtn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Select Tier
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" id="bronzeBtn" style="display: none;" onclick="changeCategory(1)">Bronze</a>
+                        <a class="dropdown-item" id="silverBtn" style="display: none;" onclick="changeCategory(2)">Silver</a>
+                        <a class="dropdown-item" id="goldBtn" style="display: none;" onclick="changeCategory(3)">Gold</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8 col-md-push-8 order-sm-1">
+                <h2>STATISTICS</h2>
+
+            </div>
+        </div>
         <div class="row">
           
             <div class="col-md-6 col-md-pull-6 text-center order-sm-6" >

@@ -9,24 +9,27 @@ $(function () {
             database.ref('/profiles/' + userId + '/participates').once('value').then(function (snapshot) {
 
                 // enableButtons(snapshot);
-                var num, category;
+                var num, category, possiblePlusBonus;
 
                 if(snapshot.hasChild("pool1")){
                     num = 1;
                     category = "BRONZE";
                     $("#bronzeBtn").css("display", "block");
+                    possiblePlusBonus = 7;
                 } 
         
                 if (snapshot.hasChild("pool2")){
                     num = 2;
                     category = "SILVER";
                     $("#silverBtn").css("display", "block");
+                    possiblePlusBonus = 28;
                 } 
                 
                 if (snapshot.hasChild("pool3")){
                     num = 3;
                     category = "GOLD";
                     $("#goldBtn").css("display", "block");
+                    possiblePlusBonus = 70;
                 }
 
                 console.log(num+" "+category);
@@ -34,7 +37,7 @@ $(function () {
                 $("#peopleClicked").html(peopleInvited);
 
                 if (peopleInvited == 1) {
-                    $("#possibleBricks").html(">=7 <a href='www.google.com' style='font-size:30px; color:grey'>Learn More</a>");
+                    $("#possibleBricks").html(">="+possiblePlusBonus+" <a href='www.google.com' style='font-size:30px; color:grey'>Learn More</a>");
                 } else {
                     var possibleBricks = peopleInvited * 7;
                     $("#possibleBricks").html(possibleBricks);

@@ -734,7 +734,9 @@ a {
 }
 
 .canvasLogged {
+    
    padding: 20px !important;
+   padding-top: 0px !important;
 }
 
 .hidden{
@@ -770,5 +772,9 @@ a {
 }
 
 #tierShowing{
+    color: rgb(249, 87, 0);
+}
+
+#cat{
     color: rgb(249, 87, 0);
 }

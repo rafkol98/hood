@@ -56,7 +56,7 @@
 
         <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 
-        <script src="js/charts.js"></script>
+        <script src="./js/peopleEnteredGraph.js"></script>
 
         <script>
             firebase.auth().onAuthStateChanged(function (user) {
@@ -149,7 +149,7 @@
         </style>
 
     </head>
-    <body onload="chartCall(1)">
+    <body onload="peopleEnteredCall(1)">
         <div class="bg_Logged">
             <div class="loader2" style="display: none">
                 <h2>Loading your bricks.</h2>
@@ -208,8 +208,10 @@
 
                                 <div class="card text-center">
                                     <div class="card-body">
-                                        <!-- <h3 class="card-title">CURRENT MARKET POOL RAISED:</h3> -->
-                                        <!-- TO CHANGE MAKE VISIBILITY HIDDEN AND CHANGE IT PROGRAMMATICALLY WHEN THE OTHER ONE IS BEING DISPLAYED. --><canvas id="peopleEntered10" class="canvasLogged" width="400" height="200"> </canvas>
+                                    <h3  class="card-title"><span id="cat">BRONZE</span> TIER</h3>
+                                    
+                                    <canvas id="peopleEntered10" class="canvasLogged" width="400" height="200"> </canvas>
+                                    
                                     </div>
                                 </div>
 
@@ -251,6 +253,7 @@
 
 
                             count = 0;
+                            categoryArray = ["BRONZE","SILVER","GOLD"];
                             wordsArray = ["BRICKS RAISED POOL1", "BRICKS RAISED POOL2", "BRICKS RAISED POOL3"];
                             setInterval(function () {
                                 count ++;
@@ -258,11 +261,16 @@
                                     $(this).text(wordsArray[count % wordsArray.length]).fadeIn(400);
                                 });
 
+                                $("#cat").fadeOut(400, function () {
+                                    $(this).text(categoryArray[count % categoryArray.length]).fadeIn(400);
+                                    peopleEnteredCall((count % categoryArray.length)+1);
+                                });
+
                                 $("#moneyRaised").fadeOut(400, function () {
                                     $(this).text(arrayMarket[count % arrayMarket.length] + " Bricks").fadeIn(400);
                                 });
 
-                            }, 10000);
+                            }, 20000);
 
 
                         });

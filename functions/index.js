@@ -164,498 +164,29 @@ exports.encrypt=functions.https.onCall((data,context)=>{
 
   })
 
-    
-
-
-
-  
-
-
-
-
-
-
-
-//   var count = 0;
-//   snapshot.forEach(function(childSnapshot) {
-//     count++;
-   
-// });
-
-// return count;
-
 };
-
-
-
-
-
-
-
-
-
-
 
 
 //Create graphs of movement in the pool.
 exports.taskGraph = functions.runWith({memory:'2GB'}).pubsub
 .schedule('*/3 * * * *').onRun(async context => {
-  minsEntered();
+
+  //Add a point to the graph for each pool.
+  minsPool(1);
+  minsPool(2);
+  minsPool(3);
 
 });
-
-
-
-
-
 
 
 //automate movement of request system.
 exports.taskRunner = functions.runWith({memory:'2GB'}).pubsub
 .schedule('* * * * *').onRun(async context => {
-  var currentTimestamp = new Date().getTime();
 
-  admin.database().ref('Contests/Pool1').once('value').then(function(snapshotX) {
-  var timestampEndCycle = snapshotX.child("timestampEndCycle").val();
-  var durationCycleHours = snapshotX.child("durationCycleHours").val();
-  var durationInMilli = (durationCycleHours * 60) * 60000;
-  var finished = snapshotX.child("finished").val();
-  
-
-  console.log("timestampEndCycle "+ timestampEndCycle +" durationCycleHours "+ durationCycleHours+ " durationInMilli "+durationInMilli);
-
-  if((currentTimestamp < timestampEndCycle)){
- 
-  admin.database().ref('Request_System/Pool1').limitToFirst(1).once('value').then(function(snapshot) {
-
-    var uidOfDisplayer = snapshot.val(); 
-    
-    var keyX;
-    snapshot.forEach((child) => {
-       keyX = child.key;
-      console.log("here"+keyX);
-    });
-    
-    for(key in uidOfDisplayer){
-      if(uidOfDisplayer.hasOwnProperty(key)) {
-      var value = uidOfDisplayer[key];
-      console.log(value);
-
-    
-      admin.database().ref('profiles/'+value+'/participates/pool1').once('value').then(function(snapshot) {
-        var peopleInvited = snapshot.child("peopleInvited").val();
-        var timestamp1st = snapshot.child("timestamp1st").val();
-        console.log("timestamp "+timestamp1st);
-        var minsAllowed = Number(snapshot.child("minsAllowed").val());
-        console.log("minsAllowed "+minsAllowed);
-      
-        //only execute if timestamp1st exists.
-        if(snapshot.child("timestamp1st").exists() == true )
-          if(peopleInvited >= 1){
-            var expectedTimeRemove = timestamp1st + (minsAllowed * 60000);
-            console.log("expected "+expectedTimeRemove);
-            if(currentTimestamp >= expectedTimeRemove){
-              //write that he completedRequest = true.
-              admin.database().ref('profiles/'+value+'/participates/pool1').child("completedRequest").set(true);
-              
-              //Check if he is an one bricker, add him to the counter.
-              if(peopleInvited==1){
-                const oneBrickerPlusOne = admin.database().ref('Contests/Pool1');
-                oneBrickerPlusOne.child('numberOneBrickers').transaction(function(numberOneBrickers) {
-                      return (numberOneBrickers|| 0) + 1});
-                      console.log("oneBricker counter incremented");
-
-                admin.database().ref('Contests/Pool1').once('value').then(function(snapshot) {
-                  var sumBonusOneBrick = snapshot.child("sumBonusOneBrick").val();
-                  var numberOneBrickers = snapshot.child("numberOneBrickers").val();
-                  var bonusPerOneBricker = sumBonusOneBrick/numberOneBrickers;
-                  admin.database().ref('Contests/Pool1/bonusPerOneBricker').set(bonusPerOneBricker);
-                  console.log("bonusPerOneBricker was written. value:"+bonusPerOneBricker);
-                });
-              }
-
-              //remove him from the request system.
-              admin.database().ref('Request_System/Pool1/'+keyX).remove();
-              console.log(value+" deleted from request system.");
-
-              const completedRequestPlusOne = admin.database().ref('Contests/Pool1');
-              completedRequestPlusOne.child('completedRequest').transaction(function(completedRequest) {
-                    return (completedRequest|| 0) + 1});
-              console.log("Completed Request count was incremented by 1.");
-            } else{
-              console.log("still have time");
-            }
-          } else{
-            console.log("less than 1");
-          }
-      
-      });
- 
-    }
-  }
-
-});
-  } 
-  
-    //MOST IMPORTANT SECTION. THIS AUTOMATICALLY TERMINATES A CONTEST AND STARTS A NEW ONE AFTER X HOURS. THIS MAKES THE
-    //WHOLE SYSTEM AUTOMATIC.
-  else{
-    console.log("We are in the else.");
-    //TERMINATE CONTEST BY MAKING FINISHED TRUE.
-    if(finished == false){
-    //make started false which will basically terminate the contest. No other users will be allowed to get in the contest.
-    // admin.database().ref('Contests/Pool1/started').set(false);
-    admin.database().ref('Contests/Pool1/finished').set(true);
-    
-    const oneBrickerPlusOne = admin.database().ref('Contests/Pool1');
-    admin.database().ref('Request_System/Pool1').limitToFirst(1).once('value').then(function(snapshot) {
-      var uidOfDisplayer = snapshot.val(); 
-      
-      
-      for(key in uidOfDisplayer){
-        if(uidOfDisplayer.hasOwnProperty(key)) {
-        var value = uidOfDisplayer[key];
-        console.log(value);
-
-      
-        admin.database().ref('profiles/'+value+'/participates/pool1/peopleInvited').once('value').then(function(snapshot) {
-          var peopleInvited = snapshot.val();
-
-
-          if(peopleInvited == 1){
-            oneBrickerPlusOne.child('numberOneBrickers').transaction(function(numberOneBrickers) {
-              return (numberOneBrickers|| 0) + 1});
-              console.log("oneBricker counter incremented");
-          }
-             
-
-          });
-        }
-      
-        findFreeRiders(1);
-      
-      }
-      
-      
-      });
-
-    console.log("THE CONTEST WILL AUTOMATICALLY TERMINATE.")
-    }
-    //IF THE CONTEST IS ALREADY FINISHED, DO CHECKS TO SEE IF ITS TIME TO START THE NEW CONTEST.
-    else{
-      var dateNewContest = timestampEndCycle + durationInMilli;
-    console.log("IMPORTANT! - dateNewContest "+ dateNewContest);
-    admin.database().ref('Contests/Pool1/dateNewContest').set(dateNewContest);
-    
-    if(currentTimestamp >= dateNewContest){
-      console.log("VERY IMPORTANT!! - NEW CONTEST IS ABOUT TO START.");
-      initialize(1);
-    }
-    } 
-   
-  }
-
-});
-
-
-
-//POOL2
-admin.database().ref('Contests/Pool2').once('value').then(function(snapshotX) {
-  var timestampEndCycle = snapshotX.child("timestampEndCycle").val();
-  var durationCycleHours = snapshotX.child("durationCycleHours").val();
-  var durationInMilli = (durationCycleHours * 60) * 60000;
-  var finished = snapshotX.child("finished").val();
-  
-
-  console.log("timestampEndCycle "+ timestampEndCycle +" durationCycleHours "+ durationCycleHours+ " durationInMilli "+durationInMilli);
-
-  if((currentTimestamp < timestampEndCycle)){
- 
-  admin.database().ref('Request_System/Pool2').limitToFirst(1).once('value').then(function(snapshot) {
-
-    var uidOfDisplayer = snapshot.val(); 
-    
-    var keyX;
-    snapshot.forEach((child) => {
-       keyX = child.key;
-      console.log("here"+keyX);
-    });
-    
-    for(key in uidOfDisplayer){
-      if(uidOfDisplayer.hasOwnProperty(key)) {
-      var value = uidOfDisplayer[key];
-      console.log(value);
-
-    
-      admin.database().ref('profiles/'+value+'/participates/pool2').once('value').then(function(snapshot) {
-        var peopleInvited = snapshot.child("peopleInvited").val();
-        var timestamp1st = snapshot.child("timestamp1st").val();
-        console.log("timestamp "+timestamp1st);
-        var minsAllowed = Number(snapshot.child("minsAllowed").val());
-        console.log("minsAllowed "+minsAllowed);
-      
-        //only execute if timestamp1st exists.
-        if(snapshot.child("timestamp1st").exists() == true )
-          if(peopleInvited >= 1){
-            var expectedTimeRemove = timestamp1st + (minsAllowed * 60000);
-            console.log("expected "+expectedTimeRemove);
-            if(currentTimestamp >= expectedTimeRemove){
-              //write that he completedRequest = true.
-              admin.database().ref('profiles/'+value+'/participates/pool2').child("completedRequest").set(true);
-              
-              //Check if he is an one bricker, add him to the counter.
-              if(peopleInvited==1){
-                const oneBrickerPlusOne = admin.database().ref('Contests/Pool2');
-                oneBrickerPlusOne.child('numberOneBrickers').transaction(function(numberOneBrickers) {
-                      return (numberOneBrickers|| 0) + 1});
-                      console.log("oneBricker counter incremented");
-
-                admin.database().ref('Contests/Pool2').once('value').then(function(snapshot) {
-                  var sumBonusOneBrick = snapshot.child("sumBonusOneBrick").val();
-                  var numberOneBrickers = snapshot.child("numberOneBrickers").val();
-                  var bonusPerOneBricker = sumBonusOneBrick/numberOneBrickers;
-                  admin.database().ref('Contests/Pool2/bonusPerOneBricker').set(bonusPerOneBricker);
-                  console.log("bonusPerOneBricker was written. value:"+bonusPerOneBricker);
-                });
-              }
-
-              //remove him from the request system.
-              admin.database().ref('Request_System/Pool2/'+keyX).remove();
-              console.log(value+" deleted from request system.");
-
-              const completedRequestPlusOne = admin.database().ref('Contests/Pool2');
-              completedRequestPlusOne.child('completedRequest').transaction(function(completedRequest) {
-                    return (completedRequest|| 0) + 1});
-              console.log("Completed Request count was incremented by 1.");
-            } else{
-              console.log("still have time");
-            }
-          } else{
-            console.log("less than 1");
-          }
-      
-      });
- 
-    }
-  }
-
-});
-  } 
-  
-    //MOST IMPORTANT SECTION. THIS AUTOMATICALLY TERMINATES A CONTEST AND STARTS A NEW ONE AFTER X HOURS. THIS MAKES THE
-    //WHOLE SYSTEM AUTOMATIC.
-  else{
-    console.log("We are in the else.");
-    //TERMINATE CONTEST BY MAKING FINISHED TRUE.
-    if(finished == false){
-    //make started false which will basically terminate the contest. No other users will be allowed to get in the contest.
-    // admin.database().ref('Contests/Pool2/started').set(false);
-    admin.database().ref('Contests/Pool2/finished').set(true);
-
-    const oneBrickerPlusOne = admin.database().ref('Contests/Pool2');
-    admin.database().ref('Request_System/Pool2').limitToFirst(1).once('value').then(function(snapshot) {
-      var uidOfDisplayer = snapshot.val(); 
-      
-      
-      for(key in uidOfDisplayer){
-        if(uidOfDisplayer.hasOwnProperty(key)) {
-        var value = uidOfDisplayer[key];
-        console.log(value);
-
-      
-        admin.database().ref('profiles/'+value+'/participates/pool2/peopleInvited').once('value').then(function(snapshot) {
-          var peopleInvited = snapshot.val();
-
-
-          if(peopleInvited == 1){
-            oneBrickerPlusOne.child('numberOneBrickers').transaction(function(numberOneBrickers) {
-              return (numberOneBrickers|| 0) + 1});
-              console.log("oneBricker counter incremented");
-          }
-             
-
-          });
-        }
-      
-        findFreeRiders(2);
-      
-      }
-      
-      
-      });
-
-    
-    console.log("THE CONTEST WILL AUTOMATICALLY TERMINATE.")
-    }
-    //IF THE CONTEST IS ALREADY FINISHED, DO CHECKS TO SEE IF ITS TIME TO START THE NEW CONTEST.
-    else{
-      var dateNewContest = timestampEndCycle + durationInMilli;
-    console.log("IMPORTANT! - dateNewContest "+ dateNewContest);
-    admin.database().ref('Contests/Pool2/dateNewContest').set(dateNewContest);
-    
-    if(currentTimestamp >= dateNewContest){
-      console.log("VERY IMPORTANT!! - NEW CONTEST IS ABOUT TO START.");
-      initialize(2);
-    }
-    } 
-   
-  }
-
-});
-
-
-
-//POOL3
-admin.database().ref('Contests/Pool3').once('value').then(function(snapshotX) {
-  var timestampEndCycle = snapshotX.child("timestampEndCycle").val();
-  var durationCycleHours = snapshotX.child("durationCycleHours").val();
-  var durationInMilli = (durationCycleHours * 60) * 60000;
-  var finished = snapshotX.child("finished").val();
-  
-
-  console.log("timestampEndCycle "+ timestampEndCycle +" durationCycleHours "+ durationCycleHours+ " durationInMilli "+durationInMilli);
-
-  if((currentTimestamp < timestampEndCycle)){
- 
-  admin.database().ref('Request_System/Pool3').limitToFirst(1).once('value').then(function(snapshot) {
-
-    var uidOfDisplayer = snapshot.val(); 
-    
-    var keyX;
-    snapshot.forEach((child) => {
-       keyX = child.key;
-      console.log("here"+keyX);
-    });
-    
-    for(key in uidOfDisplayer){
-      if(uidOfDisplayer.hasOwnProperty(key)) {
-      var value = uidOfDisplayer[key];
-      console.log(value);
-
-    
-      admin.database().ref('profiles/'+value+'/participates/pool3').once('value').then(function(snapshot) {
-        var peopleInvited = snapshot.child("peopleInvited").val();
-        var timestamp1st = snapshot.child("timestamp1st").val();
-        console.log("timestamp "+timestamp1st);
-        var minsAllowed = Number(snapshot.child("minsAllowed").val());
-        console.log("minsAllowed "+minsAllowed);
-      
-        //only execute if timestamp1st exists.
-        if(snapshot.child("timestamp1st").exists() == true )
-          if(peopleInvited >= 1){
-            var expectedTimeRemove = timestamp1st + (minsAllowed * 60000);
-            console.log("expected "+expectedTimeRemove);
-            if(currentTimestamp >= expectedTimeRemove){
-              //write that he completedRequest = true.
-              admin.database().ref('profiles/'+value+'/participates/pool3').child("completedRequest").set(true);
-              
-              //Check if he is an one bricker, add him to the counter.
-              if(peopleInvited==1){
-                const oneBrickerPlusOne = admin.database().ref('Contests/Pool3');
-                oneBrickerPlusOne.child('numberOneBrickers').transaction(function(numberOneBrickers) {
-                      return (numberOneBrickers|| 0) + 1});
-                      console.log("oneBricker counter incremented");
-
-                admin.database().ref('Contests/Pool3').once('value').then(function(snapshot) {
-                  var sumBonusOneBrick = snapshot.child("sumBonusOneBrick").val();
-                  var numberOneBrickers = snapshot.child("numberOneBrickers").val();
-                  var bonusPerOneBricker = sumBonusOneBrick/numberOneBrickers;
-                  admin.database().ref('Contests/Pool3/bonusPerOneBricker').set(bonusPerOneBricker);
-                  console.log("bonusPerOneBricker was written. value:"+bonusPerOneBricker);
-                });
-              }
-
-              //remove him from the request system.
-              admin.database().ref('Request_System/Pool3/'+keyX).remove();
-              console.log(value+" deleted from request system.");
-
-              const completedRequestPlusOne = admin.database().ref('Contests/Pool3');
-              completedRequestPlusOne.child('completedRequest').transaction(function(completedRequest) {
-                    return (completedRequest|| 0) + 1});
-              console.log("Completed Request count was incremented by 1.");
-            } else{
-              console.log("still have time");
-            }
-          } else{
-            console.log("less than 1");
-          }
-      
-      });
- 
-    }
-  }
-
-});
-  } 
-  
-    //MOST IMPORTANT SECTION. THIS AUTOMATICALLY TERMINATES A CONTEST AND STARTS A NEW ONE AFTER X HOURS. THIS MAKES THE
-    //WHOLE SYSTEM AUTOMATIC.
-  else{
-    console.log("We are in the else.");
-    //TERMINATE CONTEST BY MAKING FINISHED TRUE.
-    if(finished == false){
-    //make started false which will basically terminate the contest. No other users will be allowed to get in the contest.
-    // admin.database().ref('Contests/Pool3/started').set(false);
-    admin.database().ref('Contests/Pool3/finished').set(true);
-
-    const oneBrickerPlusOne = admin.database().ref('Contests/Pool3');
-    admin.database().ref('Request_System/Pool3').limitToFirst(1).once('value').then(function(snapshot) {
-      var uidOfDisplayer = snapshot.val(); 
-      
-      
-      for(key in uidOfDisplayer){
-        if(uidOfDisplayer.hasOwnProperty(key)) {
-        var value = uidOfDisplayer[key];
-        console.log(value);
-
-      
-        admin.database().ref('profiles/'+value+'/participates/pool3/peopleInvited').once('value').then(function(snapshot) {
-          var peopleInvited = snapshot.val();
-
-
-          if(peopleInvited == 1){
-            oneBrickerPlusOne.child('numberOneBrickers').transaction(function(numberOneBrickers) {
-              return (numberOneBrickers|| 0) + 1});
-              console.log("oneBricker counter incremented");
-          }
-             
-
-          });
-        }
-      
-        findFreeRiders(3);
-      
-      }
-      
-      
-      });
-
-    
-    console.log("THE CONTEST WILL AUTOMATICALLY TERMINATE.")
-    }
-    //IF THE CONTEST IS ALREADY FINISHED, DO CHECKS TO SEE IF ITS TIME TO START THE NEW CONTEST.
-    else{
-      var dateNewContest = timestampEndCycle + durationInMilli;
-    console.log("IMPORTANT! - dateNewContest "+ dateNewContest);
-    admin.database().ref('Contests/Pool3/dateNewContest').set(dateNewContest);
-    
-    if(currentTimestamp >= dateNewContest){
-      console.log("VERY IMPORTANT!! - NEW CONTEST IS ABOUT TO START.");
-      initialize(3);
-    }
-    } 
-   
-  }
-
-});
-
-
-
-
-
-
-
-
+  //Call runner for each pool.
+  runner(1);
+  runner(2);
+  runner(3);
 
 });
 
@@ -683,18 +214,6 @@ function calculatePecentage(moneyTotal,num) {
 
     //Calculate percentage of cut.
     var percentage;
-
-    // if(moneyTotal >= 0 && moneyTotal < 2000){
-    //   percentage = 30;
-    // } else if (moneyTotal >= 2000 && moneyTotal < 5000) {
-    //   percentage = 25;
-    // } else if (moneyTotal >= 5000 && moneyTotal < 10000) {
-    //   percentage = 20;
-    // } else if (moneyTotal >= 10000 && moneyTotal < 20000) {
-    //   percentage = 15;
-    // } else if (moneyTotal >= 20000 && moneyTotal < 100000) {
-    //   percentage = 10;
-    // }
 
     if(moneyTotal >= 0 && moneyTotal < 50){
       percentage = 30;
@@ -1272,27 +791,6 @@ function count10Mins(uid,num){
     console.log("count before call"+count);
     writeMins(count,uid,num);
   });
-
-    
-
-  // snapshot.ref.parent.once('value').then((datasnapshot) => {
-  
-  //   datasnapshot.forEach(function(childSnapshot) {
-  //     if(childSnapshot.key > fiveMinsAgo){
-  //       count++;
-  //     }
-  //   });
-  //   return count
-
-  // admin.database().ref('Request_System/Pool1').once('value').then(function(snapshot) {
-  // snapshot.forEach(function(childSnapshot) {
-  //   if(childSnapshot.key > fiveMinsAgo){
-  //     count++;
-  //     }
-  //   });
-  // });
-  // console.log(count);
-  // return count;
   
 }
 
@@ -1362,6 +860,7 @@ exports.joinContest =functions.https.onCall((data,context)=>{
   const userId = context.auth.uid;
   var currentTimestamp = new Date().getTime();
 
+  console.log("num "+num);
 
   admin.database().ref('Contests/Pool'+num).once('value').then(function(snapshot) {
     var numberMouktijies = snapshot.child("numberMouktijies").val();
@@ -1383,9 +882,7 @@ exports.joinContest =functions.https.onCall((data,context)=>{
       console.log("eshi, lets go to the dashboard");
       resolve('inContestDashboard.html');} 
     else if(data.hasChild("ticket")){
-        if(currentTimestamp<mouktijiesStop && numberMouktijies<maxMouktijies){
-
-          //find what ticket the user should have.
+        //find what ticket the user should have.
           var ticketShould;
           if(num==1){
             ticketShould="bronze";
@@ -1394,8 +891,10 @@ exports.joinContest =functions.https.onCall((data,context)=>{
           } else if(num==3){
             ticketShould="gold";
           }
-
           
+        if(currentTimestamp<mouktijiesStop && numberMouktijies<maxMouktijies){
+
+          console.log("tickeShould " + ticketShould);
           if(data.child("ticket").val()==ticketShould){
             console.log("all criteria fullfilled, mouktijis can enter "+userId);
             resolve('ticketPool'+num+'.html');} 
@@ -1411,7 +910,7 @@ exports.joinContest =functions.https.onCall((data,context)=>{
             resolve('ticketPool'+num+'.html');}
 
             else{
-              console.log("time exceeded, limit is ok, but he has a different kind of ticket "+userId);
+              console.log("time exceeded, limit is ok, but he has a different kind of ticket "+userId+" ticketShould: "+ticketShould);
               resolve('pool'+num+'.html');
             }
 
@@ -1485,116 +984,6 @@ exports.started3 = functions.database.ref('Contests/Pool3/started')
 exports.startPool = functions.https.onRequest((data,context)=>{
   // startIt();
 });
-
-
-//USED FOR THE GRAPHS.
-function minsEntered(){
-  var currentTimestamp = new Date().getTime();
-  var fiveMinsAgo = currentTimestamp - 300000;
-  var count = 0;
-
-  //POOL1.
-  admin.database().ref('Contests/Pool1').once('value').then(function(snapshot) {
-
-  var finished = snapshot.child("finished").val();
-  console.log("finished value "+ finished);
-
-  if(!finished){
-  //count how many players 10 last minutes. 
-  admin.database().ref('Request_System/Pool1').once('value').then(function(snapshot) {
-    snapshot.forEach(function(childSnapshot) {
-      if(childSnapshot.key > fiveMinsAgo){
-        console.log("count10 pirama"+ childSnapshot.key);
-        count++;
-      }
-      
-    });
-
-    //Write how many entered the last 10 minutes in the graph.
-    admin.database().ref('Graphs/Pool1/'+currentTimestamp).set(count);
-    console.log("count value for realtime graph was updated. "+count+" , for time: "+currentTimestamp);
-    
-  });
-  } else {
-    console.log("Contest has finished.")
-  }
-
-});
-
-
- //POOL2.
- admin.database().ref('Contests/Pool2').once('value').then(function(snapshot) {
-
-  var count2 = 0;
-  var finished = snapshot.child("finished").val();
-  console.log("finished value "+ finished);
-
-  if(!finished){
-  //count how many players 10 last minutes. 
-  admin.database().ref('Request_System/Pool2').once('value').then(function(snapshot) {
-    snapshot.forEach(function(childSnapshot) {
-      if(childSnapshot.key > fiveMinsAgo){
-        console.log("count10 pirama"+ childSnapshot.key);
-        count2++;
-      }
-      
-    });
-
-    //Write how many entered the last 10 minutes in the graph.
-    admin.database().ref('Graphs/Pool2/'+currentTimestamp).set(count2);
-    console.log("count value for realtime graph was updated. "+count2+" , for time: "+currentTimestamp);
-    
-  });
-  } else {
-    console.log("Contest has finished.")
-  }
-
-});
-
-
- //POOL3.
- admin.database().ref('Contests/Pool3').once('value').then(function(snapshot) {
-
-  var count3 = 0;
-  var finished = snapshot.child("finished").val();
-  console.log("finished value "+ finished);
-
-  if(!finished){
-  //count how many players 10 last minutes. 
-  admin.database().ref('Request_System/Pool3').once('value').then(function(snapshot) {
-    snapshot.forEach(function(childSnapshot) {
-      if(childSnapshot.key > fiveMinsAgo){
-        console.log("count10 pirama"+ childSnapshot.key);
-        count3++;
-      }
-      
-    });
-
-    //Write how many entered the last 10 minutes in the graph.
-    admin.database().ref('Graphs/Pool3/'+currentTimestamp).set(count3);
-    console.log("count value for realtime graph was updated. "+count3+" , for time: "+currentTimestamp);
-    
-  });
-  } else {
-    console.log("Contest has finished.")
-  }
-
-});
-
-
-
-
-
-
-
-
-}
-
-
-
-
-
-
 
 
 //find the total number of floaters.
@@ -1766,5 +1155,189 @@ function randomize(num){
 
 
   });
+
+}
+
+
+function runner(num){
+  console.log("num is: "+num);
+  var currentTimestamp = new Date().getTime();
+
+  admin.database().ref('Contests/Pool'+num).once('value').then(function(snapshotX) {
+    var timestampEndCycle = snapshotX.child("timestampEndCycle").val();
+    var durationCycleHours = snapshotX.child("durationCycleHours").val();
+    var durationInMilli = (durationCycleHours * 60) * 60000;
+    var finished = snapshotX.child("finished").val();
+    
+  
+    console.log("timestampEndCycle "+ timestampEndCycle +" durationCycleHours "+ durationCycleHours+ " durationInMilli "+durationInMilli);
+  
+    if((currentTimestamp < timestampEndCycle)){
+   
+    admin.database().ref('Request_System/Pool'+num).limitToFirst(1).once('value').then(function(snapshot) {
+  
+      var uidOfDisplayer = snapshot.val(); 
+      
+      var keyX;
+      snapshot.forEach((child) => {
+         keyX = child.key;
+        console.log("here"+keyX);
+      });
+      
+      for(key in uidOfDisplayer){
+        if(uidOfDisplayer.hasOwnProperty(key)) {
+        var value = uidOfDisplayer[key];
+        console.log(value);
+  
+      
+        admin.database().ref('profiles/'+value+'/participates/pool'+num).once('value').then(function(snapshot) {
+          var peopleInvited = snapshot.child("peopleInvited").val();
+          var timestamp1st = snapshot.child("timestamp1st").val();
+          console.log("timestamp "+timestamp1st);
+          var minsAllowed = Number(snapshot.child("minsAllowed").val());
+          console.log("minsAllowed "+minsAllowed);
+        
+          //only execute if timestamp1st exists.
+          if(snapshot.child("timestamp1st").exists() == true )
+            if(peopleInvited >= 1){
+              var expectedTimeRemove = timestamp1st + (minsAllowed * 60000);
+              console.log("expected "+expectedTimeRemove);
+              if(currentTimestamp >= expectedTimeRemove){
+                //write that he completedRequest = true.
+                admin.database().ref('profiles/'+value+'/participates/pool'+num).child("completedRequest").set(true);
+                
+                //Check if he is an one bricker, add him to the counter.
+                if(peopleInvited==1){
+                  const oneBrickerPlusOne = admin.database().ref('Contests/Pool'+num);
+                  oneBrickerPlusOne.child('numberOneBrickers').transaction(function(numberOneBrickers) {
+                        return (numberOneBrickers|| 0) + 1});
+                        console.log("oneBricker counter incremented");
+  
+                  admin.database().ref('Contests/Pool'+num).once('value').then(function(snapshot) {
+                    var sumBonusOneBrick = snapshot.child("sumBonusOneBrick").val();
+                    var numberOneBrickers = snapshot.child("numberOneBrickers").val();
+                    var bonusPerOneBricker = sumBonusOneBrick/numberOneBrickers;
+                    admin.database().ref('Contests/Pool'+num+'/bonusPerOneBricker').set(bonusPerOneBricker);
+                    console.log("bonusPerOneBricker was written. value:"+bonusPerOneBricker);
+                  });
+                }
+  
+                //remove him from the request system.
+                admin.database().ref('Request_System/Pool'+num+'/'+keyX).remove();
+                console.log(value+" deleted from request system.");
+  
+                const completedRequestPlusOne = admin.database().ref('Contests/Pool'+num);
+                completedRequestPlusOne.child('completedRequest').transaction(function(completedRequest) {
+                      return (completedRequest|| 0) + 1});
+                console.log("Completed Request count was incremented by 1.");
+              } else{
+                console.log("still have time");
+              }
+            } else{
+              console.log("less than 1");
+            }
+        
+        });
+   
+      }
+    }
+  
+  });
+    } 
+    
+      //MOST IMPORTANT SECTION. THIS AUTOMATICALLY TERMINATES A CONTEST AND STARTS A NEW ONE AFTER X HOURS. THIS MAKES THE
+      //WHOLE SYSTEM AUTOMATIC.
+    else{
+      console.log("We are in the else.");
+      //TERMINATE CONTEST BY MAKING FINISHED TRUE.
+      if(finished == false){
+      //make started false which will basically terminate the contest. No other users will be allowed to get in the contest.
+      // admin.database().ref('Contests/Pool'+num+'/started').set(false);
+      admin.database().ref('Contests/Pool'+num+'/finished').set(true);
+      
+      const oneBrickerPlusOne = admin.database().ref('Contests/Pool'+num);
+      admin.database().ref('Request_System/Pool'+num).limitToFirst(1).once('value').then(function(snapshot) {
+        var uidOfDisplayer = snapshot.val(); 
+        
+        
+        for(key in uidOfDisplayer){
+          if(uidOfDisplayer.hasOwnProperty(key)) {
+          var value = uidOfDisplayer[key];
+          console.log(value);
+  
+        
+          admin.database().ref('profiles/'+value+'/participates/pool'+num+'/peopleInvited').once('value').then(function(snapshot) {
+            var peopleInvited = snapshot.val();
+  
+  
+            if(peopleInvited == 1){
+              oneBrickerPlusOne.child('numberOneBrickers').transaction(function(numberOneBrickers) {
+                return (numberOneBrickers|| 0) + 1});
+                console.log("oneBricker counter incremented");
+            }
+               
+  
+            });
+          }
+        
+          findFreeRiders(num);
+        
+        }
+        
+        
+        });
+  
+      console.log("THE CONTEST WILL AUTOMATICALLY TERMINATE.")
+      }
+      //IF THE CONTEST IS ALREADY FINISHED, DO CHECKS TO SEE IF ITS TIME TO START THE NEW CONTEST.
+      else{
+        var dateNewContest = timestampEndCycle + durationInMilli;
+      console.log("IMPORTANT! - dateNewContest "+ dateNewContest);
+      admin.database().ref('Contests/Pool'+num+'/dateNewContest').set(dateNewContest);
+      
+      if(currentTimestamp >= dateNewContest){
+        console.log("VERY IMPORTANT!! - NEW CONTEST IS ABOUT TO START.");
+        initialize(num);
+      }
+      } 
+     
+    }
+  
+  });
+  
+}
+
+//Used for the GRAPHS.
+function minsPool(num){
+  var currentTimestamp = new Date().getTime();
+  var fiveMinsAgo = currentTimestamp - 300000;
+  var count = 0;
+
+  admin.database().ref('Contests/Pool'+num).once('value').then(function(snapshot) {
+
+  var finished = snapshot.child("finished").val();
+  console.log("finished value "+ finished);
+
+  if(!finished){
+  //count how many players entered last 5 minutes. 
+  admin.database().ref('Request_System/Pool'+num).once('value').then(function(snapshot) {
+    snapshot.forEach(function(childSnapshot) {
+      if(childSnapshot.key > fiveMinsAgo){
+        console.log("count5 pirama"+ childSnapshot.key);
+        count++;
+      }
+      
+    });
+
+    //Write how many entered the last 10 minutes in the graph.
+    admin.database().ref('Graphs/Pool'+num+'/'+currentTimestamp).set(count);
+    console.log("count value for realtime graph was updated. "+count+" , for time: "+currentTimestamp);
+    
+  });
+  } else {
+    console.log("Contest has finished.")
+  }
+
+});
 
 }
