@@ -7,8 +7,9 @@
 
 body
 {
-    background-color: rgb(32,32,32);
+background-color: rgb(32,32,32);
 font-family: Arial, Helvetica, sans-serif;
+
 }
 
 h2{
@@ -553,12 +554,13 @@ hr.style-two {
 }
 
 .brickLayer{
-    background-color: rgb(249, 87, 0,0.8);
+    background-color: rgb(249, 87, 0,1);
+    /* background-color: rgb(21, 21, 21); */
     text-align: right;
 }
 
 .brickLayer p{
-    color: rgb(200, 200, 200);
+    color: rgb(10, 10, 10);
     font-size: 20px;
     padding-right: 5%;
 }
@@ -803,4 +805,15 @@ a {
                 align-content: center;
                 align-items: center;
                 justify-content: center;
-            }
+}
+
+.bg2{
+    background-image: url("./images/banner_in_pages.png");
+      /* Full height */
+  height: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
