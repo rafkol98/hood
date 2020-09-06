@@ -849,8 +849,7 @@ a {
   background-size: cover;
 }
 
-.left, 
-        .right { 
+.left, .right { 
         
             width: 10px; 
             height: 10px; 
