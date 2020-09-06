@@ -92,6 +92,10 @@
     <body>
         <div
             class="bg_Logged">
+            <div class="loader2">
+                <br>
+                <img src="images/puff.svg" alt="" height="200px">
+            </div>
             <!--Navigation Menu-->
             <section id="nav_bar">
 
@@ -198,13 +202,16 @@
 
 
             </div>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
+            
 
             <script>
                 firebase.auth().onAuthStateChanged(function (user) {
                     if (user) { // Update the count down every 1 second
                         var database = firebase.database();
                         var userId = user.uid;
+                        
                         for (var i = 1; i <= 3; i++) {
                             console.log("i " + i);
                             // var myEle = document.getElementById("countdown");

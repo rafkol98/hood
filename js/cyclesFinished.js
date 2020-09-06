@@ -15,9 +15,10 @@
                     if(!finished){
                        
                         card10.style.visibility = "visible";
+                        $(".loader2").fadeOut("slow");
+                        
         
                     } else {
-    
                         var category;
                         if(i==1){
                             category="BRONZE";
@@ -29,6 +30,8 @@
 
                         card10.innerHTML = "<h3 class='card-title'>"+category+"</h3> <h5>THIS CONTEST FINISHED</h5> <p>The new cycle begins in:</p> <h3 id='countdown' class='dashboard-numbers2' style='text-align: center;'>Loading...</h3> <button type='button' class='btn btn-new' id='stats1'>SEE STATS</button>";  
                         card10.style.visibility = "visible";
+                        $(".loader2").fadeOut("slow");
+                        
     
                         $("#stats1").click(function () {
                             console.log("clicked");

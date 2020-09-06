@@ -66,6 +66,7 @@ $(function () {
                 }
 
                 $("#tierShowing").html(category);
+                $(".loader2").fadeOut("slow");
             });
 
 

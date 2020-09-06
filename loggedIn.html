@@ -125,30 +125,6 @@
 
         </script>
 
-
-        <style>
-            .loader,
-            .loader2 {
-                position: fixed;
-                padding: 0;
-                margin: 0;
-
-                top: 0;
-                left: 0;
-
-                width: 100%;
-                height: 100%;
-                background: rgba(0, 0, 0, 0.9);
-                z-index: 999;
-
-                display: flex;
-                flex-direction: column;
-                align-content: center;
-                align-items: center;
-                justify-content: center;
-            }
-        </style>
-
     </head>
     <body
         onload="peopleEnteredCall(1)">
@@ -156,7 +132,7 @@
         <div class="bg_Logged">
             <div class="loader2">
                 <br>
-                <img src="images/Ripple-1s-200px (1).gif" alt="">
+                <img src="images/puff.svg" alt="" height="200px">
             </div>
             <!--Navigation Menu-->
             <section id="nav_bar">
@@ -243,13 +219,15 @@
                     $(function () { // firebase.database().ref('/Contests/Pool1').child("moneySpread").once('value').then(function(snapshot) {
                         firebase.database().ref('/Contests').once('value').then(function (snapshot) { // var username = (snapshot.val() && snapshot.val().username) || 'Anonymous';
                             var moneySpread = snapshot.child("Pool1").child("moneySpread").val();
+                            var moneySpread2 = snapshot.child("Pool2").child("moneySpread").val();
+                            var moneySpread3 = snapshot.child("Pool3").child("moneySpread").val();
                             console.log(moneySpread);
 
                             $("#moneyRaised").html(moneySpread + " Bricks");
 
                             count = 0;
                             // wordsArray = ["BRICKS RAISED POOL1", "BRICKS RAISED POOL2", "BRICKS RAISED POOL3"];
-                            arrayMarket = [moneySpread, "100", "230"];
+                            arrayMarket = [moneySpread, moneySpread, moneySpread3];
 
 
                             count = 0;

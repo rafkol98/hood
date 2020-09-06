@@ -505,16 +505,35 @@ admin.database().ref('profiles').once('value').then(function(snapshot) {
         if((pool1.child("timestamp1st").exists() == false ) && (pool1.child("peopleInvited").val() == 0)){
           console.log("i fullfil the criteria to be given a free ticket, "+uid);
 
-          //write ticket according to pool participating.
-          if(num == 1){
-            admin.database().ref('/profiles/'+uid+'/ticket').set("bronze");
-          } else if (num == 2){
-            admin.database().ref('/profiles/'+uid+'/ticket').set("silver");
-          } else if (num == 3){
-            admin.database().ref('/profiles/'+uid+'/ticket').set("gold");
+          if(child.child("ticket").exists()){
+              var existingTicket = child.child("ticket").val();
+              console.log(uid+", they already have a ticket of type: "+existingTicket);
+
+              var exisNum;
+              if(existingTicket === "bronze") {
+                exisNum = 1;
+              } else if(existingTicket === "silver") {
+                exisNum = 2;
+              } else if(existingTicket === "gold") { 
+                exisNum = 3;
+              }
+
+              //if existing ticket is less or equal than the one he will receive here, replace his ticket.
+              if(exisNum<num){
+                writeFreeTicket(uid,num);
+              } else {
+                console.log("he had the same or better ticket, so we didnt replace it!");
+              }
+
+
+          } else{
+            //write ticket according to pool participating.
+           writeFreeTicket(uid,num);
+            
+            console.log("written.")
           }
-          
-          console.log("written.")
+
+       
           count++;
         }
       }
@@ -1339,5 +1358,21 @@ function minsPool(num){
   }
 
 });
+
+}
+
+
+function writeFreeTicket(uid, num){
+  if(num == 1){
+    admin.database().ref('/profiles/'+uid+'/ticket').set("bronze");
+    console.log("written bronze");
+  } else if (num == 2){
+    admin.database().ref('/profiles/'+uid+'/ticket').set("silver");
+    console.log("written silver");
+  } else if (num == 3){
+    admin.database().ref('/profiles/'+uid+'/ticket').set("gold");
+    console.log("written gold");
+  }
+
 
 }

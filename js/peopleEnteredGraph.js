@@ -62,7 +62,13 @@ function peopleEnteredCall(num) { // Graph that plots how many people entered th
                                         display: false // this will remove only the label
                                     }
                                 }
-                            ]
+                            ],
+
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero:true
+                                }
+                            }]
                         }
                     }
                 });

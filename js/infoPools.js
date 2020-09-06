@@ -15,6 +15,7 @@ firebase.auth().onAuthStateChanged(function (user) {
             // $("#maxSpenders"+i).html(parseInt(maxSpenders) + " People");
             $("#duration"+i).html(durationCycle + " Hours");
             // $("#spendersPre"+i).html(spendersPrecedence + " Mins");
+            
         }
         
     });
