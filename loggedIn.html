@@ -28,7 +28,7 @@
         <script src="https://www.gstatic.com/firebasejs/7.3.0/firebase-app.js"></script>
 
         <!-- TODO: Add SDKs for Firebase products that you want to use
-                                  https://firebase.google.com/docs/web/setup#available-libraries -->
+                                                                  https://firebase.google.com/docs/web/setup#available-libraries -->
         <!-- Add Firebase products that you want to use -->
         <script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-auth.js"></script>
 
@@ -175,8 +175,8 @@
                                         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
                                         <h3 id="word" class="card-title">BRICKS RAISED BRONZE CYCLE</h3>
                                         <p class="card-text money" id="moneyRaised">Loading...</p>
-                                        <div class="left"></div> 
-                                        <div class="right"></div>
+                                        <div class="left" id="left"></div>
+                                        <div class="right" id="right"></div>
                                     </div>
                                 </div>
 
@@ -190,8 +190,8 @@
 
                                         <canvas id="peopleEntered10" class="canvasLogged" width="400" height="200"></canvas>
 
-                                        <div class="left"></div> 
-                                        <div class="right"></div>
+                                        <div class="left" id="leftGraph"></div>
+                                        <div class="right" id="rightGraph"></div>
                                     </div>
 
                                 </div>
@@ -205,8 +205,8 @@
                                 <button type="button" class="btn btn-new" id="dashboard" style="display:none;">Dashboard</button>
                                 <button type="button" class="btn btn-new" id="statsForNerds">Statistics</button>
                                 <button type="button" class="btn btn-new" id="manageMyAccount">Manage my account</button>
-                                 <button type="button" class="btn btn-new" id="withdrawMyBricks">Withdraw Bricks</button>
-                                
+                                <button type="button" class="btn btn-new" id="withdrawMyBricks">Withdraw Bricks</button>
+
                             </div>
 
                         </div>
@@ -253,7 +253,7 @@
                                     $(this).text(arrayMarket[count % arrayMarket.length] + " Bricks").fadeIn(400);
                                 });
 
-                            }, 20000);
+                            }, 60000);
 
 
                         });
@@ -270,7 +270,7 @@
                                 if (snapshot.hasChild("participates")) {
                                     $("#dashboard").css("display", "block");
                                     $(".loader2").fadeOut("slow");
-                                } else{
+                                } else {
                                     $(".loader2").fadeOut("slow");
                                 }
                             });
@@ -278,11 +278,93 @@
                     });
                 </script>
 
+                <script>
+                    firebase.database().ref('/Contests').once('value').then(function (snapshot) { // var username = (snapshot.val() && snapshot.val().username) || 'Anonymous';
+                        var moneySpread = snapshot.child("Pool1").child("moneySpread").val();
+                        var moneySpread2 = snapshot.child("Pool2").child("moneySpread").val();
+                        var moneySpread3 = snapshot.child("Pool3").child("moneySpread").val();
+                        console.log(moneySpread);
+
+                        $("#moneyRaised").html(moneySpread + " Bricks");
+
+                        count = 0;
+                        // wordsArray = ["BRICKS RAISED POOL1", "BRICKS RAISED POOL2", "BRICKS RAISED POOL3"];
+                        arrayMarket = [moneySpread, moneySpread, moneySpread3];
+
+                        var counter = 0;
+                        var counterGraph = 0;
+                        categoryArray = ["BRONZE", "SILVER", "GOLD"];
+                        wordsArray = ["BRICKS RAISED BRONZE CYCLE", "BRICKS RAISED SILVER CYCLE", "BRICKS RAISED GOLD CYCLE"];
+
+
+                        $("#left").click(function () {
+                            console.log("clicked");
+                            counter--;
+                            if (counter < 0) {
+                                counter = 2;
+                            }
+
+                            change(counter);
+                        });
+
+
+                        $("#right").click(function () {
+                            console.log("clicked");
+                            counter++;
+                            if (counter === 3) {
+                                counter = 0;
+                            }
+
+                            change(counter);
+                        });
+
+
+                        $("#leftGraph").click(function () {
+                            console.log("clicked");
+                            counterGraph--;
+                            if (counterGraph < 0) {
+                                counterGraph = 2;
+                            }
+
+                            changeGraph(counterGraph);
+                        });
+
+
+                        $("#rightGraph").click(function () {
+                            console.log("clicked");
+                            counterGraph++;
+                            if (counterGraph === 3) {
+                                counterGraph = 0;
+                            }
+
+                            changeGraph(counterGraph);
+                        });
+
+
+                        function change(counter) {
+                            $("#word").fadeOut(400, function () {
+                                $(this).text(wordsArray[counter]).fadeIn(400);
+                            });
+
+                            $("#moneyRaised").fadeOut(400, function () {
+                                $(this).text(arrayMarket[counter] + " Bricks").fadeIn(400);
+                            });
+
+                        }
+
+                        function changeGraph(counter) {
+                            $("#cat").fadeOut(400, function () {
+                                $(this).text(categoryArray[counter]).fadeIn(400);
+                                peopleEnteredCall((counter) + 1);
+                            });
+
+                        }
+
+                    });
+                </script>
+
 
             </div>
-
-     
-
-           
         </body>
-</html>
+    </body>
+</html></body></html></body></html>
