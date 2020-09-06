@@ -205,64 +205,6 @@
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
             
-
-            <script>
-                firebase.auth().onAuthStateChanged(function (user) {
-                    if (user) { // Update the count down every 1 second
-                        var database = firebase.database();
-                        var userId = user.uid;
-                        
-                        for (var i = 1; i <= 3; i++) {
-                            console.log("i " + i);
-                            // var myEle = document.getElementById("countdown");
-                            // if(myEle){
-                            console.log("mesa " + i);
-
-                            database.ref('Contests/Pool' + i).once('value').then(function (snapshot) {
-                                var dateNewContest = snapshot.child("dateNewContest").val();
-
-
-                                var end = new Date(dateNewContest);
-                                console.log("end " + end);
-                                var _second = 1000;
-                                var _minute = _second * 60;
-                                var _hour = _minute * 60;
-                                var _day = _hour * 24;
-                                var timer;
-
-                                function showRemaining() {
-                                    var now = new Date();
-                                    var distance = end - now;
-                                    if (distance < 0) {
-
-                                        clearInterval(timer);
-                                        document.getElementById('countdown').innerHTML = '...';
-
-                                        return;
-                                    }
-                                    var days = Math.floor(distance / _day);
-                                    var hours = Math.floor((distance % _day) / _hour);
-                                    var minutes = Math.floor((distance % _hour) / _minute);
-                                    var seconds = Math.floor((distance % _minute) / _second);
-
-                                    // console.log("i = "+i+" alo "+ days+" "+hours+" "+minutes+" "+seconds);
-
-
-                                    document.getElementById('countdown').innerHTML = days + 'days ';
-                                    document.getElementById('countdown').innerHTML += hours + 'hrs ';
-                                    document.getElementById('countdown').innerHTML += minutes + 'mins ';
-                                    document.getElementById('countdown').innerHTML += seconds + 'secs';
-                                }
-
-                                timer = setInterval(showRemaining, 1000);
-
-                            });
-                        }
-                    }
-
-                    // }
-                });
-            </script>
         </body>
     </body>
 </html>
