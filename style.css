@@ -7,8 +7,11 @@
 
 body
 {
-background-color: rgb(32,32,32);
-font-family: Arial, Helvetica, sans-serif;
+    background: rgb(15,15,15);
+    background: linear-gradient(10deg, rgba(22,22,22,1) 0%, rgb(38, 36, 36) 100%);
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: rgb(15,15,15);
+
 
 }
 
@@ -398,6 +401,29 @@ form {
     overflow: hidden;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   }
+
+  .btnWithdraw{
+      color: rgb(249, 87, 0) !important;
+    border: 2px ridge black;
+    background: none;
+    padding: 0px;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 12px 0px;
+    /* margin: 10px; */
+    transition: 0.8s;
+    position: relative;
+    overflow: hidden;
+    background-color: rgb(14, 14, 14,0.4);
+    font-style: italic;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  }
+
+  .btnWithdraw:hover{
+    background-color: rgb(249, 87, 0);
+    color: black !important;
+  }
+
   .btn-new{
     background-color: rgb(14, 14, 14,0.4);
     color: rgb(255, 255, 255);
@@ -796,8 +822,8 @@ a {
 
                 width: 100%;
                 height: 100%;
-                background: rgb(80,28,0);
-                background: linear-gradient(0deg, rgba(32,32,32,1) 0%, rgba(8,8,8,1) 100%);
+                background: rgb(15,15,15);
+                background: linear-gradient(10deg, rgba(22,22,22,1) 0%, rgb(38, 36, 36) 100%);
                 z-index: 999;
 
                 display: flex;
@@ -817,3 +843,21 @@ a {
   background-repeat: no-repeat;
   background-size: cover;
 }
+
+.left, 
+        .right { 
+        
+            width: 10px; 
+            height: 10px; 
+            transition: .5s; 
+            float: left; 
+            box-shadow: -2px 2px 0 rgb(249, 87, 0); 
+        } 
+  
+        .left { 
+            transform: rotate(45deg); 
+        } 
+  
+        .right { 
+            transform: rotate(-135deg); 
+        } 

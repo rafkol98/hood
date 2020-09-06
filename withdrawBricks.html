@@ -117,11 +117,12 @@
 
         <!-- User enter the amount of bricks he needs to withdraw. YOU HAVE TO TAKE THIS OUT OF HIS CurrentBricks. AND TRANSFER THE
         EQUIVALENT BTC TO HIS WALLET. -->
-        <div class="col-md-6 col-md-push-6 order-sm-1" >
+        <div class="col-md-6 col-md-push-6 order-sm-1 border-on-section" >
             <p class="login-title">WITHDRAW BRICKS FOR ETHER</p>
             
             <div class="container">
-                <input id="enterAmountOfBricks" type="text" placeholder="Enter amount of bricks" name="uname" required>
+                <input id="enterAmountOfBricks" type="text" placeholder="Enter amount of bricks" name="uname" required style="width: 75%;">
+                <button class="btnWithdraw"style="width: 20%;" id="btnAll">ALL</button>
             
                
                 <button id="btn_withdrawBricks" type="submit">Withdraw</button>
@@ -131,12 +132,17 @@
               </div>
     
             </div>
-        
+            
         </div>
+
+        
+      
+      </div>
         </div>
     </section>
     
-    <script src="js/withdrawBricks.js"></script>
+    <script src="./js/withdrawBricks.js"></script>
+    <script src="./js/withdrawAll.js"></script>
    
   </body>
 </html>
