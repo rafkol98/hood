@@ -9,6 +9,10 @@ firebase.auth().onAuthStateChanged(function (user){
     database.ref('Logistics/History/Pool'+num).limitToLast(1).once('value').then(function(snapshot) {
     snapshot.forEach(function(child) {
     var bricksSpread = child.child("moneySpread").val();
+    var sumBonus = child.child("sumBonusOneBrick").val();
+
+    var bricksWithoutBonus = bricksSpread - sumBonus;
+
     var durationOfCycle = child.child("durationCycleHours").val();
 
     $("#bricksSpread").html(bricksSpread + " Bricks");
@@ -79,12 +83,12 @@ firebase.auth().onAuthStateChanged(function (user){
 
         // The data for our dataset
         data: {
-            labels: ['Percentage spreaded normally','Percentage bonus for one brickers' ,'Percentage cut profit'],
+            labels: ['Bricks spreaded normally','Bricks bonus sum'],
             datasets: [{
-                label: '%',
-                backgroundColor: ['rgb(249, 87, 0)','#FC8A17','#fad6a5'],
+                label: 'Bricks',
+                backgroundColor: ['rgb(249, 87, 0)','#FC8A17'],
                 borderColor: 'black',
-                data: [percentageSpreadedNormally,oneBrickExtraPercentage, percentageCut]
+                data: [bricksWithoutBonus,sumBonus]
             }]
         },
 
@@ -92,7 +96,7 @@ firebase.auth().onAuthStateChanged(function (user){
         options: {
             title:{
                 display:true,
-                text:'Percentage Spread',
+                text:'Normal vs Bonus',
                 fontColor: 'white',
                 fontSize:30
 
@@ -104,6 +108,13 @@ firebase.auth().onAuthStateChanged(function (user){
                 //     fontColor:'#fff'
                 // }
             },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
         }
     });
 
