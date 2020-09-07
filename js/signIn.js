@@ -1,23 +1,25 @@
-  // Login user.
-  $("#btn-login").click(function(){
+// Login user.
+$("#btn-login").click(function () {
+    login();
+});
 
+function login() {
     var email = $("#email").val();
     var password = $("#password").val();
 
-    if(email != "" && password !=""){
+    if (email != "" && password != "") {
 
-        var result = firebase.auth().signInWithEmailAndPassword(email,password);
-        result.catch(function(error){
+        var result = firebase.auth().signInWithEmailAndPassword(email, password);
+        result.catch(function (error) {
             var errorCode = error.code;
             var errorMessage = error.message;
-            
+
             console.log(errorCode);
             console.log(errorMessage);
             window.alert("Message :" + errorMessage);
-        }
-        );
+        });
 
-    }else{
+    } else {
         window.alert("Please write both your email and password to login");
     }
-  });
+}

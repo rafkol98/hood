@@ -128,6 +128,15 @@
 
     <script src="js/signIn.js"></script>
     <script>
+
+
+            $("#password").keyup(function (event) {
+                if (event.keyCode == 13) {
+                    $("#btn-login").click();
+                }
+            });
+
+
         firebase.auth().onAuthStateChanged(function (user)
         {
 
