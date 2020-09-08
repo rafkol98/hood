@@ -12,9 +12,9 @@
 
         <title>Sign Up</title>
         <!-- <script src="https://gstatic.com/firebasejs/6.3.1/firebase-app.js"></script>
-            <script src="https://gstatic.com/firebasejs/6.3.1/firebase-auth.js"></script>
-            <script src="https://gstatic.com/firebasejs/6.3.1/firebase-database.js"></script>
-            <script src="https://gstatic.com/firebasejs/6.3.1/firebase-storage.js"></script> -->
+                                                    <script src="https://gstatic.com/firebasejs/6.3.1/firebase-auth.js"></script>
+                                                    <script src="https://gstatic.com/firebasejs/6.3.1/firebase-database.js"></script>
+                                                    <script src="https://gstatic.com/firebasejs/6.3.1/firebase-storage.js"></script> -->
 
 
         <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
@@ -28,7 +28,7 @@
         <script src="https://www.gstatic.com/firebasejs/7.3.0/firebase-app.js"></script>
 
         <!-- TODO: Add SDKs for Firebase products that you want to use
-                 https://firebase.google.com/docs/web/setup#available-libraries -->
+                                                         https://firebase.google.com/docs/web/setup#available-libraries -->
         <!-- Add Firebase products that you want to use -->
         <script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-auth.js"></script>
 
@@ -72,53 +72,155 @@
                 <div class="container">
 
 
-                    <div class="border-on-section">
+                    <div class="border-on-section2">
+                        <div class="gapp"></div>
                         <h2>Abstract:</h2>
 
                         <p style="text-align: left;">Herein we present a “value spreading system” (VSS) that mimics the basic economic and trading principles in an environment of a finite number of people that grows infinitely in a finite period of time (cycles)*. In contrast with the current and conventional economic system, we eliminate all the factors that yield earn opportunities unequal, and we provide a strict and robust mechanism in which earn opportunities are determined by impartial factors that cannot be influenced through individual initiation, such as time and collective behaviour. Initial investments can be sought as the entrance fee the user needs to pay to take advantage of the system and are fixed for all the participants which  equal priority to everyone. Moreover, the system ensures that every “initial investment” is able to earn, that is, making a user from (spender)* to (earner)*, given that the user continues to exploit the VSS.</p>
 
-                        <hr>
+                        <hr style="background-color: white;">
+                        <div class="gapp"></div>
                         <h2>VSS Components:</h2>
 
                         <p style="text-align: left;">The VSS can be better understood by introducing its basic components in a hierarchical order of importance.</p>
-                        
+
                         <h4>Bricks:</h4>
-                        
+
                         <p style="text-align: left;">For such systems to be executed smoothly and with minimal friction, the absent of a third-party validator is mandatory. Any third-party validation process, such as the blockchain’s unpredictable transaction time, will render the system unable to provide equal control over the users timing during their participation. The system’s natural demand for instant transaction validation gives rise to the need of a virtual local currency that can be purchased in advance, used and redeemed at any time. (Participants are encouraged to purchase the virtual currency beforehand). Bricks is the name of the virtual currency that is used for the purposes of the system. It can be purchased using ether from the “buy bricks” section, and it can be redeemed from the user’s account for ether at any given moment. Then, the ether will be transferred to the user’s wallet automatically. By using their pre-purchased bricks, users can ensure that no uneven latency will occur during their activity on the website. 
-                          Moreover, the amount of purchased bricks can give a fairly accurate insight as to how many users will likely be using the system in the future. With that information we are able to dynamically change the values of the system’s variables so that they can support the population that is expected to join a cycle yet maintain the benefits of high cycle traffic. This is achieved with linear equations that the variables of the system follow with absolute value of slope less than 1.</p>
+                                                                                                                                                                      Moreover, the amount of purchased bricks can give a fairly accurate insight as to how many users will likely be using the system in the future. With that information we are able to dynamically change the values of the system’s variables so that they can support the population that is expected to join a cycle yet maintain the benefits of high cycle traffic. This is achieved with linear equations that the variables of the system follow with absolute value of slope less than 1.</p>
                         <br><br>
-                          <h4>Floaters:</h4>
-                        
-                          <p style="text-align: left;">Two variables exist that when summed together give a value for the number of floaters (#floaters)*. The number of spenders of the previous cycle (#spenders_of_pervious_cycle)* + the number of people that possess enough bricks to join a cycle (#floaters_with_bricks). By summing those two variables and thus calculating the #floaters, the potential number of participants at any given moment can be estimated.</p>
+                        <h4>Floaters:</h4>
+
+                        <p style="text-align: left;">Two variables exist that when summed together give a value for the number of floaters (#floaters)*. The number of spenders of the previous cycle (#spenders_of_pervious_cycle)* + the number of people that possess enough bricks to join a cycle (#floaters_with_bricks). By summing those two variables and thus calculating the #floaters, the potential number of participants at any given moment can be estimated.</p>
                         <br><br>
                         <h4>Cycles:</h4>
-                        
-                        <p style="text-align: left;"> Now it’s time to introduce another important component of the system: cycles. Cycles are defined as periods of time that repeat on a standard basis for the purposes of the system. The duration of a cycle is determined a few seconds prior to the initialization of a cycle by the amount of people who are likely to join the cycle, that is, the number of floaters. The duration of a cycle is calculated with the following formula:
+
+                        <p style="text-align: left;">
+                            Now it’s time to introduce another important component of the system: cycles. Cycles are defined as periods of time that repeat on a standard basis for the purposes of the system. The duration of a cycle is determined a few seconds prior to the initialization of a cycle by the amount of people who are likely to join the cycle, that is, the number of floaters.
+                            <br><br>The duration of a cycle is calculated with the following formula:
+                            <br><br></p>
+                        <p style="font-size: 24px; font-style: italic;">length_of_cycles_in_hours = 0.001*#floaters+144</p>
+
                         <br><br>
-                        length_of_cycles_in_hours = 0.001*#floaters+144
-                        
-                        <br><br>
-                        *the length of cycles grows infinitely. The whole process is completely automatic.
-                        <br><br>
-                        The distance between the end of a cycle and the beginning of the next is exactly the same as the length of the cycle that ended. For example, a Cycle can run for 160 hours, and the next cycle will begin 160 hours after the end of the running cycle.
-                        
-                        
+                        <p style="text-align: left;">
+                            *the length of cycles grows infinitely. The whole process is completely automatic.
+                            <br><br>
+                            The distance between the end of a cycle and the beginning of the next is exactly the same as the length of the cycle that ended. For example, a Cycle can run for 160 hours, and the next cycle will begin 160 hours after the end of the running cycle.
+
                         Users can exploit the VSS by entering a Cycle at any given moment while the cycle is running. Cycles’ repetitive nature enables the system to provide perks and benefits for everyone, given that users manually participate in one or more cycles. Through this process, the VSS allows users to gain control over their participation and ensures that they earn back on their original entrance fee one way or another. For users to participate in a cycle, they need to pay the entrance fee of the cycle which is paid in bricks. Thus, the user becomes part of the Display mechanism of the system.</p>
-                        <br><br>
-                        <h4>Display mechanism:</h4>
-                        
-                        <p style="text-align: left;">The Display mechanism is the mechanism that uses the system during a cycle to spread the value around individuals that are participating. A “Display page” exists where one user at a time is displayed. The value spreading is caused by the conditions of entry. When new users join the cycle by paying their entrance fee, they automatically give a deposit to the user displayed on the “Display page”.  A Deposit is a specific amount of bricks that are given to the displayed user by other users that join the cycle at the moment of his/her display. Each user has an encrypted ID that is unique for each cycle and links his/her account with their display Hash on the display system. Through this method, no one can know if they are displayed or not. This ensures that the VSS cannot be biased by purposefully calling individuals to enter the cycle at the moment of someone’s display, hence, allowing objective earnings by the users.</p>
-                        <br><br>
-                        <h4>Who is displayed and for how long?</h4>
-                        
-                        <p style="text-align: left;"> At this point, a question arises. Who is displayed and for how long? Displayed users have a position in a queue of display according to the amount of people that were already participating in the cycle before their point of entry. For example, if 50 people were already participating in a cycle before someone’s entry, after he pays the entrance fee and automatically gives a deposit to the displayed user, he will reserve the position 51. Whenever someone’s remaining time on the display page expires, the next one in order, takes his/her place. In addition, the remaining time on the display page of each user is determined by the traffic of the cycle at his/her point of entry to the cycle. Whenever a user joins a cycle, the system calculates the number of users that joined 5 minutes before their point of entry. In this manner, individuals reserve their time of display according to the following equation:</p>
+                    <br><br>
+                    <h4>Display mechanism:</h4>
 
+                    <p style="text-align: left;">The Display mechanism is the mechanism that uses the system during a cycle to spread the value around individuals that are participating. A “Display page” exists where one user at a time is displayed. The value spreading is caused by the conditions of entry. When new users join the cycle by paying their entrance fee, they automatically give a deposit to the user displayed on the “Display page”.  A Deposit is a specific amount of bricks that are given to the displayed user by other users that join the cycle at the moment of his/her display. Each user has an encrypted ID that is unique for each cycle and links his/her account with their display Hash on the display system. Through this method, no one can know if they are displayed or not. This ensures that the VSS cannot be biased by purposefully calling individuals to enter the cycle at the moment of someone’s display, hence, allowing objective earnings by the users.</p>
+                    <br><br>
+                    <h4>Who is displayed and for how long?</h4>
 
-                    </div>
+                    <p style="text-align: left;">
+                        At this point, a question arises. Who is displayed and for how long? Displayed users have a position in a queue of display according to the amount of people that were already participating in the cycle before their point of entry. For example, if 50 people were already participating in a cycle before someone’s entry, after he pays the entrance fee and automatically gives a deposit to the displayed user, he will reserve the position 51. Whenever someone’s remaining time on the display page expires, the next one in order, takes his/her place. In addition, the remaining time on the display page of each user is determined by the traffic of the cycle at his/her point of entry to the cycle. Whenever a user joins a cycle, the system calculates the number of users that joined 5 minutes before their point of entry.
+                        <br><br>
+                        In this manner, individuals reserve their time of display according to the following equation:</p>
+                    <p style="font-size: 24px; font-style: italic;">unit = 3.5
+                                                                                                                                                    x = ((#players_joined_in_last_5_mins)+1) * unit<br><br>
+                        y = 1.1*((32*x*3^(-0.1*x)) + (217/x) + (x^(-0.3)))/2<br><br>
+                        time_of_display  = rounded (y) * multiplier
+                    </p>
+
+                    <p style="text-align: left;">*multiplier = a real number that follows the equation -0.000015* #floaters + 1.9<br><br>
+                        max time_of_display = 141 mins<br><br>
+                        min time_of_display = 1 min<br><br>
+
+                        The display time of the user is initiated by the moment he receives his first deposit. Until they receive their first deposit users are displayed for infinite amount of time. This way, the system ensures that everyone displayed will receive at least one deposit and thus provides the user with an opportunity to earn more than he/she initially invested (entrance fee).
+
+                    </p>
+                    <br><br>
+                    <h4>Earners and spenders:</h4>
+                    <p style="text-align: left;">Now that a detailed introduction on the idea behind VSS has been outlined, it is important to understand two further components of the system that characterise participants according to their financial situation at the end of a cycle; these are earners and spenders. Earners are users that receive one or more deposits by the end of a cycle, and spenders are users that receive zero deposits during or by the end of a cycle. In other words, spenders are users that did not get the chance to be displayed. Earners are rewarded with bricks by the deposits of other users that join the cycle; spenders are rewarded by the system by receiving a free-entrance ticket. This ticket can be used to enter any of the following cycles without the need to pay the entrance fee. Accordingly, spenders can continue to exploit the system until they receive at least one deposit and thus becoming earners, without the need to repay the entrance fee.</p>
+                    <br><br>
+                    <h4>Nature of Cycles</h4>
+
+                    <p style="text-align: left;">All involved individuals benefit from the repetition of cycles. Each Cycle allows infinite growth of its participants while rewarding early involved individuals by significantly increasing their chance of becoming earners (by reserving a lower display queue order). Also, each user has the control of entering a cycle at any moment he believes that will benefit him/her the most based on the traffic indicator*. In this manner, users are rewarded with more display time if they decide to enter the cycle at a moment of low traffic. Users that decide to enter the cycle at high traffic are rewarded from the fact that the cycle is speeding up and their chance of display is higher even if the queue is long. Users that failed to become earners are rewarded with a free entrance ticket and the spenders precedence1. Late involved individuals, that happened to remain spenders, have priority in any of the following cycles and can repeatedly enter without 
+                                                                                                                    spending again, until they become earners. This ensures the creation of a balanced economic environment where everyone eventually become earners.</p>
+                    <br><br>
+
+                    <h4>Tiers and details:</h4>
+                    <p style="text-align: left;">Three different tiers of cycles exist which differ only with regard to their entrance fees, the deposit amount and the ticket. The tiers are completely independent from one another, but they follow the exact same principles and rules.
+                        <br><br>
+                        Bronze: Entrance fee: 10bricks, Deposit worth: 7 bricks, Spenders receive: Bronze ticket (can be used to enter any bronze cycle at any moment during a bronze), everyone with more than 10 bricks in their account is considered floater for this tier.<br><br>
+                        Silver: Entrance fee: 40 bricks, Deposit worth: 28 bricks, Spenders receive: Silver ticket.(can be used to enter any silver cycle at any moment during a silver cycle), every one with more than 40 bricks in their account is considered floater for this tier.<br><br>
+                        Gold: Entrance fee: 100 bricks, Deposit worth: 70 bricks, Spenders receive: Gold ticket. (can be used to enter any gold cycle at any moment during a gold cycle), everyone with more than 100 bricks in their account is considered floater for this tier.<br><br>
+                    </p>
+
+                    <hr style="background-color: white;">
+                    <div class="gapp"></div>
+                    <h2>VSS Earn factors:</h2>
+
+                    <h4>Queue order:</h4>
+
+                    <p style="text-align: left;">The display queue was implemented to the system to objectively reward early involved individuals. In addition to display time, which is reserved by the users according to the traffic indicator at their moment of entry, individuals can higher their chances of benefiting from the cycle’s traffic by entering as early as possible into any cycle. This provides them with higher queue order and thus increases their display chances. However, because the speed of the cycle is determined by the display time of each user, which is a variable that is based on the number of floaters and the collective behaviour, each moment of entering the cycle has the potential to justify the user. Therefore, joining a cycle at any moment can eventually turn a user into earner.</p>
+                    <br><br>
+
+                    <h4>Max spenders:</h4>
+
+                    <p style="text-align: left;">Furthermore, users that remain spenders always withhold the ability to turn into earners without the need of paying again. Notably, each cycle has a maximum number of participants that can enter with a free ticket. That value fluctuates between different cycles and is influenced by the number of spenders of the previous cycle with the following equation:</p>
+
+                    <p style="font-size: 24px; font-style: italic;">#max_spenders = 0.02*#spenders_of_last_cycle_only + 50</p>
+
+                    <br><br>
+                    <h4>Spenders precedence:</h4>
+
+                    <p style="text-align: left;">Apart from the free entrance ticket that all spenders receive at the end of a cycle, spenders have another perk: that is, spenders’ precedence. Spenders’ precedence is a window of time at the beginning of a cycle in which only spenders can enter the cycle using the corresponding ticket. The length of this window is measured in minutes, and it depends on the number of spenders of the latest cycle. It is calculated with the following formula:</p>
+                    <p style="font-size: 24px; font-style: italic;">spenders_precedence = 0.001*#spenders_of_last_cycle_only + 10</p>
+
+                    <p style="text-align: left;"><br><br>*after the spender precedence, spenders of previous cycles that hold a ticket can always join the cycle ate any given moment with their ticket given that the maximum amount of spenders allowed ( #max_spenders) hasn’t been reached yet.
+
+                        <br><br>*if the maximum number of allowed spenders (#max_spenders) is reached before the end of spenders’ precedence, then spenders’ precedence ends, and anyone can participate in the cycle by paying their entrance fee in bricks.
+                        <br><br>As number of the variables, max_spenders and spenders’_precedence rise (rise of #floaters) the time_of_display declines due to the decline of the multiplier that declines with the rise of #floaters. This relationship ensures that the number of the variables max_spenders and spenders_precedence rises to benefit spenders according to the demand, while maintaining enough time for new participants to become earners from the first time of using the VSS. Specifically, the worst-case scenario in terms of how many hours spenders can occupy from the length of the cycle is calculated with the following equation:
+
+                    </p>
+
+                    <p style="font-size: 24px; font-style: italic;">
+                        .i = #players_joined_in_the_last_5_minutes
+                                                                        .t = time_of_display<br>
+                        .y=spenders_precedence/5<br>
+                        .v=#max_spenders/(y/5)<br><br>
+                        //NOT HERE YET * (y/5)
+                    </p>
+
+                    <p style="text-align: left;">
+                        The numbers of the variables in any case ensure that the maximum hours occupied by the spenders never exceed 50% of the total cycle duration.
+                        <br><br></p>
+                    <h4>Traffic of the cycle:</h4>
+
+                    <p style="text-align: left;">The natural randomness of the mass behaviour is taken into account by the mechanism of the system. The number of deposits earned by individuals that become earners depend on the traffic of the cycle at the moment of their display which is influenced by their time of entry to the cycle. The user displayed is likely to receive more deposits if the traffic of the cycle is high.</p>
+                    <br><br>
+                    <h4>Randomizer:</h4>
+
+                    <p style="text-align: left;">In addition, another simple yet important mechanism of the system needs to be introduced: the randomizer. Every three hours a random participant is selected (using math.random of javascript) from the queue and is placed behind the participant that is displayed at the moment. This, along with the free entrance ticket spenders receive, serves as an equaliser to the odds of late involved individuals against early involved individuals. The randomizer raises the chances of late involved individuals that have a low chance of being displayed normally.</p>
+                    <br><br>
+                    <h4>Bonus Mechanism:</h4>
+
+                    <p style="text-align: left;">As it is obvious, participants that receive two or more deposits have practically earned more than their entrance fee. However, participants that earn only one deposit are still considered earners for the purposes of the VSS. Yet, since the worth of a single deposit is less than the entrance fee, those participants practically didn’t earn back on their entrance fee. This is balanced out with the implementation of a bonus mechanism to the VSS. Since everyone’s display time begins to countdown from the moment they receive their first deposit, everyone in display will receive at least one deposit (given that people are continuously joining the cycle). In a situation where a cycle has a lot of traffic, cases of participants becoming earners with just one deposits can be considered rare. As cycle traffic cumulates, the chances of someone receiving just a single deposit are significantly reduced. The factor that is responsible for the occurrence of such cases is the collective behavior which is nearly unpredictable. In cases of traffic cumulation, participants that became earners with single deposits are highly rewarded by the bonus mechanism of the VSS.
+                        <br><br>Cycles are comprised by five fixed checkpoints exist. The checkpoints are measured in terms of how many players have joined a cycle. Every time a checkpoint is reached, percentage amount of the entrance fee multiplier with the number of participants is divided to the people that became earners with just a single deposit. For example in the gold tier, if a cycle ends with an amount of participants equal to 2000 that exceed the second checkpoint, 20000(10%) of 200000 (200*100) will be divided to single deposit earners. This can easily create a situation where single deposit earners can earn a lot more than 40% of their entrance fee (that is the minimum earn of percentage of earners with at least two deposits). The checkpoints for each tier are presented here:
+                    </p>
+                    <br><br>
+                    <h4>Realization about VSS</h4>
+
+                    <p style="text-align: left;">With all that said, the VSS is a system which is based on growth. The increase of participants in a cycle entails their maximal benefit by at least entertaining the chance of earning back more than what they initially paid. Any fixed numbers, for example equation slopes, traffic indicator etc. can always adjust according to data from a real-life scenario. This is a prototype in which all  numbers were set based on research and estimation. Our team is willing to change any number that does not correspond to the feedback received by the participants.</p>
+
+                    <div class="gap"></div>
+
                 </div>
-            </section>
+            </div>
+        </section>
 
-            <script src="js/signup.js"></script>
-        </body>
+        <section id="#footer">
+            <!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#F95700FF" fill-opacity="1" d="M0,256L24,256C48,256,96,256,144,256C192,256,240,256,288,234.7C336,213,384,171,432,160C480,149,528,171,576,202.7C624,235,672,277,720,282.7C768,288,816,256,864,234.7C912,213,960,203,1008,176C1056,149,1104,107,1152,122.7C1200,139,1248,213,1296,202.7C1344,192,1392,96,1416,48L1440,0L1440,320L1416,320C1392,320,1344,320,1296,320C1248,320,1200,320,1152,320C1104,320,1056,320,1008,320C960,320,912,320,864,320C816,320,768,320,720,320C672,320,624,320,576,320C528,320,480,320,432,320C384,320,336,320,288,320C240,320,192,320,144,320C96,320,48,320,24,320L0,320Z"></path></svg> -->
+            <!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#F95700FF" fill-opacity="1" d="M0,192L34.3,186.7C68.6,181,137,171,206,176C274.3,181,343,203,411,192C480,181,549,139,617,138.7C685.7,139,754,181,823,186.7C891.4,192,960,160,1029,138.7C1097.1,117,1166,107,1234,96C1302.9,85,1371,75,1406,69.3L1440,64L1440,320L1405.7,320C1371.4,320,1303,320,1234,320C1165.7,320,1097,320,1029,320C960,320,891,320,823,320C754.3,320,686,320,617,320C548.6,320,480,320,411,320C342.9,320,274,320,206,320C137.1,320,69,320,34,320L0,320Z"></path></svg> -->
+            <!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#F95700FF" fill-opacity="1" d="M0,192L180,224L360,160L540,224L720,224L900,128L1080,64L1260,96L1440,64L1440,320L1260,320L1080,320L900,320L720,320L540,320L360,320L180,320L0,320Z"></path></svg> -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#F95700" fill-opacity="1" d="M0,160L205.7,128L411.4,64L617.1,224L822.9,256L1028.6,128L1234.3,192L1440,0L1440,320L1234.3,320L1028.6,320L822.9,320L617.1,320L411.4,320L205.7,320L0,320Z"></path></svg>
+            <!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#F95700" fill-opacity="1" d="M0,0L240,224L480,192L720,288L960,320L1200,224L1440,64L1440,320L1200,320L960,320L720,320L480,320L240,320L0,320Z"></path></svg> -->
+        </section>
+
+        <script src="js/signup.js"></script>
     </body>
-</html>
+</html></body></html>

@@ -350,6 +350,20 @@ form {
 
 }
 
+.border-on-section2{
+  
+    margin: 20px;
+    background-color: rgb(12, 12, 12,0.6);
+    border: 3px ridge black;
+    padding-left: 40px;
+    padding-right: 40px;
+    color: white;
+    margin-top: 20px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2) !important;
+    transition: 0.8s;
+
+}
+
 .border-on-section:hover{
     -ms-transform: scale(1.02); /* IE 9 */
     -webkit-transform: scale(1.02); /* Safari 3-8 */
