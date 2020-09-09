@@ -920,7 +920,7 @@ exports.joinContest =functions.https.onCall((data,context)=>{
             
             else{
               console.log("time and limit are ok, but he has a different kind of ticket "+userId);
-              resolve('pool'+num+'.html');
+              resolve('waiting.html');
             }
 
         } else if(currentTimestamp>=mouktijiesStop && numberMouktijies<maxMouktijies){
