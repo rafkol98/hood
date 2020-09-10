@@ -53,6 +53,11 @@ p {
     color: rgb(215, 215, 215);
 }
 
+a:hover{
+    color: #f95700;
+    font-style: italic;
+}
+
 .dashboard-title {
     color: rgb(240, 240, 240);
     font-size: 20px;
@@ -567,6 +572,15 @@ hr.style-two {
 .imgPadding{
     width: 70%;
     padding: 40px;
+}
+
+.brixyLogo{
+   height: 40px;
+   transition: 1s;
+}
+
+.brixyLogo:hover{
+    transform: rotate(-2deg);
 }
 
 .money{
