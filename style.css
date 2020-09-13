@@ -640,7 +640,7 @@ hr.style-two {
 }
 
 .footer{
-    position: fixed;
+    position: relative;
     left: 0;
     bottom: 0;
     width: 100%;
@@ -713,7 +713,7 @@ button[disabled]{
   .arrows {
 	width: 60px;
 	height: 72px;
-	position: absolute;
+	position: relative;
 	left: 50%;
     margin-left: -30px;
 	bottom: 20px;
@@ -902,3 +902,8 @@ a {
 #graphSection {
     margin-bottom: 40px !important;
 }
+
+#banner {
+    margin-bottom: 200px;
+}
+

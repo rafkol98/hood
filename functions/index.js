@@ -1,7 +1,27 @@
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
+const sgMail = require('@sendgrid/mail');
+
 admin.initializeApp(functions.config().firebase);
 
+const API_KEY = functions.config().sendgrid.key;
+const TEMPLATE_ID = functions.config().sendgrid.template;
+sgMail.setApiKey(API_KEY);
+
+exports.newUser = functions.auth.user().onCreate(user =>{
+  const msg = {
+    to: user.email,
+    from: 'rafcall98@hotmail.com',
+    templateId: TEMPLATE_ID,
+    dynamic_template_data: {
+      subject: "Welcome to brixy.net!",
+      name: user.displayName,
+    },
+  }
+
+  return sgMail.send(msg);
+
+});
 
 //http request function.
 exports.toTheDojo = functions.https.onRequest((request,response) =>{
