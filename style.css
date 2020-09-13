@@ -8,7 +8,7 @@
 body
 {
     background: rgb(19, 18, 28) no-repeat center center fixed;
-    background: linear-gradient(20deg, rgb(48, 48, 48) 0%, rgb(20, 18, 22) 100%) no-repeat center center fixed;
+    background: linear-gradient(20deg, rgb(52, 52, 52) 0%, rgb(18, 16, 20) 100%) no-repeat center center fixed;
     font-family: Arial, Helvetica, sans-serif;
     background-color: rgb(6, 6, 12);
 
@@ -693,7 +693,7 @@ button[disabled]{
 /* For index bg picture. */
 .jumbotron {
    
-    background: linear-gradient(20deg, rgb(48, 48, 48) 0%, rgb(20, 18, 22) 100%) no-repeat center center fixed;
+    background: linear-gradient(20deg, rgb(52, 52, 52) 0%, rgb(18, 16, 20) 100%) no-repeat center center fixed;
     background-blend-mode: saturation;
      
     background-position: center;
@@ -903,7 +903,26 @@ a {
     margin-bottom: 40px !important;
 }
 
-#banner {
-    margin-bottom: 200px;
+
+
+
+.contX{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;
+  }
+
+  .containerFooter {
+    position: relative;
+    text-align: center;
+    color: white;
+  }
+
+.containerFooter p{
+    font-size: 28px;
 }
 
