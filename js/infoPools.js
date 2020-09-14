@@ -3,7 +3,7 @@ firebase.auth().onAuthStateChanged(function (user) {
     var database = firebase.database();
     var userId = user.uid;
     database.ref('Contests').once('value').then(function(snapshot) {
-        //TIER1.
+ 
         for(var i=1; i<=3;i++){
             var multiplier = snapshot.child("Pool"+i).child("multiplier").val();
             var maxSpenders = snapshot.child("Pool"+i).child("maxMouktijies").val();

@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
 
-    <title>Last Week Pool2 Statistics</title>
+    <title>Last Week Pool Statistics</title>
     <!-- <script src="https://gstatic.com/firebasejs/6.3.1/firebase-app.js"></script>
     <script src="https://gstatic.com/firebasejs/6.3.1/firebase-auth.js"></script>
     <script src="https://gstatic.com/firebasejs/6.3.1/firebase-database.js"></script>
@@ -60,7 +60,7 @@
 <script src="js/countDown.js"></script>
 
   </head>
-  <body onload="chartCall(3)">
+  <body onload="chartCall(localStorage.getItem('poolStats'))">
        <!--Navigation Menu-->
        <section id="nav_bar">
 

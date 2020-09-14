@@ -153,15 +153,18 @@
                         firebase.auth().onAuthStateChanged(function (user) {
                             if (user) {
                                 $("#pool1").click(function () {
-                                    window.location.href = "lastPool1Stats.html";
+                                    localStorage.setItem("poolStats", 1);
+                                    window.location.href = "lastPoolStats.html";
                                 });
 
                                 $("#pool2").click(function () {
-                                    window.location.href = "lastPool2Stats.html";
+                                    localStorage.setItem("poolStats", 2);
+                                    window.location.href = "lastPoolStats.html";
                                 });
 
                                 $("#pool3").click(function () {
-                                    window.location.href = "lastPool3Stats.html";
+                                    localStorage.setItem("poolStats", 3);
+                                    window.location.href = "lastPoolStats.html";
                                 });
                             }
                         });

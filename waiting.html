@@ -142,16 +142,21 @@
           firebase.auth().onAuthStateChanged(function (user){
           if(user){
             $("#pool1").click(function(){
-              window.location.href = "lastPool1Stats.html";
+              localStorage.setItem("poolStats", 1);
+              window.location.href = "lastPoolStats.html";
             });
 
-            $("#manageMyAccount").click(function(){
-            window.location.href = "pool2.html";
-          });
+            $("#pool2").click(function(){
+              localStorage.setItem("poolStats", 2);
+              window.location.href = "lastPoolStats.html";
+            });
 
-          $("#withdrawMyBricks").click(function(){
-            window.location.href = "pool3.html";
-              });
+            $("#pool3").click(function(){
+              localStorage.setItem("poolStats", 3);
+              window.location.href = "lastPoolStats.html";
+            });
+
+            
             }
           });
         </script>
