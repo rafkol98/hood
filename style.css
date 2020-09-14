@@ -372,7 +372,8 @@ width: 40% !important;
 .border-on-section{
   
     /* margin: 20px; */
-    background: linear-gradient(0deg, rgba(24, 24, 24, 0.5) 0%, rgba(0, 0, 0, 0.5) 100%) no-repeat center center fixed;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.8) 0%, rgba(28, 28, 28, 0.8) 100%) no-repeat center center fixed;
+    /* background: linear-gradient(0deg, rgba(24, 24, 24, 0.5) 0%, rgba(0, 0, 0, 0.5) 100%) no-repeat center center fixed; */
     padding: 16px;
     border: 2px ridge rgb(12, 12, 12);
     padding-left: 40px;
@@ -389,7 +390,7 @@ width: 40% !important;
     margin: auto;
     width: 94%;
     /* background-color: rgb(12, 12, 12,0.5); */
-    background: linear-gradient(0deg, rgba(24, 24, 24, 0.5) 0%, rgba(0, 0, 0, 0.5) 100%) no-repeat center center fixed;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.8) 0%, rgba(28, 28, 28, 0.8) 100%) no-repeat center center fixed;
   
     border: 2px ridge rgb(22, 22, 22);
     /* text-align: center; */
