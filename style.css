@@ -9,7 +9,7 @@ body
 {
 
     background: #121212;  /* fallback for old browsers */
-    background: linear-gradient( rgb(22, 22, 24), rgb(0,0,0)) no-repeat center fixed;
+    background: linear-gradient( rgb(22, 22, 22), rgb(0,0,0)) no-repeat center fixed;
 
     font-family: Arial, Helvetica, sans-serif;
     background-color: rgb(6, 6, 12);
@@ -940,7 +940,7 @@ a {
                 width: 100%;
                 height: 100%;
                 background: rgb(19, 18, 28) no-repeat center center fixed;
-                background: linear-gradient(20deg, rgb(36, 36, 36) 0%, rgb(20, 18, 22) 100%) no-repeat center center fixed;            
+                background: linear-gradient( rgb(22, 22, 22), rgb(0,0,0) 100%) no-repeat center center fixed;            
                 z-index: 999;
 
                 display: flex;
