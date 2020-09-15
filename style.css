@@ -7,8 +7,10 @@
 
 body
 {
-    background: rgb(19, 18, 28) no-repeat center center fixed;
-    background: linear-gradient(20deg, rgb(52, 52, 52) 0%, rgb(16, 14, 16) 100%) no-repeat center center fixed;
+
+    background: #121212;  /* fallback for old browsers */
+    background: linear-gradient(rgb(12, 10, 10), rgb(29, 29, 34)) no-repeat center fixed;
+
     font-family: Arial, Helvetica, sans-serif;
     background-color: rgb(6, 6, 12);
 
@@ -300,7 +302,7 @@ form {
         display: block;
         margin-left: auto;
         margin-right: auto;
-        width: 50%;
+        width: 45%;
   }
 
   .container p{
@@ -724,8 +726,10 @@ button[disabled]{
 
 /* For index bg picture. */
 .jumbotron {
-   
-    background: linear-gradient(20deg, rgb(52, 52, 52) 0%, rgb(16, 14, 16) 100%) no-repeat center center fixed;
+    
+    background: #121212;  /* fallback for old browsers */
+    background: linear-gradient(rgb(12, 10, 10), rgb(29, 29, 34)) no-repeat center fixed;
+
     background-blend-mode: saturation;
      
     background-position: center;
