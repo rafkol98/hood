@@ -13,7 +13,7 @@ firebase.auth().onAuthStateChanged(function (user) {
 
                 // POOL1.
                 // if its finished, make card10 content invisible.
-                if (!finished) {
+                if (! finished) {
 
                     card10.style.visibility = "visible";
                     $(".loader2").fadeOut("slow");
@@ -36,22 +36,19 @@ firebase.auth().onAuthStateChanged(function (user) {
 
 
                     $("#stats1").click(function () {
-
-                        window.location.href = "lastPool1Stats.html";
-
+                        localStorage.setItem("poolStats", 1);
+                        window.location.href = "lastPoolStats.html";
                     });
 
 
                     $("#stats2").click(function () {
-
-                        window.location.href = "lastPool2Stats.html";
-
+                        localStorage.setItem("poolStats", 2);
+                        window.location.href = "lastPoolStats.html";
                     });
 
                     $("#stats3").click(function () {
-
-                        window.location.href = "lastPool3Stats.html";
-
+                        localStorage.setItem("poolStats", 3);
+                        window.location.href = "lastPoolStats.html";
                     });
 
 

@@ -9,7 +9,7 @@ body
 {
 
     background: #121212;  /* fallback for old browsers */
-    background: linear-gradient( rgb(12, 12, 12), rgb(0,0,0)) no-repeat center fixed;
+    background: linear-gradient( rgb(22, 22, 24), rgb(0,0,0)) no-repeat center fixed;
 
     font-family: Arial, Helvetica, sans-serif;
     background-color: rgb(6, 6, 12);
@@ -127,7 +127,7 @@ a:hover{
 }
 
 .navbar{
-    background-image: linear-gradient(to right,rgb(10, 10, 10),rgb(14, 14, 18));
+    background-image: linear-gradient(to right,rgb(0, 0, 0),rgb(12, 12, 12));
     padding-left: 5%;
     padding-right: 5%;
     transition: 1s;
@@ -374,7 +374,7 @@ width: 40% !important;
 .border-on-section{
   
     /* margin: 20px; */
-    background: linear-gradient(0deg, rgba(0, 0, 0, 0.98) 0%, rgba(18, 18, 18, 0.98) 100%) no-repeat center center fixed;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.95) 0%, rgba(18, 18, 18, 0.95) 100%) no-repeat center center fixed;
     /* background: linear-gradient(0deg, rgba(24, 24, 24, 0.5) 0%, rgba(0, 0, 0, 0.5) 100%) no-repeat center center fixed; */
     padding: 16px;
     border: 2px ridge rgb(12, 12, 12);
@@ -392,7 +392,7 @@ width: 40% !important;
     margin: auto;
     width: 94%;
     /* background-color: rgb(12, 12, 12,0.5); */
-    background: linear-gradient(0deg, rgba(0, 0, 0, 0.98) 0%, rgba(18, 18, 18, 0.98) 100%) no-repeat center center fixed;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.95) 0%, rgba(18, 18, 18, 0.95) 100%) no-repeat center center fixed;
   
     border: 2px ridge rgb(22, 22, 22);
     /* text-align: center; */
@@ -751,8 +751,8 @@ button[disabled]{
     z-index: -1;   
    /* background-position: top; */
    background-size: cover;
-   height: 120vh;
-   /* background-repeat:; */
+   height: 200vh;
+   
 
    
   } 
