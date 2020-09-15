@@ -9,7 +9,7 @@ body
 {
 
     background: #121212;  /* fallback for old browsers */
-    background: linear-gradient(rgb(0, 0, 0), rgb(16, 16, 16)) no-repeat center fixed;
+    background: linear-gradient( rgb(12, 12, 12), rgb(0,0,0)) no-repeat center fixed;
 
     font-family: Arial, Helvetica, sans-serif;
     background-color: rgb(6, 6, 12);
@@ -374,7 +374,7 @@ width: 40% !important;
 .border-on-section{
   
     /* margin: 20px; */
-    background: linear-gradient(0deg, rgba(0, 0, 0, 0.8) 0%, rgba(28, 28, 28, 0.8) 100%) no-repeat center center fixed;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.98) 0%, rgba(18, 18, 18, 0.98) 100%) no-repeat center center fixed;
     /* background: linear-gradient(0deg, rgba(24, 24, 24, 0.5) 0%, rgba(0, 0, 0, 0.5) 100%) no-repeat center center fixed; */
     padding: 16px;
     border: 2px ridge rgb(12, 12, 12);
@@ -392,7 +392,7 @@ width: 40% !important;
     margin: auto;
     width: 94%;
     /* background-color: rgb(12, 12, 12,0.5); */
-    background: linear-gradient(0deg, rgba(0, 0, 0, 0.8) 0%, rgba(28, 28, 28, 0.8) 100%) no-repeat center center fixed;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.98) 0%, rgba(18, 18, 18, 0.98) 100%) no-repeat center center fixed;
   
     border: 2px ridge rgb(22, 22, 22);
     /* text-align: center; */
@@ -475,7 +475,7 @@ width: 40% !important;
     transition: 0.8s;
     position: relative;
     overflow: hidden;
-    background-color: rgb(14, 14, 14,0.4);
+    background-color: rgb(40,40,40,0.4);
     font-style: italic;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   }
@@ -486,7 +486,7 @@ width: 40% !important;
   }
 
   .btn-new{
-    background-color: rgb(14, 14, 14,0.4);
+    background-color: rgb(40,40,40,0.4);
     color: rgb(255, 255, 255);
     font-style: italic;
   }
@@ -558,7 +558,7 @@ hr.style-two {
     /* position:relative; */
     /* border: 1px solid rgb(58, 58, 58); */
     border: 1px ridge black;
-    background-color: rgb(14,14,14,0.4) !important;
+    background-color: rgba(40, 40, 40, 0.4) !important;
     margin-left: 20% !important;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2) !important;
     transition: 4s;
@@ -567,7 +567,7 @@ hr.style-two {
 .cardDashBoard {
     /* border: 1px solid rgb(58, 58, 58); */
     border: 3px ridge black;
-    background-color: rgb(14,14,14,0.4) !important;
+    background-color: rgba(40, 40, 40, 0.4) !important;
     margin: 10px !important;
     overflow: scroll;
     height: 300px;
@@ -730,42 +730,34 @@ button[disabled]{
 }
 
 
-.bgIndex {
+ .bgIndex {
     width: 100%;
     height: 100%;
     display: block;
     position: relative;
+   
   }
   
  .bgIndex::after {
+    
     content: "";
-    background: url(images/rubiks\ cube\ bricks2-03.png);
-    opacity: 0.15;
+    background: url(images/rubiks\ cube\ bricks-02.png);
+    opacity: 1;
     top: 0;
     left: 0;
     bottom: 0;
     right: 0;
     position: absolute;
     z-index: -1;   
-   background-position: right;
-  
-  }
+   /* background-position: top; */
+   background-size: cover;
+   height: 120vh;
+   /* background-repeat:; */
+
+   
+  } 
 
 
-/* 
-.bgIndex{
-    display: block;
-    position: relative;
-     
-}
-
-.bgIndex::after {
-    background-image: url(images/rubiks\ cube\ bricks2-03.png) !important;
-    opacity: 0.9;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-} */
 
 
 /* For index bg picture. */
@@ -914,13 +906,13 @@ a {
 
 .dropbtn{
     color: white;
-    background-color: rgb(14,14,14,0.4) !important;
+    background-color: rgb(40,40,40,0.4) !important;
 
 }
 
 .dropbtn:hover{
     color: #fa5700;
-    background-color: rgb(14,14,14,0.4) !important;
+    background-color: rgb(40,40,40,0.4) !important;
 
 }
 
