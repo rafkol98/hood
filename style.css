@@ -9,7 +9,7 @@ body
 {
 
     background: #121212;  /* fallback for old browsers */
-    background: linear-gradient(rgb(12, 10, 10), rgb(29, 29, 34)) no-repeat center fixed;
+    background: linear-gradient(rgb(0, 0, 0), rgb(16, 16, 16)) no-repeat center fixed;
 
     font-family: Arial, Helvetica, sans-serif;
     background-color: rgb(6, 6, 12);
@@ -608,6 +608,11 @@ hr.style-two {
     padding: 40px;
 }
 
+.imgPad2{
+    width: 90%;
+    padding: 20px;
+}
+
 .brixyLogo{
    height: 40px;
    transition: 1s;
@@ -724,12 +729,51 @@ button[disabled]{
   color: #666666;
 }
 
+
+.bgIndex {
+    width: 100%;
+    height: 100%;
+    display: block;
+    position: relative;
+  }
+  
+ .bgIndex::after {
+    content: "";
+    background: url(images/rubiks\ cube\ bricks2-03.png);
+    opacity: 0.15;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;   
+   background-position: right;
+  
+  }
+
+
+/* 
+.bgIndex{
+    display: block;
+    position: relative;
+     
+}
+
+.bgIndex::after {
+    background-image: url(images/rubiks\ cube\ bricks2-03.png) !important;
+    opacity: 0.9;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+} */
+
+
 /* For index bg picture. */
 .jumbotron {
     
     background: #121212;  /* fallback for old browsers */
-    background: linear-gradient(rgb(12, 10, 10), rgb(29, 29, 34)) no-repeat center fixed;
-
+    background: linear-gradient(rgb(18, 16, 16), rgb(35, 35, 40)) no-repeat center fixed;
+    /* background-image: url(images/rubiks\ cube\ bricks2-03.png); */
     background-blend-mode: saturation;
      
     background-position: center;

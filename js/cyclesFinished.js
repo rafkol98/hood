@@ -13,7 +13,7 @@ firebase.auth().onAuthStateChanged(function (user) {
 
                 // POOL1.
                 // if its finished, make card10 content invisible.
-                if (! finished) {
+                if (!finished) {
 
                     card10.style.visibility = "visible";
                     $(".loader2").fadeOut("slow");
