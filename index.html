@@ -88,6 +88,14 @@
             <div class="bgIndex">
             <div class="" style="margin-bottom: 0px;">
 
+                <div class="loader2">
+                    <br>
+                    <img src="./images/logos-08.png" alt="logo-brixy" height="120px">
+                    <img src="./images/brixy.net logo@2x.png" alt="brixyLogo-text"  height="90px">
+                    <br>
+                    <img src="images/three-dots.svg" alt="three-dots" height="25px">
+                </div>
+
                 <div class="containerIndex">
                     <div
                         class="row">
@@ -269,9 +277,13 @@
             </div>
 
       
+            
                 <script src="js/signIn.js"></script>
                 <script>
 
+                    window.addEventListener('load', function () {
+                        jQuery(".loader2").fadeOut("slow");
+                    })
 
                     $("#password").keyup(function (event) {
                         if (event.keyCode == 13) {
@@ -297,7 +309,7 @@
 
                 <!-- Optional JavaScript
                                                                      jQuery first, then Popper.js, then Bootstrap JS -->
-            
+                                                                     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         </body>
 
 

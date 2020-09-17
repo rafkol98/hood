@@ -260,12 +260,15 @@ function calculatePecentage(moneyTotal,num) {
     console.log("oneBrickExtraPercentage was written. value:"+oneBrickExtraPercentage);
 
     //Formula BrickWorth.
+    if(moneySpread!=0){
     var brickWorth = (moneySpread/numberOfPeople) - ((oneBrickExtraPercentage/100)*priceEntry);
     console.log("brickWorth before write"+brickWorth);
 
     admin.database().ref('Contests/Pool'+num+'/brickWorth').set(brickWorth);
     console.log("brickWorth was written. value:"+brickWorth);
-
+    } else{
+      console.log("moneySpread was 0 so, we didnt write new brickWorth.");
+    }
 
     //Calculate bonus for one brickers
     var sumBonusOneBrick = (oneBrickExtraPercentage/100) * moneyTotal;
