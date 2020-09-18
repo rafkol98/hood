@@ -670,7 +670,13 @@ refCurrent.once('value').then(function(snapshot) {
   available_quantity = snapshot.val().currentBricks;
   console.log(available_quantity);
 
+  //Check if user already participates in that contest.
+  if(snapshot.child("participates").child("pool"+num).exists()){
 
+    console.log(userId+" he already participates in pool"+num+" how did he get here??");
+
+  } else {
+  //Check if he has the necessary bricks quantity.
   if( available_quantity >= priceEntry){
    
     //Write user under Request System.
@@ -700,7 +706,7 @@ refCurrent.once('value').then(function(snapshot) {
     //MAYBE TERMINATE ACCOUNT, THEY TRIED TO HACK THE SYSTEM.
     console.log("Not enough bricks!")
   }
-
+  }
   });
 
 }}
@@ -723,6 +729,7 @@ exports.enterTicket =functions.https.onCall((data,context)=>{
   var refPool = admin.database().ref('/Request_System/Pool'+num);
   var refCurrent = admin.database().ref('/profiles/'+userId);
 
+  
 
   //1. IF NUMBER MOUKTIJIES < 50 THEN => CONTINUE, ELSE STOP. xx.
   //2. IF USER HAS TICKET BRONZE. xx
@@ -740,6 +747,14 @@ exports.enterTicket =functions.https.onCall((data,context)=>{
 
     refCurrent.once('value').then(function(snapshot) {
     var ticket = snapshot.child("ticket");
+
+  //Check if user already participates in that contest.
+    if(snapshot.child("participates").child("pool"+num).exists()){
+
+      console.log(userId+" he already participates in pool"+num+" how did he get here??");
+  
+    } else{
+
     if(ticket.exists()){
 
       var ticketShould;
@@ -784,6 +799,8 @@ exports.enterTicket =functions.https.onCall((data,context)=>{
       } else{
         console.log("IMPORTANT - "+userId+" does not have a ticket. HOW DID HE END UP HERE?")
       }
+
+    }
   });
 } else {
   console.log("mouktijies limit reached, or time ran out, or contest was finished.");
