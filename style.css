@@ -56,6 +56,12 @@ p {
     color: rgb(215, 215, 215);
 }
 
+li{
+    padding: 7px;
+    font-size: 18px;
+    color: rgb(215, 215, 215);
+}
+
 a:hover{
     color: #f95700;
     font-style: italic;
