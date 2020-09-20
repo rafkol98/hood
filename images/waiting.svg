@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="184.589" height="184.589" viewBox="0 0 184.589 184.589">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.5" y1="1" x2="0.5" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="gray" stop-opacity="0.251"/>
+      <stop offset="0.54" stop-color="gray" stop-opacity="0.122"/>
+      <stop offset="1" stop-color="gray" stop-opacity="0.102"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#f95700"/>
+      <stop offset="1" stop-color="#923300"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-3" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0"/>
+      <stop offset="1" stop-color="#24292c"/>
+    </linearGradient>
+  </defs>
+  <g id="Group_14" data-name="Group 14" transform="translate(-40.783 -5.717)">
+    <circle id="Ellipse_1" data-name="Ellipse 1" cx="92.294" cy="92.294" r="92.294" transform="translate(40.783 5.717)" fill="url(#linear-gradient)"/>
+    <circle id="Ellipse_2" data-name="Ellipse 2" cx="90.765" cy="90.765" r="90.765" transform="translate(42.313 7.247)" fill="url(#linear-gradient-2)"/>
+    <circle id="Ellipse_3" data-name="Ellipse 3" cx="72.153" cy="72.153" r="72.153" transform="translate(60.925 25.858)" fill="url(#linear-gradient-3)"/>
+    <rect id="Rectangle_5" data-name="Rectangle 5" width="4.079" height="63.739" transform="translate(131.038 38.606)" fill="#fff" opacity="0.463"/>
+    <g id="Group_3" data-name="Group 3" transform="translate(94.365 77.404)" opacity="0.1">
+      <rect id="Rectangle_6" data-name="Rectangle 6" width="57.62" height="5.099" transform="translate(43.047 19.078)"/>
+      <rect id="Rectangle_7" data-name="Rectangle 7" width="5.099" height="40.926" transform="translate(0 4.517) rotate(-62.36)"/>
+      <circle id="Ellipse_4" data-name="Ellipse 4" cx="7.649" cy="7.649" r="7.649" transform="translate(31.064 13.979)"/>
+    </g>
+    <rect id="Rectangle_8" data-name="Rectangle 8" width="57.62" height="5.099" transform="translate(137.412 95.462)" fill="#535461"/>
+    <rect id="Rectangle_9" data-name="Rectangle 9" width="40.926" height="5.099" transform="translate(96.748 76.39) rotate(27.64)" fill="#535461"/>
+    <circle id="Ellipse_5" data-name="Ellipse 5" cx="7.649" cy="7.649" r="7.649" transform="translate(125.429 90.363)" fill="#535461"/>
+    <g id="Group_4" data-name="Group 4" transform="translate(60.919 25.858)" opacity="0.1">
+      <path id="Path_20" data-name="Path 20" d="M325.609,246.091a72.158,72.158,0,0,1,129.814-43.383,72.16,72.16,0,1,0-120.923,78.1A71.824,71.824,0,0,1,325.609,246.091Z" transform="translate(-320 -165.27)"/>
+    </g>
+    <path id="Path_43" data-name="Path 43" d="M705.32,326.79s5.706,2.1,9.433.467l1.864.117s3.1,2.172,6.374,1.2" transform="translate(-546.16 -259.751)" opacity="0.05"/>
+    <path id="Path_44" data-name="Path 44" d="M809.548,313.09s-.931,2.213-.467,2.912" transform="translate(-623.37 -249.544)" opacity="0.05"/>
+    <path id="Path_45" data-name="Path 45" d="M665.58,310.35s.467,2.213,0,2.912" transform="translate(-516.552 -247.502)" opacity="0.05"/>
+  </g>
+</svg>
