@@ -291,7 +291,7 @@ form {
   .containerIndex{
       padding:16px;
       margin: auto;
-      margin-bottom: 40px;
+      margin-bottom: 80px;
       width: 94% !important;
   }
 
@@ -379,7 +379,7 @@ width: 40% !important;
 
 .border-on-section{
     /* margin: 20px; */
-    background: linear-gradient(0deg, rgba(0, 0, 0, 0.95) 0%, rgba(18, 18, 18, 0.95) 100%) no-repeat center center fixed;
+    background: linear-gradient(0deg, rgba(22, 22, 22, 1) 0%, rgba(0, 0, 0,0.95) 100%) no-repeat center center fixed;
     /* background: linear-gradient(0deg, rgba(24, 24, 24, 0.5) 0%, rgba(0, 0, 0, 0.5) 100%) no-repeat center center fixed; */
     padding: 16px;
     border: 2px ridge rgb(12, 12, 12);
@@ -395,11 +395,11 @@ width: 40% !important;
 
 .border-on-section2{
     margin: auto;
-    width: 94%;
+    width: 96%;
     /* background-color: rgb(12, 12, 12,0.5); */
-    background: linear-gradient(0deg, rgba(0, 0, 0, 0.95) 0%, rgba(18, 18, 18, 0.95) 100%) no-repeat center center fixed;
-  
-    border: 2px ridge rgb(22, 22, 22);
+    /* background: linear-gradient(0deg, rgba(0, 0, 0, 0.95) 0%, rgba(18, 18, 18, 0.95) 100%) no-repeat center center fixed; */
+    background: linear-gradient(0deg, rgba(22, 22, 22, 1) 0%, rgba(0, 0, 0,0.95) 100%) no-repeat center center fixed;
+    border: 2px ridge rgb(0, 0, 0);
     /* text-align: center; */
     padding:40px;
     margin-top: 20px;
@@ -797,7 +797,7 @@ button[disabled]{
 }
 
 .arrows path {
-	stroke: #F95700FF;
+	stroke: rgb(0, 0, 0);
 	fill: transparent;
 	stroke-width: 1px;	
 	animation: arrow 2s infinite;
