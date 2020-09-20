@@ -133,11 +133,11 @@ a:hover{
 }
 
 .navbar{
-    background-image: linear-gradient(to right,rgb(0, 0, 0),rgb(12, 12, 12));
+    background-image: linear-gradient(to bottom,rgb(0, 0, 0),rgb(12, 12, 12));
     padding-left: 5%;
     padding-right: 5%;
-    transition: 1s;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4);
+    /* transition: 1s; */
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.8);
     
 }
 /* 
