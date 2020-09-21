@@ -179,6 +179,15 @@ exports.taskGraph = functions.runWith({memory:'2GB'}).pubsub
 
 });
 
+//Remove all the graph points everyday at midnight.
+exports.removeGraphs = functions.runWith({memory:'2GB'}).pubsub
+.schedule('0 0 * * *').onRun(async context => {
+  admin.database().ref('Graphs/Pool1').remove();
+  admin.database().ref('Graphs/Pool2').remove();
+  admin.database().ref('Graphs/Pool3').remove();
+  console.log("!IMPORTANT - graphs were removed");
+});
+
 
 //automate movement of request system.
 exports.taskRunner = functions.runWith({memory:'2GB'}).pubsub
