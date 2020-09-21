@@ -44,7 +44,11 @@ $(function () {
                 }
 
                 var minsAllowed = parseInt(snapshot.child("pool"+num).child("minsAllowed").val(), 10)
-                $("#minsAllowed").html(minsAllowed);
+                if(minsAllowed!=null){
+                    $("#minsAllowed").html(minsAllowed);
+                } else{
+                    $("#minsAllowed").html("...")
+                }
 
                 var timestamp1st = snapshot.child("pool"+num).child("timestamp1st").val();
                 if (timestamp1st == null) {
@@ -108,7 +112,12 @@ function changeCategory(num){
                 }
 
                 var minsAllowed = parseInt(snapshot.child("pool"+num).child("minsAllowed").val(), 10)
-                $("#minsAllowed").html(minsAllowed);
+                if(minsAllowed!=null){
+                    $("#minsAllowed").html(minsAllowed);
+                } else{
+                    $("#minsAllowed").html("...")
+                }
+               
 
                 var timestamp1st = snapshot.child("pool"+num).child("timestamp1st").val();
                 if (timestamp1st == null) {

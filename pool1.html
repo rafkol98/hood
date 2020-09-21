@@ -36,8 +36,6 @@
     <script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-database.js"></script>
     <script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-functions.js"></script>
 
-    
-    <script src="js/joinedContest.js"></script>
 
     <script src ="js/noOfBricks.js"></script>
     
@@ -79,7 +77,14 @@
 
   </head>
   <body>
- 
+        <div class="loader2" style="display: none;">
+            <br>
+            <img src="./images/logos-08.png" alt="logo-brixy" height="120px">
+            <img src="./images/brixy.net logo@2x.png" alt="brixyLogo-text"  height="90px">
+            <h2 style="font-size: 28px;">PLEASE WAIT...YOU ARE JOINING THE CYCLE</h2>
+            <br>
+            <img src="images/three-dots.svg" alt="three-dots" height="25px">
+        </div>
        <!--Navigation Menu-->
        <section id="nav_bar">
 
@@ -107,7 +112,7 @@
 
 
     <!-- TODO IF USER HAS PARTICIPATES, HIDE THIS TABLE. -->
-    <div class="col-md-5 col-md-push-5 order-sm-1 border-on-section col-centered marginBox" >
+    <div class="col-md-5 col-md-push-5 order-sm-1 border-on-section3 col-centered marginBox" >
       <p class="login-pool">REQUEST ENTRY - <span class="colorOr">BRONZE</span></p>
       <div class="container">
          <p>Encrypted ID of of the user displayed right now: <br><span id="playerId">Loading...</span></p>
@@ -123,31 +128,6 @@
   
   <script>
     $(function(){
-
-      // firebase.auth().onAuthStateChanged(function (user){
-      //   if(user){
-      //     var userId = user.uid;
-        
-      //     //Get the first uid user.
-      //     firebase.database().ref('/Request_System/').child("Pool1").limitToFirst(1).once('value').then(function(snapshot) {
-      //       var uidOfUser = snapshot.val();
-      //       for(key in uidOfUser){
-      //           if(uidOfUser.hasOwnProperty(key)) {
-      //           var value = uidOfUser[key];
-      //           //do something with value;
-      //           localStorage.setItem("uidReq",value);
-      //           $("#playerId").html(value);
-      //        }
-      //       }
-      //     });
-
-          
-
-
-
-
-      //   }
-      // });
 
       const result = firebase.functions().httpsCallable('encrypt');
               result().then(result=>{

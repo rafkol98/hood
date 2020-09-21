@@ -13,6 +13,7 @@ $("#btn-Request").click(function () {
     firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
 
+            $(".loader2").show();
             var database = firebase.database();
             var userId = user.uid;
 
@@ -25,7 +26,11 @@ $("#btn-Request").click(function () {
                 //if user has more than 10 bricks, call function.
                 if (available_quantity >= 10) {
                     const enter = firebase.functions().httpsCallable('enterPool1');
-                    enter({num: '1'});
+                    enter({num: '1'}).then(result => {
+                        console.log(result.data);
+                        alert(result.data);
+                        window.location.href = "loggedIn.html";
+                    });
                 } else{
                     alert("Not enough bricks!");
                 }
@@ -40,6 +45,7 @@ $("#btn-Request2").click(function () {
     firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
 
+            $(".loader2").show();
             var database = firebase.database();
             var userId = user.uid;
 
@@ -52,7 +58,11 @@ $("#btn-Request2").click(function () {
                 //if user has more than 40 bricks, call function.
                 if (available_quantity >= 40) {
                     const enter = firebase.functions().httpsCallable('enterPool1');
-                    enter({num: '2'});
+                    enter({num: '2'}).then(result => {
+                        console.log(result.data);
+                        alert(result.data);
+                        window.location.href = "loggedIn.html";
+                    });
                 } else{
                     alert("Not enough bricks!");
                 }
@@ -66,7 +76,7 @@ $("#btn-Request3").click(function () {
 
     firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
-
+            $(".loader2").show();
             var database = firebase.database();
             var userId = user.uid;
 
@@ -79,7 +89,11 @@ $("#btn-Request3").click(function () {
                 //if user has more than 100 bricks, call function.
                 if (available_quantity >= 100) {
                     const enter = firebase.functions().httpsCallable('enterPool1');
-                    enter({num: '3'});
+                    enter({num: '3'}).then(result => {
+                        console.log(result.data);
+                        alert(result.data);
+                        window.location.href = "loggedIn.html";
+                    });
                 } else{
                     alert("Not enough bricks!");
                 }

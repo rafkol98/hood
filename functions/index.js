@@ -639,6 +639,7 @@ function clearRequestSystem(num){
 
 
 exports.enterPool1 =functions.https.onCall((data,context)=>{
+  return new Promise((resolve, reject) => {
   const num = data.num;
 
   const userId = context.auth.uid;
@@ -683,6 +684,7 @@ refCurrent.once('value').then(function(snapshot) {
   if(snapshot.child("participates").child("pool"+num).exists()){
 
     console.log(userId+" he already participates in pool"+num+" how did he get here??");
+    resolve('YOU ALREADY PARTICIPATE IN THIS CYCLE');
 
   } else {
   //Check if he has the necessary bricks quantity.
@@ -711,9 +713,11 @@ refCurrent.once('value').then(function(snapshot) {
           getCountF(userId, num, priceEntry);
         });
     
+        resolve('SUCCESS');
   } else{
     //MAYBE TERMINATE ACCOUNT, THEY TRIED TO HACK THE SYSTEM.
-    console.log("Not enough bricks!")
+    console.log("Not enough bricks!");
+    resolve('Not Enough Bricks');
   }
   }
   });
@@ -722,9 +726,13 @@ refCurrent.once('value').then(function(snapshot) {
 });
 
 } else{
-  console.log("Either the contest did not start OR the mouktijies still have time.")
+  console.log("Either the contest did not start OR the mouktijies still have time.");
+  resolve('YOU ARE NOT ALLOWED TO ENTER YET');
 }
 });
+
+});
+
 });
 
 
