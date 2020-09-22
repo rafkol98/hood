@@ -740,6 +740,7 @@ refCurrent.once('value').then(function(snapshot) {
 
 
 exports.enterTicket =functions.https.onCall((data,context)=>{
+  return new Promise((resolve, reject) => {
   const num = data.num;
   const userId = context.auth.uid;
 
@@ -769,6 +770,7 @@ exports.enterTicket =functions.https.onCall((data,context)=>{
     if(snapshot.child("participates").child("pool"+num).exists()){
 
       console.log(userId+" he already participates in pool"+num+" how did he get here??");
+      resolve('YOU ALREADY PARTICIPATE IN THIS CYCLE');
   
     } else{
 
@@ -809,21 +811,26 @@ exports.enterTicket =functions.https.onCall((data,context)=>{
         contestsRef.child('numberMouktijies').transaction(function(numberMouktijies) {
           return (numberMouktijies|| 0) + 1});
 
+          resolve('SUCCESS!');
       
       } else{
         console.log(userId+" he has a ticket of another type.");
+        resolve('YOU HAVE TICKET OF ANOTHER TIER!');
       }
       } else{
         console.log("IMPORTANT - "+userId+" does not have a ticket. HOW DID HE END UP HERE?")
+        resolve('YOU DO NOT HAVE A TICKET!');
       }
 
     }
   });
 } else {
   console.log("mouktijies limit reached, or time ran out, or contest was finished.");
+  resolve('YOU ARE NOT ALLOWED TO ENTER YET');
 }
 });
-  
+
+});
 });
 
 
