@@ -158,9 +158,10 @@ exports.encrypt=functions.https.onCall((data,context)=>{
     });
       
 
-    admin.database().ref('Contests/Pool'+num+'/moneyTotal').once('value').then(function(snapshot) {
-      var moneyTotal = snapshot.val();
-      calculatePecentage(moneyTotal,num);
+    admin.database().ref('Contests/Pool'+num).once('value').then(function(snapshot) {
+      var moneyTotal = snapshot.child("moneyTotal").val();
+      var priceEntry = snapshot.child("priceEntry");
+      calculatePecentage(priceEntry, moneyTotal,num);
       });
 
   })
@@ -216,42 +217,42 @@ exports.taskRandomizer = functions.runWith({memory:'2GB'}).pubsub
 
 
 //Calculates percentage of cut.
-function calculatePecentage(moneyTotal,num) {
-  console.log("calculatePercentage() called.")
+function calculatePecentage(priceEntry,moneyTotal,num) {
+  console.log("Pool"+num+" calculatePercentage() called.")
   //Get the moneytotal.
   
-    console.log("moneyTotal "+moneyTotal);
+    console.log("Pool"+num+" moneyTotal "+moneyTotal+" priceEntry "+priceEntry);
 
     //Calculate percentage of cut.
     var percentage;
-
-    if(moneyTotal >= 0 && moneyTotal < 50){
+    //MAKE THE FIRST ONE FROM 4 TO 20
+    if(moneyTotal >= 0 && moneyTotal < (priceEntry*4)){
       percentage = 30;
-    } else if (moneyTotal >= 50 && moneyTotal < 70) {
+    } else if (moneyTotal >= (priceEntry*20) && moneyTotal < (priceEntry*50)) {
       percentage = 25;
-    } else if (moneyTotal >= 70 && moneyTotal < 100) {
+    } else if (moneyTotal >= (priceEntry*50) && moneyTotal < (priceEntry*100)) {
       percentage = 20;
-    } else if (moneyTotal >= 100 && moneyTotal < 120) {
+    } else if (moneyTotal >= (priceEntry*100) && moneyTotal < (priceEntry*170)) {
       percentage = 15;
-    } else if (moneyTotal >= 120) {
+    } else if (moneyTotal >= (priceEntry*170)) {
       percentage = 10;
     }
 
-  console.log("pecentage cut "+percentage);
+  console.log("Pool"+num+" pecentage cut "+percentage);
 
   //write percentage.
   admin.database().ref('Contests/Pool'+num+'/percentageCut').set(percentage);
-  console.log("percentageCut was written.");
+  console.log("Pool"+num+" percentageCut was written.");
 
   var moneyProfit = moneyTotal * (percentage/100);
 
   admin.database().ref('Contests/Pool'+num+'/moneyProfit').set(moneyProfit);
-  console.log("moneyProfit was written.");
+  console.log("Pool"+num+" moneyProfit was written.");
 
   var moneySpread = moneyTotal - moneyProfit;
 
   admin.database().ref('Contests/Pool'+num+'/moneySpread').set(moneySpread);
-  console.log("moneySpread was written.");
+  console.log("Pool"+num+" moneySpread was written.");
 
   admin.database().ref('Contests/Pool'+num).once('value').then(function(snapshot) {
     //numberOfPeople is 'total minus head' in the excel.
@@ -259,42 +260,43 @@ function calculatePecentage(moneyTotal,num) {
     var priceEntry = snapshot.child('priceEntry').val();
     var biggestPercentagePossible = snapshot.child('biggestPercentagePossible').val();
 
-    console.log("values used for brick formula "+numberOfPeople+"  "+priceEntry+"  "+biggestPercentagePossible);
+    console.log("Pool"+num+" values used for brick formula "+numberOfPeople+"  "+priceEntry+"  "+biggestPercentagePossible);
     
     
 
     //One bricker bonus percentage.
     var oneBrickExtraPercentage = biggestPercentagePossible - percentage;
     admin.database().ref('Contests/Pool'+num+'/oneBrickExtraPercentage').set(oneBrickExtraPercentage);
-    console.log("oneBrickExtraPercentage was written. value:"+oneBrickExtraPercentage);
+    console.log("Pool"+num+" oneBrickExtraPercentage was written. value:"+oneBrickExtraPercentage);
 
     //Formula BrickWorth.
     if(moneySpread!=0){
     var brickWorth = (moneySpread/numberOfPeople) - ((oneBrickExtraPercentage/100)*priceEntry);
-    console.log("brickWorth before write"+brickWorth);
+    console.log("Pool"+num+" brickWorth before write"+brickWorth);
 
     admin.database().ref('Contests/Pool'+num+'/brickWorth').set(brickWorth);
-    console.log("brickWorth was written. value:"+brickWorth);
+    console.log("Pool"+num+" brickWorth was written. value:"+brickWorth);
     } else{
-      console.log("moneySpread was 0 so, we didnt write new brickWorth.");
+      console.log("Pool"+num+" moneySpread was 0 so, we didnt write new brickWorth.");
     }
 
     //Calculate bonus for one brickers
     var sumBonusOneBrick = (oneBrickExtraPercentage/100) * moneyTotal;
     admin.database().ref('Contests/Pool'+num+'/sumBonusOneBrick').set(sumBonusOneBrick);
-    console.log("sumBonusOneBrick was written. value:"+sumBonusOneBrick);
+    console.log("Pool"+num+" sumBonusOneBrick was written. value:"+sumBonusOneBrick);
 
     //Calculate exactly how much bricks extra FOR EACH one bricker.
     var numberOneBrickers;
 
     admin.database().ref('Contests/Pool'+num+'/numberOneBrickers').once('value').then(function(snapshot) {
       numberOneBrickers = snapshot.val();
-      console.log("numberOneBrickers "+numberOneBrickers);
-
-      var bonusPerOneBricker = sumBonusOneBrick/numberOneBrickers;
-      admin.database().ref('Contests/Pool'+num+'/bonusPerOneBricker').set(bonusPerOneBricker);
-      console.log("bonusPerOneBricker was written. value:"+bonusPerOneBricker);
-
+      console.log("Pool"+num+" numberOneBrickers "+numberOneBrickers);
+      if(numberOneBrickers!=0){
+        var bonusPerOneBricker = sumBonusOneBrick/numberOneBrickers;
+        admin.database().ref('Contests/Pool'+num+'/bonusPerOneBricker').set(bonusPerOneBricker);
+        console.log("Pool"+num+" bonusPerOneBricker was written. value:"+bonusPerOneBricker);  
+      }
+     
     });
 
   });
@@ -359,10 +361,10 @@ function initialize(num) {
 //Automatically allocate bricks to users.
 function allocateBricks(num){
   var brickWorth;
-  console.log("2 called");
+  console.log("Pool"+num+" 2 called");
   admin.database().ref('Contests/Pool'+num+'/brickWorth').once('value').then(function(snapshot) {
     brickWorth = snapshot.val();
-    console.log("brickWorth value "+brickWorth);
+    console.log("Pool"+num+" brickWorth value "+brickWorth);
 
     var brickShould;
 
@@ -379,7 +381,7 @@ function allocateBricks(num){
   if(brickWorth == brickShould ){
       console.log("Allocation going good, brickWorth was correct");
       admin.database().ref('Logistics/Pool'+num+'/bricksAllocated').set(0);
-      console.log("bricksAllocated set to 0. time for new calculations.")
+      console.log("Pool"+num+" bricksAllocated set to 0. time for new calculations.")
 
   admin.database().ref('profiles').once('value').then(function(snapshot) {
     snapshot.forEach((child) => {
@@ -391,25 +393,25 @@ function allocateBricks(num){
         var peopleInvited = child.child("participates").child("pool"+num).child("peopleInvited").val();
 
         var bricksEarned = brickWorth * peopleInvited;
-        console.log("bricksEarned for user "+ userUid+" are: "+bricksEarned);
+        console.log("Pool"+num+" bricksEarned for user "+ userUid+" are: "+bricksEarned);
 
         var moneySpread, bricksAllocate;
         //CHECK IF bricksAllocated+bricksEarned <= moneySpread FROM CONTESTS TABLE. ONLY DO THE TRANSACTION THEN!
         admin.database().ref('Contests/Pool'+num+'/moneySpread').once('value').then(function(snapshot) {
           moneySpread = snapshot.val();
-          console.log("moneySpread value "+moneySpread);
+          console.log("Pool"+num+" moneySpread value "+moneySpread);
         
 
         admin.database().ref('Logistics/Pool'+num+'/bricksAllocated').once('value').then(function(snapshot) {
           bricksAllocate = snapshot.val();
-          console.log("bricksAllocated value "+bricksAllocate);
+          console.log("Pool"+num+" bricksAllocated value "+bricksAllocate);
         
 
         const bricksEarnedRef = admin.database().ref('profiles/'+userUid);
         const bricksAllocatedRef = admin.database().ref('Logistics/Pool'+num);
         const bricksAllocatedTotalRef = admin.database().ref('Logistics/Bricks');
 
-        console.log("peopleInvited "+ peopleInvited+"for" +userUid);
+        console.log("Pool"+num+" peopleInvited "+ peopleInvited+"for" +userUid);
 
 
         var currentTimestamp = new Date().getTime();
@@ -421,23 +423,23 @@ function allocateBricks(num){
 
                 //write how many bricks he earned in this contest
                 bricksEarnedRef.child('bricksEarnedLast').child(currentTimestamp).set(bricksEarned);
-                  console.log("bricksEarnedLast added.");
+                  console.log("Pool"+num+" bricksEarnedLast added.");
 
                 bricksEarnedRef.child('currentBricks').transaction(function(currentBricks) {
                 return (currentBricks|| 0) + bricksEarned});
-                console.log("bricksEarned was added to current bricks.");
+                console.log("Pool"+num+" bricksEarned was added to current bricks.");
                 
                 bricksAllocatedRef.child('bricksAllocated').transaction(function(bricksAllocated) {
                 return (bricksAllocated|| 0) + bricksEarned});
-                console.log("bricksEarned was added to bricksAllocated.");
+                console.log("Pool"+num+" bricksEarned was added to bricksAllocated.");
 
                 bricksAllocatedTotalRef.child('bricksTotalAllocated').transaction(function(bricksTotalAllocated) {
                   return (bricksTotalAllocated|| 0) + bricksEarned});
-                  console.log("bricksEarned was added to bricksAllocatedTotal in the Bricks section.");
+                  console.log("Pool"+num+" bricksEarned was added to bricksAllocatedTotal in the Bricks section.");
 
 
               } else{
-                console.log("IMPORTANT - The bricks were not allocated to user "+userUid+" beceause there would be a problem with balance.")
+                console.log("Pool"+num+" IMPORTANT - The bricks were not allocated to user "+userUid+" beceause there would be a problem with balance.")
               }
             
         } 
@@ -447,7 +449,7 @@ function allocateBricks(num){
           admin.database().ref('Contests/Pool'+num+'/bonusPerOneBricker').once('value').then(function(snapshot) {
             bonusPerOneBricker = snapshot.val();
           
-          console.log("bonusPerOneBricker "+bonusPerOneBricker);
+          console.log("Pool"+num+" bonusPerOneBricker "+bonusPerOneBricker);
 
           //Calculate bricksEarned by 1 brickers considering their bonus.
           var bricksEarnedPlusBonus = bricksEarned + bonusPerOneBricker;
@@ -455,24 +457,24 @@ function allocateBricks(num){
 
             //write how many bricks he earned in this contest
             bricksEarnedRef.child('bricksEarnedLast').child(currentTimestamp).set(bricksEarnedPlusBonus);
-              console.log("bricksEarnedLast added.");
+              console.log("Pool"+num+" bricksEarnedLast added.");
 
             bricksEarnedRef.child('currentBricks').transaction(function(currentBricks) {
             return (currentBricks|| 0) + bricksEarnedPlusBonus});
-            console.log("bricksEarned was added to current bricks.");
+            console.log("Pool"+num+" bricksEarned was added to current bricks.");
             
             
             bricksAllocatedRef.child('bricksAllocated').transaction(function(bricksAllocated) {
             return (bricksAllocated|| 0) + bricksEarnedPlusBonus});
-            console.log("bricksEarned was added to bricksAllocated.");
+            console.log("Pool"+num+" bricksEarned was added to bricksAllocated.");
 
             bricksAllocatedTotalRef.child('bricksTotalAllocated').transaction(function(bricksTotalAllocated) {
               return (bricksTotalAllocated|| 0) + bricksEarnedPlusBonus});
-              console.log("bricksEarned was added to bricksAllocatedTotal in the Bricks section.");
+              console.log("Pool"+num+" bricksEarned was added to bricksAllocatedTotal in the Bricks section.");
 
             
           } else{
-            console.log("IMPORTANT - The bricks were not allocated to user "+userUid+" beceause there would be a problem with balance.")
+            console.log("Pool"+num+" IMPORTANT - The bricks were not allocated to user "+userUid+" beceause there would be a problem with balance.")
           }
         });
         }
@@ -486,7 +488,7 @@ function allocateBricks(num){
 
   });
     } else{
-      console.log("brickWorth was not "+brickShould+". It was "+brickWorth);
+      console.log("Pool"+num+" brickWorth was not "+brickShould+". It was "+brickWorth);
     }
     
   });
@@ -504,9 +506,11 @@ function findFreeRiders(num){
 
   return admin.database().ref('Contests/Pool'+num).once('value').then((datasnapshot) => {
     var moneyTotal = datasnapshot.child("moneyTotal").val();
-    console.log("moneyTotal "+moneyTotal);
+    var priceEntry = snapshot.child("priceEntry");
 
-    return calculatePecentage(moneyTotal, num);
+    console.log("Pool"+num+" moneyTotal "+moneyTotal+" priceEntry "+priceEntry);
+
+    return calculatePecentage(priceEntry,moneyTotal, num);
 }).then(() => {
 
 admin.database().ref('profiles').once('value').then(function(snapshot) {
@@ -516,11 +520,11 @@ admin.database().ref('profiles').once('value').then(function(snapshot) {
       var pool1 = child.child("participates").child("pool"+num);
       if(pool1.exists()){
         if((pool1.child("timestamp1st").exists() == false ) && (pool1.child("peopleInvited").val() == 0)){
-          console.log("i fullfil the criteria to be given a free ticket, "+uid);
+          console.log("Pool"+num+" i fullfil the criteria to be given a free ticket, "+uid);
 
           if(child.child("ticket").exists()){
               var existingTicket = child.child("ticket").val();
-              console.log(uid+", they already have a ticket of type: "+existingTicket);
+              console.log("Pool"+num+" "+uid+", they already have a ticket of type: "+existingTicket);
 
               var exisNum;
               if(existingTicket === "bronze") {
@@ -535,7 +539,7 @@ admin.database().ref('profiles').once('value').then(function(snapshot) {
               if(exisNum<num){
                 writeFreeTicket(uid,num);
               } else {
-                console.log("he had the same or better ticket, so we didnt replace it!");
+                console.log("Pool"+num+" he had the same or better ticket, so we didnt replace it!");
               }
 
 
@@ -553,7 +557,7 @@ admin.database().ref('profiles').once('value').then(function(snapshot) {
     });
     //ADD THE NUMBER OF SPENDERS - FREERIDERS OF THIS CYCLE TO THE FLOATERS TABLE.
     admin.database().ref('/Floaters/Pool'+num+'/numberOfSpendersPreviousCycle').set(count);
-    console.log("FINISHED 1..");
+    console.log("Pool"+num+" FINISHED 1..");
     allocateBricks(num);
   });
 });
@@ -562,19 +566,19 @@ admin.database().ref('profiles').once('value').then(function(snapshot) {
 //move current pool to history for user.
 function makeItHistory(num){
   admin.database().ref('profiles').once('value').then(function(snapshot) {
-    console.log("3 called");
+    console.log("Pool"+num+" 3 called");
     var currentTimestamp = new Date().getTime();
     snapshot.forEach((child) => {
       var uid = child.key;
       var pool1 = child.child("participates").child("pool"+num);
       if(pool1.exists()){
         admin.database().ref('/profiles/'+uid+'/history/pool'+num+'/'+currentTimestamp).set(pool1.val());
-        console.log("successfully made it history.")
+        console.log("Pool"+num+" successfully made it history.")
         admin.database().ref('/profiles/'+uid+'/participates/pool'+num).remove();
-        console.log("deleted pool"+num+"-participates succesfully.");
+        console.log("Pool"+num+" deleted pool"+num+"-participates succesfully.");
       }
     });
-    console.log("FINISHED 3..");
+    console.log("Pool"+num+" FINISHED 3..");
     // initialize();
     moveToLogistics(num); 
    
@@ -585,12 +589,12 @@ function makeItHistory(num){
 //
 function moveToLogistics(num){
   admin.database().ref('Contests/Pool'+num).once('value').then(function(snapshot) {
-    console.log("4 called");
+    console.log("Pool"+num+" 4 called");
       var pool1 = snapshot.val();
       var currentTimestamp = new Date().getTime();
       admin.database().ref('Logistics/History/Pool'+num+'/'+currentTimestamp).set(pool1);
-      console.log("moved it to logistics/history.");
-      console.log("FINISHED 4..");
+      console.log("Pool"+num+" moved it to logistics/history.");
+      console.log("Pool"+num+" FINISHED 4..");
       clearRequestSystem(num);
   
   });
@@ -598,7 +602,7 @@ function moveToLogistics(num){
 }
 
 function clearRequestSystem(num){
-  console.log("5 called");
+  console.log("Pool"+num+" 5 called");
   var currentTimestamp = new Date().getTime();
   admin.database().ref('Request_System/Pool'+num).remove();
   admin.database().ref('Request_System/Pool'+num+'/'+currentTimestamp).set("ADMIN");
@@ -610,8 +614,8 @@ function clearRequestSystem(num){
 
 
 
-  console.log("succesfully cleared request system.");
-  console.log("FINISHED 5..");
+  console.log("Pool"+num+" succesfully cleared request system.");
+  console.log("Pool"+num+" FINISHED 5..");
      //Initialize current contest stats.
     
 

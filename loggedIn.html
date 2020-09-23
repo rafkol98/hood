@@ -103,19 +103,7 @@
 
 
                     $("#joinContest").click(function () {
-                        firebase.database().ref('/Contests').once('value').then(function (snapshot) {
-
-                            var finished1 = snapshot.child("Pool1").child("finished").val();
-                            var finished2 = snapshot.child("Pool2").child("finished").val();
-                            var finished3 = snapshot.child("Pool3").child("finished").val();
-                            // ALSO FINISHED 3...
-                            if (finished1 || finished2 || finished3) {
-                                window.location.href = "joinContestClosed.html";
-                            } else {
-                                window.location.href = "joinContest.html";
-                            }
-
-                        });
+                        window.location.href = "joinContestClosed.html";
                     });
 
 
