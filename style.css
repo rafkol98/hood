@@ -1017,4 +1017,22 @@ a {
     font-size: 28px;
 }
 
+.accClass {
+    margin-left: 0% !important;
+    color: white;
+    font-size: 18px;
+    background: linear-gradient(0deg, rgb(26, 26, 26) 0%, rgba(0, 0, 0,0.95) 100%) no-repeat center center fixed;
+    margin-bottom: 30px;
+}
 
+.btn-link{
+    color: #F95700FF;
+    font-size: 24px;
+    font-style: italic;
+    border-color: rgb(26, 26, 26);
+}
+
+.btn-link:hover{
+    border-color: tomato;
+    color: tomato;
+}
