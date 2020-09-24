@@ -12,9 +12,9 @@
 
         <title>Contest Finished.</title>
         <!-- <script src="https://gstatic.com/firebasejs/6.3.1/firebase-app.js"></script>
-                            <script src="https://gstatic.com/firebasejs/6.3.1/firebase-auth.js"></script>
-                            <script src="https://gstatic.com/firebasejs/6.3.1/firebase-database.js"></script>
-                            <script src="https://gstatic.com/firebasejs/6.3.1/firebase-storage.js"></script> -->
+                                    <script src="https://gstatic.com/firebasejs/6.3.1/firebase-auth.js"></script>
+                                    <script src="https://gstatic.com/firebasejs/6.3.1/firebase-database.js"></script>
+                                    <script src="https://gstatic.com/firebasejs/6.3.1/firebase-storage.js"></script> -->
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
@@ -27,7 +27,7 @@
         <script src="https://www.gstatic.com/firebasejs/7.3.0/firebase-app.js"></script>
 
         <!-- TODO: Add SDKs for Firebase products that you want to use
-                                 https://firebase.google.com/docs/web/setup#available-libraries -->
+                                         https://firebase.google.com/docs/web/setup#available-libraries -->
         <!-- Add Firebase products that you want to use -->
         <script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-auth.js"></script>
 
@@ -101,15 +101,13 @@
 
                     <script>
                         firebase.auth().onAuthStateChanged(function (user) {
-                            if (user) {
-
-                                // Update the count down every 1 second
+                            if (user) { // Update the count down every 1 second
                                 var database = firebase.database();
                                 var userId = user.uid;
                                 database.ref('Contests/Pool1').once('value').then(function (snapshot) {
                                     var dateNewContest = snapshot.child("dateNewContest").val();
                                     var end = new Date(dateNewContest);
-                                    console.log("end "+end);
+                                    console.log("end " + end);
                                     var _second = 1000;
                                     var _minute = _second * 60;
                                     var _hour = _minute * 60;

@@ -1,149 +1,148 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta
+        name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css">
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+        <link rel="stylesheet" href="style.css">
 
-    <title>Request Entry</title>
-    <!-- <script src="https://gstatic.com/firebasejs/6.3.1/firebase-app.js"></script>
-    <script src="https://gstatic.com/firebasejs/6.3.1/firebase-auth.js"></script>
-    <script src="https://gstatic.com/firebasejs/6.3.1/firebase-database.js"></script>
-    <script src="https://gstatic.com/firebasejs/6.3.1/firebase-storage.js"></script> -->
-
-
-
-    <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+        <title>Request Entry</title>
+        <!-- <script src="https://gstatic.com/firebasejs/6.3.1/firebase-app.js"></script>
+            <script src="https://gstatic.com/firebasejs/6.3.1/firebase-auth.js"></script>
+            <script src="https://gstatic.com/firebasejs/6.3.1/firebase-database.js"></script>
+            <script src="https://gstatic.com/firebasejs/6.3.1/firebase-storage.js"></script> -->
 
 
-
-    <script src="https://www.gstatic.com/firebasejs/5.9.4/firebase.js"></script>
-    <!-- The core Firebase JS SDK is always required and must be listed first -->
-    <script src="https://www.gstatic.com/firebasejs/7.3.0/firebase-app.js"></script>
-    
-    <!-- TODO: Add SDKs for Firebase products that you want to use
-         https://firebase.google.com/docs/web/setup#available-libraries -->
-    <!-- Add Firebase products that you want to use -->
-    <script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-auth.js"></script>
-    
-    <script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-database.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-functions.js"></script>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 
 
-    <script src ="js/noOfBricks.js"></script>
-    
+        <script src="https://www.gstatic.com/firebasejs/5.9.4/firebase.js"></script>
+        <!-- The core Firebase JS SDK is always required and must be listed first -->
+        <script src="https://www.gstatic.com/firebasejs/7.3.0/firebase-app.js"></script>
 
-    <script>
-        // Your web app's Firebase configuration
-        var firebaseConfig = {
-          apiKey: "AIzaSyAjn39FIOAD4iH-KyFl6G5ygJjLCfxX6lM",
-          authDomain: "hood-project-883de.firebaseapp.com",
-          databaseURL: "https://hood-project-883de.firebaseio.com",
-          projectId: "hood-project-883de",
-          storageBucket: "hood-project-883de.appspot.com",
-          messagingSenderId: "895762021353",
-          appId: "1:895762021353:web:de05bbebaa562e44092978",
-          measurementId: "G-TMSQNRF5DN"
-        };
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-      </script>
+        <!-- TODO: Add SDKs for Firebase products that you want to use
+                 https://firebase.google.com/docs/web/setup#available-libraries -->
+        <!-- Add Firebase products that you want to use -->
+        <script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-auth.js"></script>
 
-      <script>
-        firebase.auth().onAuthStateChanged(function (user)
-        {
+        <script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-database.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-functions.js"></script>
 
-          if(user){
-            $("#nav_signOut").one("click", function(e) {
-              firebase.auth().signOut().then(function() {
-              console.log('Signed Out');
-            }, function(error) {
-              console.error('Sign Out Error', error);
+
+        <script src="js/noOfBricks.js"></script>
+
+
+        <script>
+            // Your web app's Firebase configuration
+            var firebaseConfig = {
+                apiKey: "AIzaSyAjn39FIOAD4iH-KyFl6G5ygJjLCfxX6lM",
+                authDomain: "hood-project-883de.firebaseapp.com",
+                databaseURL: "https://hood-project-883de.firebaseio.com",
+                projectId: "hood-project-883de",
+                storageBucket: "hood-project-883de.appspot.com",
+                messagingSenderId: "895762021353",
+                appId: "1:895762021353:web:de05bbebaa562e44092978",
+                measurementId: "G-TMSQNRF5DN"
+            };
+            // Initialize Firebase
+            firebase.initializeApp(firebaseConfig);
+        </script>
+
+        <script>
+            firebase.auth().onAuthStateChanged(function (user) {
+
+                if (user) {
+                    $("#nav_signOut").one("click", function (e) {
+                        firebase.auth().signOut().then(function () {
+                            console.log('Signed Out');
+                        }, function (error) {
+                            console.error('Sign Out Error', error);
+                        });
+
+                    });
+                }
+
             });
+        </script>
 
-          });
-          }
-
-        }
-        );
-      </script>
-
-  </head>
-  <body>
+    </head>
+    <body>
         <div class="loader2" style="display: none;">
             <br>
             <img src="./images/logos-08.png" alt="logo-brixy" height="120px">
-            <img src="./images/brixy.net logo@2x.png" alt="brixyLogo-text"  height="90px">
+            <img src="./images/brixy.net logo@2x.png" alt="brixyLogo-text" height="90px">
             <h2 style="font-size: 28px;">PLEASE WAIT...YOU ARE JOINING THE CYCLE</h2>
             <br>
             <img src="images/three-dots.svg" alt="three-dots" height="25px">
         </div>
-       <!--Navigation Menu-->
-       <section id="nav_bar">
+        <!--Navigation Menu-->
+        <section id="nav_bar">
 
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-          <a class="navbar-brand" href="loggedIn.html"><img src="./images/brixy.net logo@2x.png" class="brixyLogo"></a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavDropdown">
-              <ul class="navbar-nav ml-auto">
-                
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" href="loggedIn.html"><img src="./images/brixy.net logo@2x.png" class="brixyLogo"></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul class="navbar-nav ml-auto"></div>
+                </nav>
+
+            </section>
+
+            <div class="brickLayer">
+                <p>
+                    <span id="noOfBricks">...</span>
+                    <img src="./images/bricks-30.png" class="icon-brick" style="height: 32px; width: 32px;"/>
+                    <span id="ticket">...</span>
+                    <img src="images/tickets-23.png" class="icon-brick" style="height: 30px; width: 30px;"/></p>
             </div>
-          </nav>
 
-    </section>
+            <div class="gap"></div>
 
-    <div class="brickLayer">
-      <p> <span id="noOfBricks">...</span> <img src="https://img.icons8.com/wired/64/000000/brick-wall.png" class="icon-brick"/>
-       <span id="ticket">...</span> <img src="https://img.icons8.com/pastel-glyph/64/000000/feather.png" class="icon-brick"/></p>
-    </div>
-
-    <div class="gap"></div>
-  
-  <section>
+            <section>
 
 
-    <!-- TODO IF USER HAS PARTICIPATES, HIDE THIS TABLE. -->
-    <div class="col-md-5 col-md-push-5 order-sm-1 border-on-section3 col-centered marginBox" >
-      <p class="login-pool">REQUEST ENTRY - <span class="colorOr">BRONZE</span></p>
-      <div class="container">
-         <p>Encrypted ID of of the user displayed right now: <br><span id="playerId">Loading...</span></p>
-              
-          <button id="btn-Request" type="submit">JOIN CYCLE</button>
-         
-          <p style="margin-top: 10px; font-style: italic; font-size: large;">Traffic Indicator: <span id="noPeople10">...</span> </p>
-        </div>
-        
-    </div>
-  </section>
+                <!-- TODO IF USER HAS PARTICIPATES, HIDE THIS TABLE. -->
+                <div class="col-md-5 col-md-push-5 order-sm-1 border-on-section3 col-centered marginBox">
+                    <p class="login-pool">REQUEST ENTRY -
+                        <span class="colorOr">BRONZE</span>
+                    </p>
+                    <div class="container">
+                        <p>Encrypted ID of of the user displayed right now:
+                            <br><span id="playerId">Loading...</span>
+                        </p>
 
-  
-  <script>
-    $(function(){
+                        <button id="btn-Request" type="submit">JOIN CYCLE</button>
 
-      const result = firebase.functions().httpsCallable('encrypt');
-              result().then(result=>{
-                console.log(result.data);
-                $("#playerId").html(result.data);
-              });
-    });
+                        <p style="margin-top: 10px; font-style: italic; font-size: large;">Traffic Indicator:
+                            <span id="noPeople10">...</span>
+                        </p>
+                    </div>
+
+                </div>
+            </section>
 
 
+            <script>
+                $(function () {
 
+                    const result = firebase.functions().httpsCallable('encrypt');
+                    result().then(result => {
+                        console.log(result.data);
+                        $("#playerId").html(result.data);
+                    });
+                });
+            </script>
 
-  </script>
-
-<script src="js/requestButton.js"></script>
-<script src="./js/pool1.js"></script>
-
-
+            <script src="js/requestButton.js"></script>
+            <script src="./js/pool1.js"></script>
+       
     </body>
 </html>

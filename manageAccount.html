@@ -1,143 +1,142 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta
+        name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css">
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+        <link rel="stylesheet" href="style.css">
 
-    <title>Manage Account</title>
-    <!-- <script src="https://gstatic.com/firebasejs/6.3.1/firebase-app.js"></script>
-    <script src="https://gstatic.com/firebasejs/6.3.1/firebase-auth.js"></script>
-    <script src="https://gstatic.com/firebasejs/6.3.1/firebase-database.js"></script>
-    <script src="https://gstatic.com/firebasejs/6.3.1/firebase-storage.js"></script> -->
-
-
-
-    <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
+        <title>Manage Account</title>
+        <!-- <script src="https://gstatic.com/firebasejs/6.3.1/firebase-app.js"></script>
+            <script src="https://gstatic.com/firebasejs/6.3.1/firebase-auth.js"></script>
+            <script src="https://gstatic.com/firebasejs/6.3.1/firebase-database.js"></script>
+            <script src="https://gstatic.com/firebasejs/6.3.1/firebase-storage.js"></script> -->
 
 
-    <script src="https://www.gstatic.com/firebasejs/5.9.4/firebase.js"></script>
-    <!-- The core Firebase JS SDK is always required and must be listed first -->
-    <script src="https://www.gstatic.com/firebasejs/7.3.0/firebase-app.js"></script>
-    
-    <!-- TODO: Add SDKs for Firebase products that you want to use
-         https://firebase.google.com/docs/web/setup#available-libraries -->
-    <!-- Add Firebase products that you want to use -->
-    <script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-auth.js"></script>
-    
-    <script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-database.js"></script>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
 
-    <script src ="js/noOfBricks.js"></script>
 
-    <script>
-        // Your web app's Firebase configuration
-        var firebaseConfig = {
-          apiKey: "AIzaSyAjn39FIOAD4iH-KyFl6G5ygJjLCfxX6lM",
-          authDomain: "hood-project-883de.firebaseapp.com",
-          databaseURL: "https://hood-project-883de.firebaseio.com",
-          projectId: "hood-project-883de",
-          storageBucket: "hood-project-883de.appspot.com",
-          messagingSenderId: "895762021353",
-          appId: "1:895762021353:web:de05bbebaa562e44092978",
-          measurementId: "G-TMSQNRF5DN"
-        };
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-      </script>
-      <style>
-        .loader, .loader2 {
-            position:fixed;
-            padding:0;
-            margin:0;
-  
-            top:0;
-            left:0;
-  
-            width: 100%;
-            height: 100%;
-            background:rgba(255,255,255,0.5);
-            z-index: 999;
-  
-            display: flex;
-            flex-direction: column;
-            align-content: center;
-            align-items: center;
-            justify-content: center;
-        }
-      </style>
+        <script src="https://www.gstatic.com/firebasejs/5.9.4/firebase.js"></script>
+        <!-- The core Firebase JS SDK is always required and must be listed first -->
+        <script src="https://www.gstatic.com/firebasejs/7.3.0/firebase-app.js"></script>
 
-  </head>
-  <body>
- 
-       <!--Navigation Menu-->
-       <section id="nav_bar">
+        <!-- TODO: Add SDKs for Firebase products that you want to use
+                 https://firebase.google.com/docs/web/setup#available-libraries -->
+        <!-- Add Firebase products that you want to use -->
+        <script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-auth.js"></script>
 
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-          <a class="navbar-brand" href="loggedIn.html"><img src="./images/brixy.net logo@2x.png" class="brixyLogo"></a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavDropdown">
-              <ul class="navbar-nav ml-auto">
-                
+        <script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-database.js"></script>
+
+        <script src="js/noOfBricks.js"></script>
+
+        <script>
+            // Your web app's Firebase configuration
+            var firebaseConfig = {
+                apiKey: "AIzaSyAjn39FIOAD4iH-KyFl6G5ygJjLCfxX6lM",
+                authDomain: "hood-project-883de.firebaseapp.com",
+                databaseURL: "https://hood-project-883de.firebaseio.com",
+                projectId: "hood-project-883de",
+                storageBucket: "hood-project-883de.appspot.com",
+                messagingSenderId: "895762021353",
+                appId: "1:895762021353:web:de05bbebaa562e44092978",
+                measurementId: "G-TMSQNRF5DN"
+            };
+            // Initialize Firebase
+            firebase.initializeApp(firebaseConfig);
+        </script>
+        <style>
+            .loader,
+            .loader2 {
+                position: fixed;
+                padding: 0;
+                margin: 0;
+
+                top: 0;
+                left: 0;
+
+                width: 100%;
+                height: 100%;
+                background: rgba(255, 255, 255, 0.5);
+                z-index: 999;
+
+                display: flex;
+                flex-direction: column;
+                align-content: center;
+                align-items: center;
+                justify-content: center;
+            }
+        </style>
+
+    </head>
+    <body>
+
+        <!--Navigation Menu-->
+        <section id="nav_bar">
+
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" href="loggedIn.html"><img src="./images/brixy.net logo@2x.png" class="brixyLogo"></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul class="navbar-nav ml-auto"></div>
+                </nav>
+
+            </section>
+
+
+            <div class="brickLayer">
+                <p>
+                    <span id="noOfBricks">...</span>
+                    <img src="./images/bricks-30.png" class="icon-brick" style="height: 32px; width: 32px;"/>
+                    <span id="ticket">...</span>
+                    <img src="images/tickets-23.png" class="icon-brick" style="height: 30px; width: 30px;"/></p>
             </div>
-        </nav>
 
-    </section>
-    
 
-    <div class="brickLayer" >
-      <p> <span id="noOfBricks">...</span> <img src="https://img.icons8.com/wired/64/000000/brick-wall.png" class="icon-brick"/>
-       <span id="ticket">...</span> <img src="https://img.icons8.com/pastel-glyph/64/000000/feather.png" class="icon-brick"/></p>
-    </div>
-    
+            <section>
 
-    <section>
-        
-        <div class="container">
-            <div class="gap"></div>
-        <div class="row">
+                <div class="container">
+                    <div class="gap"></div>
+                    <div
+                        class="row">
+
+
+                        <!-- User enters his wallets details it gets stored in the database using the manageAccount.js -->
+                        <div class="col-md-6 col-md-push-6 order-sm-1 border-on-section3">
+                            <p class="login-title">CONNECT YOUR WALLET</p>
+
+
+                            <div class="container">
+                                <input id="enterWalletDetails" type="text" placeholder="Enter wallet address" name="uname" required>
+
+
+                                <button id="btn_saveWallet" type="submit">Save</button>
+
+
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </section>
+
+
+            <script src="js/manageAccount.js"></script>
+
+            <!-- Optional JavaScript -->
+            <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+            <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
        
-
-        <!-- User enters his wallets details it gets stored in the database using the manageAccount.js -->
-        <div class="col-md-6 col-md-push-6 order-sm-1 border-on-section3" >
-            <p class="login-title">CONNECT YOUR WALLET</p>
-            
-            
-    
-            <div class="container">
-                <input id="enterWalletDetails" type="text" placeholder="Enter wallet address" name="uname" required>
-            
-               
-                <button id="btn_saveWallet" type="submit">Save</button>
-
-    
-              </div>
-    
-            
-        
-        </div>
-        </div>
-
-        </div>
-        
-
-      
-    </section>
-
-
-   
-    <script src="js/manageAccount.js"></script>
-
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-   
-  </body>
+    </body>
 </html>

@@ -160,7 +160,7 @@ exports.encrypt=functions.https.onCall((data,context)=>{
 
     admin.database().ref('Contests/Pool'+num).once('value').then(function(snapshot) {
       var moneyTotal = snapshot.child("moneyTotal").val();
-      var priceEntry = snapshot.child("priceEntry");
+      var priceEntry = snapshot.child("priceEntry").val();
       calculatePecentage(priceEntry, moneyTotal,num);
       });
 
@@ -506,7 +506,7 @@ function findFreeRiders(num){
 
   return admin.database().ref('Contests/Pool'+num).once('value').then((datasnapshot) => {
     var moneyTotal = datasnapshot.child("moneyTotal").val();
-    var priceEntry = snapshot.child("priceEntry");
+    var priceEntry = snapshot.child("priceEntry").val();
 
     console.log("Pool"+num+" moneyTotal "+moneyTotal+" priceEntry "+priceEntry);
 

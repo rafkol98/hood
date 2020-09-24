@@ -12,9 +12,9 @@
 
         <title>Dashboard</title>
         <!-- <script src="https://gstatic.com/firebasejs/6.3.1/firebase-app.js"></script>
-            <script src="https://gstatic.com/firebasejs/6.3.1/firebase-auth.js"></script>
-            <script src="https://gstatic.com/firebasejs/6.3.1/firebase-database.js"></script>
-            <script src="https://gstatic.com/firebasejs/6.3.1/firebase-storage.js"></script> -->
+                    <script src="https://gstatic.com/firebasejs/6.3.1/firebase-auth.js"></script>
+                    <script src="https://gstatic.com/firebasejs/6.3.1/firebase-database.js"></script>
+                    <script src="https://gstatic.com/firebasejs/6.3.1/firebase-storage.js"></script> -->
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
@@ -27,7 +27,7 @@
         <script src="https://www.gstatic.com/firebasejs/7.3.0/firebase-app.js"></script>
 
         <!-- TODO: Add SDKs for Firebase products that you want to use
-                 https://firebase.google.com/docs/web/setup#available-libraries -->
+                         https://firebase.google.com/docs/web/setup#available-libraries -->
         <!-- Add Firebase products that you want to use -->
         <script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-auth.js"></script>
 
@@ -61,7 +61,7 @@
         <div class="loader2">
             <br>
             <img src="./images/logos-08.png" alt="logo-brixy" height="120px">
-            <img src="./images/brixy.net logo@2x.png" alt="brixyLogo-text"  height="90px">
+            <img src="./images/brixy.net logo@2x.png" alt="brixyLogo-text" height="90px">
             <br>
             <img src="images/three-dots.svg" alt="three-dots" height="25px">
         </div>
@@ -82,102 +82,98 @@
             <div class="brickLayer">
                 <p>
                     <span id="noOfBricks">...</span>
-                    <img src="https://img.icons8.com/wired/64/000000/brick-wall.png" class="icon-brick"/>
+                    <img src="./images/bricks-30.png" class="icon-brick" style="height: 32px; width: 32px;"/>
                     <span id="ticket">...</span>
                     <img src="images/tickets-23.png" class="icon-brick" style="height: 30px; width: 30px;"/></p>
-                    <!-- <img src="https://img.icons8.com/pastel-glyph/64/000000/feather.png" class="icon-brick"/></p> -->
             </div>
 
             <section>
-                
-                    <div class="container">
-                        <div class="row">
 
-                            <div class="col-md-4 col-md-pull-4 text-center order-sm-6">
-                                <div class="dropdown">
-                                    <button class="btn dropbtn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Select Tier
-                                    </button>
-                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <a class="dropdown-item" id="bronzeBtn" style="display: none;" onclick="changeCategory(1)">Bronze</a>
-                                        <a class="dropdown-item" id="silverBtn" style="display: none;" onclick="changeCategory(2)">Silver</a>
-                                        <a class="dropdown-item" id="goldBtn" style="display: none;" onclick="changeCategory(3)">Gold</a>
-                                    </div>
+                <div class="container">
+                    <div class="row">
+
+                        <div class="col-md-4 col-md-pull-4 text-center order-sm-6">
+                            <div class="dropdown">
+                                <button class="btn dropbtn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Select Tier
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" id="bronzeBtn" style="display: none;" onclick="changeCategory(1)">Bronze</a>
+                                    <a class="dropdown-item" id="silverBtn" style="display: none;" onclick="changeCategory(2)">Silver</a>
+                                    <a class="dropdown-item" id="goldBtn" style="display: none;" onclick="changeCategory(3)">Gold</a>
                                 </div>
                             </div>
-                            <div class="col-md-8 col-md-push-8 order-sm-1">
-                                <h2>YOUR DASHBOARD: <span id="tierShowing">...</span> CYCLE</h2>
-                                <p style="text-align: left;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit at reiciendis ab saepe laudantium temporibus quisquam odio.</p>
+                        </div>
+                        <div class="col-md-8 col-md-push-8 order-sm-1">
+                            <h2>YOUR DASHBOARD:
+                                <span id="tierShowing">...</span>
+                                CYCLE</h2>
+                            <p style="text-align: left;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit at reiciendis ab saepe laudantium temporibus quisquam odio.</p>
+                        </div>
+                    </div>
+
+                    <div class="gapp"></div>
+                    <div class="row">
+
+                        <div class="col-md-4 col-md-pull-4 text-center order-sm-6">
+                            <div class="cardDashBoard text-center" style="height:250px !important">
+                                <div class="card-body">
+
+
+                                    <p class="dashboard-title-left" style="font-size:20px !important">NEXT RANDOMIZER:</p>
+                                    <p class="card-text dashboard-number-big" id="randomizerNext" style='font-size: 80px;'>...</p>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="gapp"></div>
-                        <div class="row">
-
-                            <div class="col-md-4 col-md-pull-4 text-center order-sm-6">
-                                <div class="cardDashBoard text-center" style="height:250px !important">
-                                    <div class="card-body">
-
-
-                                        <p class="dashboard-title-left" style="font-size:20px !important">NEXT RANDOMIZER:</p>
-                                        <p class="card-text dashboard-number-big" id="randomizerNext" style='font-size: 80px;'>...</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-8 col-md-push-8 order-sm-1">
-                                <div class="cardDashBoard text-center" style="height:250px !important">
-                                    <div class="card-body">
-                                        <p class="dashboard-title">DATE & TIME ENTERED CYCLE:</p>
-                                        <p class="card-text dashboard-numbers" id="dateEntered" style="font-size: 34px; margin-top: 40px;">Loading...</p>
-                                    </div>
-
+                        <div class="col-md-8 col-md-push-8 order-sm-1">
+                            <div class="cardDashBoard text-center" style="height:250px !important">
+                                <div class="card-body">
+                                    <p class="dashboard-title">DATE & TIME ENTERED CYCLE:</p>
+                                    <p class="card-text dashboard-numbers" id="dateEntered" style="font-size: 34px; margin-top: 40px;">Loading...</p>
                                 </div>
 
                             </div>
-
-
-                        </div>
-
-
-                        <div class="row">
-
-                            <div class="col-md-7 col-md-pull-7 text-center order-sm-6">
-                                <div class="cardDashBoard text-center">
-                                    <div
-                                        class="card-body">
-                                        <!-- <p class="dashboard-title-left">DATE FIRST INVITEE: <span class="orange dashboard-numbers" id="dateFirst" style="font-size:20px !important">  Loading...</span></p>
-                                                         -->
-                                        <p class="card-text dashboard-numbers"></p>
-                                        <p class="dashboard-title-left" style="font-size:20px !important">DISPLAY TIME AFTER FIRST DEPOSIT:</p>
-                                        <p class="card-text dashboard-number-big" id="minsAllowed" style='font-size: 90px;'>...</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-5 col-md-push-5 order-sm-1">
-                                <div class="cardDashBoard text-center">
-                                    <div class="card-body">
-                                        <p class="dashboard-title">NUMBER OF PEOPLE INVITED:</p>
-
-                                        <p class="card-text dashboard-numbers" id="peopleClicked">Loading...</p>
-                                        <p class="dashboard-title">POSSIBLE BRICKS EARNED:</p>
-                                        <p class="card-text dashboard-numbers" id="possibleBricks">Loading...</p>
-                                    </div>
-
-                                </div>
-
-                            </div>
-
 
                         </div>
 
 
                     </div>
-              
 
 
-            </body>
-        </html>
+                    <div class="row">
+
+                        <div class="col-md-7 col-md-pull-7 text-center order-sm-6">
+                            <div class="cardDashBoard text-center">
+                                <div
+                                    class="card-body">
+                                    <!-- <p class="dashboard-title-left">DATE FIRST INVITEE: <span class="orange dashboard-numbers" id="dateFirst" style="font-size:20px !important">  Loading...</span></p>
+                                                                                             -->
+                                    <p class="card-text dashboard-numbers"></p>
+                                    <p class="dashboard-title-left" style="font-size:20px !important">DISPLAY TIME AFTER FIRST DEPOSIT:</p>
+                                    <p class="card-text dashboard-number-big" id="minsAllowed" style='font-size: 90px;'>...</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-5 col-md-push-5 order-sm-1">
+                            <div class="cardDashBoard text-center">
+                                <div class="card-body">
+                                    <p class="dashboard-title">NUMBER OF PEOPLE INVITED:</p>
+
+                                    <p class="card-text dashboard-numbers" id="peopleClicked">Loading...</p>
+                                    <p class="dashboard-title">POSSIBLE BRICKS EARNED:</p>
+                                    <p class="card-text dashboard-numbers" id="possibleBricks">Loading...</p>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
     </body>
 </html>
