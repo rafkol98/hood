@@ -97,13 +97,7 @@
 
             </section>
 
-            <div class="brickLayer">
-                <p>
-                    <span id="noOfBricks">...</span>
-                    <img src="./images/bricks-30.png" class="icon-brick" style="height: 32px; width: 32px;"/>
-                    <span id="ticket">...</span>
-                    <img src="images/tickets-23.png" class="icon-brick" style="height: 30px; width: 30px;"/></p>
-            </div>
+            <brick-layer></brick-layer>
 
             <div class="gap"></div>
 
@@ -134,27 +128,6 @@
             <script>
                 $(function () {
 
-                    // firebase.auth().onAuthStateChanged(function (user){
-                    // if(user){
-                    //     var userId = user.uid;
-
-                    //     //Get the first uid user.
-                    //     firebase.database().ref('/Request_System/').child("Pool1").limitToFirst(1).once('value').then(function(snapshot) {
-                    //       var uidOfUser = snapshot.val();
-                    //       for(key in uidOfUser){
-                    //           if(uidOfUser.hasOwnProperty(key)) {
-                    //           var value = uidOfUser[key];
-                    //           //do something with value;
-                    //           localStorage.setItem("uidReq",value);
-                    //           $("#playerId").html(value);
-                    //        }
-                    //       }
-                    //     });
-
-
-                    // }
-                    // });
-
                     const result = firebase.functions().httpsCallable('encrypt');
                     result().then(result => {
                         console.log(result.data);
@@ -165,5 +138,6 @@
 
             <script src="js/requestButton.js"></script>
             <script src="./js/pool3.js"></script>
+            <script src="brickLayer.js"></script>
         </body>
 </html>
