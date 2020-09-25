@@ -425,6 +425,7 @@ width: 40% !important;
     transition: 0.8s;
     margin-bottom: 20px;
     border-radius: 12px;
+    transition: 4s;
 
 }
 
@@ -433,9 +434,14 @@ width: 40% !important;
     -webkit-transform: scale(1.02); /* Safari 3-8 */
     transform: scale(1.02);
     animation-duration: 4s;
-
 }
 
+.border-on-section3:hover{
+    -ms-transform: scale(1.02); /* IE 9 */
+    -webkit-transform: scale(1.02); /* Safari 3-8 */
+    transform: scale(1.02);
+    animation-duration: 4s;
+}
 
 
 
