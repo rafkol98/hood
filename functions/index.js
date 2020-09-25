@@ -228,7 +228,7 @@ function calculatePecentage(priceEntry,moneyTotal,num) {
     //MAKE THE FIRST ONE FROM 4 TO 20
     if(moneyTotal >= 0 && moneyTotal < (priceEntry*4)){
       percentage = 30;
-    } else if (moneyTotal >= (priceEntry*20) && moneyTotal < (priceEntry*50)) {
+    } else if (moneyTotal >= (priceEntry*4) && moneyTotal < (priceEntry*50)) {
       percentage = 25;
     } else if (moneyTotal >= (priceEntry*50) && moneyTotal < (priceEntry*100)) {
       percentage = 20;

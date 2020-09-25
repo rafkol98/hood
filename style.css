@@ -381,10 +381,12 @@ width: 40% !important;
 
 .border-on-section{
     /* margin: 20px; */
-    background: linear-gradient(0deg, rgba(22, 22, 22, 1) 0%, rgba(0, 0, 0,0.95) 100%) no-repeat center center fixed;
+    background-color: #121212;  /* fallback for old browsers */
+    background-image: linear-gradient(0deg, rgba(22, 22, 22, 1), rgba(0, 0, 0,0.95));
+    /* background: linear-gradient(0deg, rgba(22, 22, 22, 1) 0%, rgba(0, 0, 0,0.95) 100%) no-repeat center center fixed; */
     /* background: linear-gradient(0deg, rgba(24, 24, 24, 0.5) 0%, rgba(0, 0, 0, 0.5) 100%) no-repeat center center fixed; */
     padding: 16px;
-    border: 2px ridge rgb(12, 12, 12);
+    border: 2px solid rgb(12, 12, 12);
     padding-left: 40px;
     padding-right: 40px;
     color: white;
@@ -401,8 +403,12 @@ width: 40% !important;
     width: 94%;
     /* background-color: rgb(12, 12, 12,0.5); */
     /* background: linear-gradient(0deg, rgba(0, 0, 0, 0.95) 0%, rgba(18, 18, 18, 0.95) 100%) no-repeat center center fixed; */
-    background: linear-gradient(0deg, rgba(22, 22, 22, 1) 0%, rgba(0, 0, 0,0.95) 100%) no-repeat center center fixed;
-    border: 2px ridge rgb(0, 0, 0);
+    /* background: #121212;  /* fallback for old browsers */
+    /* background: linear-gradient(0deg, rgba(22, 22, 22, 1) 0%, rgba(0, 0, 0,0.95) 100%) no-repeat center center fixed; */ 
+    background-color: #121212;  /* fallback for old browsers */
+    background-image: linear-gradient(0deg, rgba(22, 22, 22, 1), rgba(0, 0, 0,0.95));
+  
+    border: 2px solid rgb(0, 0, 0);
     /* text-align: center; */
     padding:40px;
     margin-top: 20px;
@@ -413,10 +419,15 @@ width: 40% !important;
 }
 
 .border-on-section3{
-    background: linear-gradient(0deg, rgba(40, 40, 40, 0.4) 0%, rgba(50, 50, 50, 0.4) 100%) no-repeat center center fixed;
+    /* background: #121212;
+    background: linear-gradient(0deg, rgba(40, 40, 40, 0.4) 0%, rgba(50, 50, 50, 0.4) 100%) no-repeat center center fixed; */
     /* background-color: rgba(40, 40, 40, 0.4); */
+   
+    background-color: #121212;  /* fallback for old browsers */
+    background-image: linear-gradient(0deg, rgba(22, 22, 22, 1), rgba(0, 0, 0,0.95));
+  
     padding: 16px;
-    border: 2px ridge rgb(12, 12, 12);
+    border: 2px solid rgb(12, 12, 12);
     padding-left: 40px;
     padding-right: 40px;
     color: white;
