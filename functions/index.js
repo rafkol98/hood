@@ -1425,3 +1425,40 @@ function writeFreeTicket(uid, num){
 
 
 }
+exports.requestBricks = functions.https.onCall((data, context) => {
+    return new Promise((resolve, reject) => {
+        const bricksReq = data.bricksReq;
+        const userId = context.auth.uid;
+        const bricksEarnedRef = admin.database().ref('profiles/' + userId);
+
+        if (bricksReq == 10) {
+            bricksEarnedRef.child('currentBricks').transaction(function (currentBricks) {
+                return(currentBricks || 0) + 10
+            }).then((retValue) => {
+              console.log("10 bricks were requested and added to " + userId);
+              resolve('SUCCESS');
+            });
+            
+        } else if (bricksReq == 40) {
+            bricksEarnedRef.child('currentBricks').transaction(function (currentBricks) {
+                return(currentBricks || 0) + 40
+            }).then((retValue) => {
+              console.log("40 bricks were requested and added to " + userId);
+              resolve('SUCCESS');
+            });
+        
+        } else if (bricksReq == 100) {
+            bricksEarnedRef.child('currentBricks').transaction(function (currentBricks) {
+                return(currentBricks || 0) + 100
+            }).then((retValue) => {
+              console.log("100 bricks were requested and added to " + userId);
+              resolve('SUCCESS');
+            });
+
+        } else {
+            console.log(userId + " he tried to cheat by requesting more bricks.");
+            resolve('YOU CANNOT REQUEST MORE');
+        }
+
+    });
+});
