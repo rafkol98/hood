@@ -4,60 +4,51 @@ $(function () {
             var database = firebase.database();
             var userId = user.uid;
 
-            
 
-            database.ref('/profiles/' + userId + '/participates').once('value').then(function (snapshot) {
+            database.ref('/profiles/' + userId + '/participates').once('value').then(function (snapshot) { // enableButtons(snapshot);
+                var num,
+                    category,
+                    possiblePlusBonus;
 
-                // enableButtons(snapshot);
-                var num, category, possiblePlusBonus;
-
-                if(snapshot.hasChild("pool1")){
+                if (snapshot.hasChild("pool1")) {
                     num = 1;
                     category = "BRONZE";
                     $("#bronzeBtn").css("display", "block");
                     possiblePlusBonus = 7;
-                } 
-        
-                if (snapshot.hasChild("pool2")){
+                }
+
+                if (snapshot.hasChild("pool2")) {
                     num = 2;
                     category = "SILVER";
                     $("#silverBtn").css("display", "block");
                     possiblePlusBonus = 28;
-                } 
-                
-                if (snapshot.hasChild("pool3")){
+                }
+
+                if (snapshot.hasChild("pool3")) {
                     num = 3;
                     category = "GOLD";
                     $("#goldBtn").css("display", "block");
                     possiblePlusBonus = 70;
                 }
 
-                console.log(num+" "+category);
-                var peopleInvited = snapshot.child("pool"+num).child("peopleInvited").val();
-                $("#peopleClicked").html(peopleInvited);
+                console.log(num + " " + category);
 
-                if (peopleInvited == 1) {
-                    $("#possibleBricks").html(">="+possiblePlusBonus+" <a href='www.google.com' style='font-size:30px; color:grey'>Learn More</a>");
-                } else {
-                    var possibleBricks = peopleInvited * 7;
-                    $("#possibleBricks").html(possibleBricks);
-                }
 
-                var minsAllowed = parseInt(snapshot.child("pool"+num).child("minsAllowed").val(), 10)
-                if(minsAllowed!=null){
+                var minsAllowed = parseInt(snapshot.child("pool" + num).child("minsAllowed").val(), 10)
+                if (minsAllowed != null) {
                     $("#minsAllowed").html(minsAllowed);
-                } else{
+                } else {
                     $("#minsAllowed").html("...")
                 }
 
-                var timestamp1st = snapshot.child("pool"+num).child("timestamp1st").val();
+                var timestamp1st = snapshot.child("pool" + num).child("timestamp1st").val();
                 if (timestamp1st == null) {
                     $("#dateFirst").html("Not yet &#128513;");
                 } else {
                     $("#dateFirst").html(convertLong(timestamp1st));
                 }
 
-                var timestampEntered = snapshot.child("pool"+num).child("timestampEntered").val();
+                var timestampEntered = snapshot.child("pool" + num).child("timestampEntered").val();
                 var time = convertLong(timestampEntered);
                 console.log(time);
                 $("#dateEntered").html(time);
@@ -70,6 +61,20 @@ $(function () {
                 }
 
                 $("#tierShowing").html(category);
+
+
+                database.ref('/Contests/Pool' + num).once('value').then(function (snapshot) {
+
+                    var dateStarted = snapshot.child("mouktijiesStart").val();
+                    var dateEnded = snapshot.child("timestampEndCycle").val();
+                    
+                    $("#dateStarted").html(convertLong(dateStarted));
+                    $("#dateEnded").html(convertLong(dateEnded));
+
+
+                });
+
+
                 $(".loader2").fadeOut("slow");
             });
 
@@ -79,7 +84,7 @@ $(function () {
 });
 
 
-function changeCategory(num){
+function changeCategory(num) {
 
     firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
@@ -90,53 +95,45 @@ function changeCategory(num){
             database.ref('/profiles/' + userId + '/participates').once('value').then(function (snapshot) {
 
                 var category;
-                if(num==1){
+                if (num == 1) {
                     category = "BRONZE";
                     $("#bronzeBtn").css("display", "block");
-                } else if (num==2){
+                } else if (num == 2) {
                     category = "SILVER";
                     $("#silverBtn").css("display", "block");
-                } else if (num==3){
+                } else if (num == 3) {
                     category = "GOLD";
                     $("#goldBtn").css("display", "block");
                 }
 
-                var peopleInvited = snapshot.child("pool"+num).child("peopleInvited").val();
-                $("#peopleClicked").html(peopleInvited);
 
-                if (peopleInvited == 1) {
-                    $("#possibleBricks").html(">=7 <a href='www.google.com' style='font-size:30px; color:grey'>Learn More</a>");
-                } else {
-                    var possibleBricks = peopleInvited * 7;
-                    $("#possibleBricks").html(possibleBricks);
-                }
-
-                var minsAllowed = parseInt(snapshot.child("pool"+num).child("minsAllowed").val(), 10)
-                if(minsAllowed!=null){
+                var minsAllowed = parseInt(snapshot.child("pool" + num).child("minsAllowed").val(), 10)
+                if (minsAllowed != null) {
                     $("#minsAllowed").html(minsAllowed);
-                } else{
+                } else {
                     $("#minsAllowed").html("...")
                 }
-               
 
-                var timestamp1st = snapshot.child("pool"+num).child("timestamp1st").val();
-                if (timestamp1st == null) {
-                    $("#dateFirst").html("Not yet &#128513;");
-                } else {
-                    $("#dateFirst").html(convertLong(timestamp1st));
-                }
 
-                var timestampEntered = snapshot.child("pool"+num).child("timestampEntered").val();
+                var timestampEntered = snapshot.child("pool" + num).child("timestampEntered").val();
                 var time = convertLong(timestampEntered);
                 console.log(time);
                 $("#dateEntered").html(time);
 
                 randomizerNext();
 
+                database.ref('/Contests/Pool' + num).once('value').then(function (snapshot) {
 
-                if (snapshot.child("completedRequest").exists()) {} else {
-                    $("#wasI").html("No");
-                }
+                    var dateStarted = snapshot.child("mouktijiesStart").val();
+                    var dateEnded = snapshot.child("timestampEndCycle").val();
+                    
+                    $("#dateStarted").html(convertLong(dateStarted));
+                    $("#dateEnded").html(convertLong(dateEnded));
+
+
+                });
+
+              
 
                 $("#tierShowing").html(category);
             });
@@ -154,7 +151,7 @@ function convertLong(long) {
 
 }
 
-function randomizerNext(){
+function randomizerNext() {
     var currentHour = new Date().getHours();
 
     if (currentHour >= 1 && currentHour < 4) {
@@ -178,6 +175,6 @@ function randomizerNext(){
 
 // function enableButtons(snapshot){
 //     database.ref('/profiles/' + userId + '/participates').once('value').then(function (snapshot) {
-       
+
 //     });
 // }
