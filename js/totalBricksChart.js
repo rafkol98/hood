@@ -35,7 +35,7 @@ function countTotalBricks() {
                     labels: ['BRONZE', 'SILVER', 'GOLD'],
                     datasets: [{
                         label: 'People',
-                        backgroundColor: ['#CD7F32','#C0C0C0','#FFEB96'],
+                        backgroundColor: ['#FA9F5B','#FF783C','#fa5700'],
                         borderColor: 'black',
                         data: array
                     }]
