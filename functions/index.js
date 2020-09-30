@@ -506,7 +506,7 @@ function findFreeRiders(num){
 
   return admin.database().ref('Contests/Pool'+num).once('value').then((datasnapshot) => {
     var moneyTotal = datasnapshot.child("moneyTotal").val();
-    var priceEntry = snapshot.child("priceEntry").val();
+    var priceEntry = datasnapshot.child("priceEntry").val();
 
     console.log("Pool"+num+" moneyTotal "+moneyTotal+" priceEntry "+priceEntry);
 
