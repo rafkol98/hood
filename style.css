@@ -423,8 +423,9 @@ width: 40% !important;
     background: linear-gradient(0deg, rgba(40, 40, 40, 0.4) 0%, rgba(50, 50, 50, 0.4) 100%) no-repeat center center fixed; */
     /* background-color: rgba(40, 40, 40, 0.4); */
    
-    background-color: #121212;  /* fallback for old browsers */
-    background-image: linear-gradient(0deg, rgba(22, 22, 22, 0.95), rgba(0, 0, 0,0.95));
+/* fallback for old browsers */
+    background-color: rgba(40, 40, 40, 0.4);
+    /* background-image: linear-gradient(0deg, rgba(22, 22, 22, 0.95), rgba(0, 0, 0,0.95)); */
   
     padding: 16px;
     border: 2px solid rgb(12, 12, 12);
