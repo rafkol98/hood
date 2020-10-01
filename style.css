@@ -883,7 +883,7 @@ a {
 
 .bg_dark_grey{
 
-    box-shadow: -4px 4px 0 rgb(0, 0, 0); 
+    box-shadow: -2px 2px 0 #fa5700; 
 
 }
 
@@ -1038,7 +1038,7 @@ a {
     margin-left: 0% !important;
     color: white;
     font-size: 18px;
-    background: linear-gradient(0deg, rgb(26, 26, 26) 0%, rgba(0, 0, 0,0.95) 100%) no-repeat center center fixed;
+    background-image: linear-gradient(0deg,  rgba(7, 7, 7, 0.95),rgba(22, 22, 22, 0.95));
     margin-bottom: 30px;
 }
 
@@ -1059,3 +1059,4 @@ a {
     height: 100%;
     vertical-align: middle;
 }
+
