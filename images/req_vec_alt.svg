@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="294.71" height="116.992" viewBox="0 0 294.71 116.992">
+  <defs>
+    <radialGradient id="radial-gradient" cx="0.5" cy="0.5" r="0.5" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#656565"/>
+      <stop offset="1" stop-color="#2e2e2e"/>
+    </radialGradient>
+    <filter id="Path_2" x="34" y="39.836" width="251" height="77.155" filterUnits="userSpaceOnUse">
+      <feOffset dy="4" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="Path_1" x="24" y="28.836" width="251" height="77.155" filterUnits="userSpaceOnUse">
+      <feOffset dy="4" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur-2"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur-2"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <linearGradient id="linear-gradient" x1="0.037" y1="0.391" x2="1" y2="0.5" gradientUnits="objectBoundingBox">
+      <stop offset="0"/>
+      <stop offset="1" stop-color="#191919"/>
+    </linearGradient>
+    <filter id="Rectangle_1" x="0" y="13.992" width="263" height="80" filterUnits="userSpaceOnUse">
+      <feOffset dy="4" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur-3"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur-3"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Group_30" data-name="Group 30" transform="translate(-112 -1483.008)">
+    <g id="Polygon_1" data-name="Polygon 1" transform="translate(298.555 1493.695) rotate(13)" fill="none">
+      <path d="M55.5,0,111,74H0Z" stroke="none"/>
+      <path d="M 55.5 1.666671752929688 L 2 73 L 109 73 L 55.5 1.666671752929688 M 55.5 7.62939453125e-06 L 111 74 L 0 74 L 55.5 7.62939453125e-06 Z" stroke="none" fill="#fff"/>
+    </g>
+    <g id="Polygon_2" data-name="Polygon 2" transform="translate(114.135 1507.54) rotate(-16)" fill="none">
+      <path d="M44.5,0,89,63H0Z" stroke="none"/>
+      <path d="M 44.4999885559082 1.733295440673828 L 1.930656433105469 62.00000381469727 L 87.06934356689453 62.00000381469727 L 44.4999885559082 1.733295440673828 M 44.4999885559082 3.814697265625e-06 L 89 63.00000381469727 L 0 63.00000381469727 L 44.4999885559082 3.814697265625e-06 Z" stroke="none" fill="#fff"/>
+    </g>
+    <g id="Group_23" data-name="Group 23" transform="translate(-41 -17)">
+      <g id="Rectangle_16" data-name="Rectangle 16" transform="translate(392.242 1559.721) rotate(8)" fill="none" stroke="#f16c25" stroke-width="1">
+        <rect width="48" height="48" stroke="none"/>
+        <rect x="0.5" y="0.5" width="47" height="47" fill="none"/>
+      </g>
+      <g id="Rectangle_17" data-name="Rectangle 17" transform="translate(188.668 1535.887) rotate(45)" fill="none" stroke="#f16c25" stroke-width="1">
+        <rect width="48" height="48" stroke="none"/>
+        <rect x="0.5" y="0.5" width="47" height="47" fill="none"/>
+      </g>
+      <g id="Group_1" data-name="Group 1" transform="translate(117 1410)">
+        <g transform="matrix(1, 0, 0, 1, 36, 90.01)" filter="url(#Path_2)">
+          <path id="Path_2-2" data-name="Path 2" d="M0,0H233V59.155H0Z" transform="translate(43 44.84)" opacity="0.416" fill="url(#radial-gradient)"/>
+        </g>
+        <g transform="matrix(1, 0, 0, 1, 36, 90.01)" filter="url(#Path_1)">
+          <path id="Path_1-2" data-name="Path 1" d="M0,0H233V59.155H0Z" transform="translate(33 33.84)" opacity="0.82" fill="url(#radial-gradient)"/>
+        </g>
+        <g transform="matrix(1, 0, 0, 1, 36, 90.01)" filter="url(#Rectangle_1)">
+          <g id="Rectangle_1-2" data-name="Rectangle 1" transform="translate(9 18.99)" stroke="#f85600" stroke-width="1" fill="url(#linear-gradient)">
+            <rect width="245" height="62" stroke="none"/>
+            <rect x="0.5" y="0.5" width="244" height="61" fill="none"/>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
