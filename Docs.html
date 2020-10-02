@@ -254,59 +254,162 @@
                         <div class="gapp"></div>
                         <h2>VSS Earn factors:</h2>
 
-                        <h4>Queue order:</h4>
+                        <div class="card accClass">
+                            <div class="card-header" id="heading7">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapse7" aria-expanded="true" aria-controls="collapse7">
+                                        Queue order
+                                    </button>
+                                </h5>
+                            </div>
 
-                        <p style="text-align: left;">The display queue was implemented to the system to objectively reward early involved individuals. In addition to display time, which is reserved by the users according to the traffic indicator at their moment of entry, individuals can higher their chances of benefiting from the cycle’s traffic by entering as early as possible into any cycle. This provides them with higher queue order and thus increases their display chances. However, because the speed of the cycle is determined by the display time of each user, which is a variable that is based on the number of floaters and the collective behaviour, each moment of entering the cycle has the potential to justify the user. Therefore, joining a cycle at any moment can eventually turn a user into earner.</p>
-                        <br><br>
+                            <div id="collapse7" class="collapse show" aria-labelledby="heading7" data-parent="#accordion">
+                                <div class="card-body">
+                                    <p style="text-align: left;">The display queue was implemented to the system to objectively reward early involved individuals. In addition to display time, which is reserved by the users according to the traffic indicator at their moment of entry, individuals can higher their chances of benefiting from the cycle’s traffic by entering as early as possible into any cycle. This provides them with higher queue order and thus increases their display chances. However, because the speed of the cycle is determined by the display time of each user, which is a variable that is based on the number of floaters and the collective behaviour, each moment of entering the cycle has the potential to justify the user. Therefore, joining a cycle at any moment can eventually turn a user into earner.</p>
+                                </div>
+                            </div>
+                        </div>
 
-                        <h4>Max spenders:</h4>
 
-                        <p style="text-align: left;">Furthermore, users that remain spenders always withhold the ability to turn into earners without the need of paying again. Notably, each cycle has a maximum number of participants that can enter with a free ticket. That value fluctuates between different cycles and is influenced by the number of spenders of the previous cycle with the following equation:</p>
+                        <div class="card accClass">
+                            <div class="card-header" id="heading8">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapse8" aria-expanded="true" aria-controls="collapse8">
+                                        Max spenders
+                                    </button>
+                                </h5>
+                            </div>
 
-                        <p style="font-size: 24px; font-style: italic;">#max_spenders = 0.02*#spenders_of_last_cycle_only + 50</p>
+                            <div id="collapse8" class="collapse show" aria-labelledby="heading8" data-parent="#accordion">
+                                <div class="card-body">
+                                    <p style="text-align: left;">Users that remain spenders always withhold the ability to turn into earners without the need of paying again. Notably, each cycle has a maximum number of participants that can enter with a free ticket. That value fluctuates between different cycles and is influenced by the number of spenders of the previous cycle with the following equation:</p>
+                                    <p style="font-size: 24px; font-style: italic;">#max_spenders = 0.02*#spenders_of_last_cycle_only + 50</p>
 
-                        <br><br>
-                        <h4>Spenders precedence:</h4>
+                                </div>
+                            </div>
+                        </div>
 
-                        <p style="text-align: left;">Apart from the free entrance ticket that all spenders receive at the end of a cycle, spenders have another perk: that is, spenders’ precedence. Spenders’ precedence is a window of time at the beginning of a cycle in which only spenders can enter the cycle using the corresponding ticket. The length of this window is measured in minutes, and it depends on the number of spenders of the latest cycle. It is calculated with the following formula:</p>
-                        <p style="font-size: 24px; font-style: italic;">spenders_precedence = 0.001*#spenders_of_last_cycle_only + 10</p>
 
-                        <p style="text-align: left;"><br><br>*after the spender precedence, spenders of previous cycles that hold a ticket can always join the cycle ate any given moment with their ticket given that the maximum amount of spenders allowed ( #max_spenders) hasn’t been reached yet.
+                        <div class="card accClass">
+                            <div class="card-header" id="heading9">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapse9" aria-expanded="true" aria-controls="collapse9">
+                                        Spenders precedence
+                                    </button>
+                                </h5>
+                            </div>
 
-                            <br><br>*if the maximum number of allowed spenders (#max_spenders) is reached before the end of spenders’ precedence, then spenders’ precedence ends, and anyone can participate in the cycle by paying their entrance fee in bricks.
-                            <br><br>As number of the variables, max_spenders and spenders’_precedence rise (rise of #floaters) the time_of_display declines due to the decline of the multiplier that declines with the rise of #floaters. This relationship ensures that the number of the variables max_spenders and spenders_precedence rises to benefit spenders according to the demand, while maintaining enough time for new participants to become earners from the first time of using the VSS. Specifically, the worst-case scenario in terms of how many hours spenders can occupy from the length of the cycle is calculated with the following equation:
+                            <div id="collapse9" class="collapse show" aria-labelledby="heading9" data-parent="#accordion">
+                                <div class="card-body">
+                                    
 
-                        </p>
+                                    <p style="text-align: left;">Apart from the free entrance ticket that all spenders receive at the end of a cycle, spenders have another perk: that is, spenders’ precedence. Spenders’ precedence is a window of time at the beginning of a cycle in which only spenders can enter the cycle using the corresponding ticket. The length of this window is measured in minutes, and it depends on the number of spenders of the latest cycle. It is calculated with the following formula:</p>
+                                    <p style="font-size: 24px; font-style: italic;">spenders_precedence = 0.001*#spenders_of_last_cycle_only + 10</p>
+            
+                                    <p style="text-align: left;"><br><br>*after the spender precedence, spenders of previous cycles that hold a ticket can always join the cycle ate any given moment with their ticket given that the maximum amount of spenders allowed ( #max_spenders) hasn’t been reached yet.
+            
+                                        <br><br>*if the maximum number of allowed spenders (#max_spenders) is reached before the end of spenders’ precedence, then spenders’ precedence ends, and anyone can participate in the cycle by paying their entrance fee in bricks.
+                                        <br><br>As number of the variables, max_spenders and spenders’_precedence rise (rise of #floaters) the time_of_display declines due to the decline of the multiplier that declines with the rise of #floaters. This relationship ensures that the number of the variables max_spenders and spenders_precedence rises to benefit spenders according to the demand, while maintaining enough time for new participants to become earners from the first time of using the VSS. Specifically, the worst-case scenario in terms of how many hours spenders can occupy from the length of the cycle is calculated with the following equation:
+            
+                                    </p>
+            
+                                    <p style="font-size: 24px; font-style: italic;">
+                                        .i = #players_joined_in_the_last_5_minutes
+                                                                                                                                                                                                                                                                                .t = time_of_display<br>
+                                        .y=spenders_precedence/5<br>
+                                        .v=#max_spenders/(y/5)<br><br>
+                                        //NOT HERE YET * (y/5)
+                                    </p>
+            
+                                    <p style="text-align: left;">
+                                        The numbers of the variables in any case ensure that the maximum hours occupied by the spenders never exceed 50% of the total cycle duration.
+                                        <br><br></p>
 
-                        <p style="font-size: 24px; font-style: italic;">
-                            .i = #players_joined_in_the_last_5_minutes
-                                                                                                                                                                                                                                                                    .t = time_of_display<br>
-                            .y=spenders_precedence/5<br>
-                            .v=#max_spenders/(y/5)<br><br>
-                            //NOT HERE YET * (y/5)
-                        </p>
 
-                        <p style="text-align: left;">
-                            The numbers of the variables in any case ensure that the maximum hours occupied by the spenders never exceed 50% of the total cycle duration.
-                            <br><br></p>
-                        <h4>Traffic of the cycle:</h4>
 
-                        <p style="text-align: left;">The natural randomness of the mass behaviour is taken into account by the mechanism of the system. The number of deposits earned by individuals that become earners depend on the traffic of the cycle at the moment of their display which is influenced by their time of entry to the cycle. The user displayed is likely to receive more deposits if the traffic of the cycle is high.</p>
-                        <br><br>
-                        <h4>Randomizer:</h4>
+                                </div>
+                            </div>
+                        </div>
 
-                        <p style="text-align: left;">In addition, another simple yet important mechanism of the system needs to be introduced: the randomizer. Every three hours a random participant is selected (using math.random of javascript) from the queue and is placed behind the participant that is displayed at the moment. This, along with the free entrance ticket spenders receive, serves as an equaliser to the odds of late involved individuals against early involved individuals. The randomizer raises the chances of late involved individuals that have a low chance of being displayed normally.</p>
-                        <br><br>
-                        <h4>Bonus Mechanism:</h4>
 
-                        <p style="text-align: left;">As it is obvious, participants that receive two or more deposits have practically earned more than their entrance fee. However, participants that earn only one deposit are still considered earners for the purposes of the VSS. Yet, since the worth of a single deposit is less than the entrance fee, those participants practically didn’t earn back on their entrance fee. This is balanced out with the implementation of a bonus mechanism to the VSS. Since everyone’s display time begins to countdown from the moment they receive their first deposit, everyone in display will receive at least one deposit (given that people are continuously joining the cycle). In a situation where a cycle has a lot of traffic, cases of participants becoming earners with just one deposits can be considered rare. As cycle traffic cumulates, the chances of someone receiving just a single deposit are significantly reduced. The factor that is responsible for the occurrence of such cases is the collective behavior which is nearly unpredictable. In cases of traffic cumulation, participants that became earners with single deposits are highly rewarded by the bonus mechanism of the VSS.
-                            <br><br>Cycles are comprised by five fixed checkpoints exist. The checkpoints are measured in terms of how many players have joined a cycle. Every time a checkpoint is reached, percentage amount of the entrance fee multiplier with the number of participants is divided to the people that became earners with just a single deposit. For example in the gold tier, if a cycle ends with an amount of participants equal to 2000 that exceed the second checkpoint, 20000(10%) of 200000 (200*100) will be divided to single deposit earners. This can easily create a situation where single deposit earners can earn a lot more than 40% of their entrance fee (that is the minimum earn of percentage of earners with at least two deposits). The checkpoints for each tier are presented here:
-                        </p>
-                        <br><br>
-                        <h4>Realizations about VSS</h4>
+                        <div class="card accClass">
+                            <div class="card-header" id="heading10">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapse10" aria-expanded="true" aria-controls="collapse10">
+                                        Traffic of the cycle
+                                    </button>
+                                </h5>
+                            </div>
 
-                        <p style="text-align: left;">With all that said, the VSS is a system which is based on growth. The increase of participants in a cycle entails their maximal benefit by at least entertaining the chance of earning back more than what they initially paid. Any fixed numbers, for example equation slopes, traffic indicator etc. can always adjust according to data from a real-life scenario. This is a prototype in which all  numbers were set based on research and estimation. Our team is willing to change any number that does not correspond to the feedback received by the participants.</p>
+                            <div id="collapse10" class="collapse show" aria-labelledby="heading10" data-parent="#accordion">
+                                <div class="card-body">
+                                    
+                                    <p style="text-align: left;">The natural randomness of the mass behaviour is taken into account by the mechanism of the system. The number of deposits earned by individuals that become earners depend on the traffic of the cycle at the moment of their display which is influenced by their time of entry to the cycle. The user displayed is likely to receive more deposits if the traffic of the cycle is high.</p>
+                      
+                                </div>
+                            </div>
+                        </div>
 
+
+                        <div class="card accClass">
+                            <div class="card-header" id="heading11">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapse11" aria-expanded="true" aria-controls="collapse11">
+                                        Randomizer
+                                    </button>
+                                </h5>
+                            </div>
+
+                            <div id="collapse11" class="collapse show" aria-labelledby="heading11" data-parent="#accordion">
+                                <div class="card-body">
+                            
+                                    <p style="text-align: left;">In addition, another simple yet important mechanism of the system needs to be introduced: the randomizer. Every three hours a random participant is selected (using math.random of javascript) from the queue and is placed behind the participant that is displayed at the moment. This, along with the free entrance ticket spenders receive, serves as an equaliser to the odds of late involved individuals against early involved individuals. The randomizer raises the chances of late involved individuals that have a low chance of being displayed normally.</p>
+          
+                                </div>
+                            </div>
+                        </div>
+                    
+
+                        <div class="card accClass">
+                            <div class="card-header" id="heading12">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapse12" aria-expanded="true" aria-controls="collapse12">
+                                        Bonus Mechanism
+                                    </button>
+                                </h5>
+                            </div>
+
+                            <div id="collapse12" class="collapse show" aria-labelledby="heading12" data-parent="#accordion">
+                                <div class="card-body">
+                            
+                                    <p style="text-align: left;">As it is obvious, participants that receive two or more deposits have practically earned more than their entrance fee. However, participants that earn only one deposit are still considered earners for the purposes of the VSS. Yet, since the worth of a single deposit is less than the entrance fee, those participants practically didn’t earn back on their entrance fee. This is balanced out with the implementation of a bonus mechanism to the VSS. Since everyone’s display time begins to countdown from the moment they receive their first deposit, everyone in display will receive at least one deposit (given that people are continuously joining the cycle). In a situation where a cycle has a lot of traffic, cases of participants becoming earners with just one deposits can be considered rare. As cycle traffic cumulates, the chances of someone receiving just a single deposit are significantly reduced. The factor that is responsible for the occurrence of such cases is the collective behavior which is nearly unpredictable. In cases of traffic cumulation, participants that became earners with single deposits are highly rewarded by the bonus mechanism of the VSS.
+                                        <br><br>Cycles are comprised by five fixed checkpoints exist. The checkpoints are measured in terms of how many players have joined a cycle. Every time a checkpoint is reached, percentage amount of the entrance fee multiplier with the number of participants is divided to the people that became earners with just a single deposit. For example in the gold tier, if a cycle ends with an amount of participants equal to 2000 that exceed the second checkpoint, 20000(10%) of 200000 (200*100) will be divided to single deposit earners. This can easily create a situation where single deposit earners can earn a lot more than 40% of their entrance fee (that is the minimum earn of percentage of earners with at least two deposits). The checkpoints for each tier are presented here:
+                                    </p>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="card accClass">
+                            <div class="card-header" id="heading13">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapse13" aria-expanded="true" aria-controls="collapse13">
+                                        Realizations about VSS
+                                    </button>
+                                </h5>
+                            </div>
+
+                            <div id="collapse13" class="collapse show" aria-labelledby="heading13" data-parent="#accordion">
+                                <div class="card-body">
+
+                                    <p style="text-align: left;">With all that said, the VSS is a system which is based on growth. The increase of participants in a cycle entails their maximal benefit by at least entertaining the chance of earning back more than what they initially paid. Any fixed numbers, for example equation slopes, traffic indicator etc. can always adjust according to data from a real-life scenario. This is a prototype in which all  numbers were set based on research and estimation. Our team is willing to change any number that does not correspond to the feedback received by the participants.</p>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        
                         <div class="gap"></div>
 
                     </div>
