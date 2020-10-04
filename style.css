@@ -1074,10 +1074,9 @@ a {
     padding:40px;
     text-align: center;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 1);
+    overflow: scroll;
 }
 
 .containerDocs{
     margin-top: 4%;
-    margin-left: 4%;
-    margin-right: 4%;
 }
