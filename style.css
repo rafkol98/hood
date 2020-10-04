@@ -17,6 +17,10 @@ body
 
 }
 
+ul{
+    margin-left: 10px;
+}
+
 h2{
     color: white;
     font-style: italic;
@@ -1160,8 +1164,11 @@ a {
         margin-top: 20px;
         margin-bottom: 8px;
     }
+    ul{
+        margin-left: 20px;
+    }
     li{
-        padding: 5px;
+        padding-left: 5px;
         font-size: 14px;
         color: rgb(215, 215, 215);
     }
