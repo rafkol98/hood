@@ -59,20 +59,7 @@
         <script src="./js/peopleEnteredGraph.js"></script>
 
         <script>
-            firebase.auth().onAuthStateChanged(function (user) {
-
-                if (user) {
-                    $("#nav_signOut").one("click", function (e) {
-                        firebase.auth().signOut().then(function () {
-                            console.log('Signed Out');
-                        }, function (error) {
-                            console.error('Sign Out Error', error);
-                        });
-
-                    });
-                }
-
-            });
+          
         </script>
 
         <script>
