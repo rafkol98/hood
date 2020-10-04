@@ -598,8 +598,14 @@ hr.style-two {
 }
 
 .card {
-    /* position:relative; */
-    /* border: 1px solid rgb(58, 58, 58); */
+    border: 1px ridge black;
+    background-color: rgba(40, 40, 40, 0.4) !important;
+    margin-left: 20% !important;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2) !important;
+    transition: 4s;
+}
+
+.cardDocs{
     border: 1px ridge black;
     background-color: rgba(40, 40, 40, 0.4) !important;
     margin-left: 20% !important;
@@ -1061,3 +1067,17 @@ a {
     vertical-align: middle;
 }
 
+.formulas{
+    font-size: 24px;
+    font-style: italic;
+    background-color: rgb(34, 34, 34);
+    padding:40px;
+    text-align: center;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 1);
+}
+
+.containerDocs{
+    margin-top: 4%;
+    margin-left: 4%;
+    margin-right: 4%;
+}
