@@ -685,6 +685,20 @@ hr.style-two {
     transform: rotate(2deg);
 }
 
+
+.homeTotal{
+    font-style: italic;
+    font-size: 60px;
+    font-weight: 300;
+    color: rgb(249, 87, 0);
+    transition: width 2s, height 2s, transform 1s;
+}
+
+.homeTotal:hover{
+    transform: rotate(2deg);
+}
+
+
 .icon-bit {
     display: inline-block;
     width: 25px;
@@ -1097,5 +1111,53 @@ a {
         text-align: center;
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 1);
         overflow: scroll;
+    }
+
+    h2{
+        color: white;
+        font-style: italic;
+        font-size: 24px;
+        font-weight: 300;
+        padding: 5px;
+    }
+    
+    h3{
+        font-style: italic;
+        font-size: 18px;
+        font-weight: 300;
+    }
+    
+    h4 {
+        font-style: italic;
+        font-size: 22px;
+        font-weight: 300;
+        color: white;
+    }
+    
+    h5{
+        font-size: 18px;
+        padding: 5px;
+        color: white;
+        text-decoration: underline;
+    }
+    
+    h6{
+        font-style: italic;
+        font-size: 17px;
+        padding: 5px;
+    }
+    .homeTotal{
+        font-style: italic;
+        font-size: 28px;
+        font-weight: 300;
+        color: rgb(249, 87, 0);
+        transition: width 2s, height 2s, transform 1s;
+    }
+    .login-title{
+        text-align: left !important;
+        font-style: italic;
+        font-size: 25px;
+        margin-top: 20px;
+        margin-bottom: 8px;
     }
   }
