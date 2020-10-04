@@ -52,9 +52,11 @@ h6{
 }
 
 p {
-    font-size: 20px;
+    font-size: 18px;
     color: rgb(215, 215, 215);
 }
+
+
 
 li{
     padding: 7px;
@@ -1068,7 +1070,7 @@ a {
 }
 
 .formulas{
-    font-size: 24px;
+    font-size: 20px;
     font-style: italic;
     background-color: rgb(34, 34, 34);
     padding:40px;
@@ -1080,3 +1082,20 @@ a {
 .containerDocs{
     margin-top: 4%;
 }
+
+/* If the screen size is 600px wide or less, set the font-size of <div> to 30px */
+@media screen and (max-width: 600px) {
+    p {
+      font-size: 14px;
+    }
+
+    .formulas{
+        font-size: 16px;
+        font-style: italic;
+        background-color: rgb(34, 34, 34);
+        padding:40px;
+        text-align: center;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 1);
+        overflow: scroll;
+    }
+  }
