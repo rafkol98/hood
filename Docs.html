@@ -175,11 +175,12 @@
                                             At this point, a question arises. Who is displayed and for how long? Displayed users have a position in the queue of display according to the amount of people that were already participating in the cycle before their point of entry. For example, if 50 people were already in the Cycle, a new participant will reserve the position 51. Whenever someone’s remaining time on the display page expires, the next one in order, takes their place. Whenever a user joins a cycle, the system calculates the number of users that joined 5 minutes before their point of entry.
                                         </p>           <br><br>
                                             In this manner, individuals reserve their time of display according to the following equation:</p>
-                                        <p class="formulas">unit = 3.5
-                                                                                                                                                                                                                                                                                                                                                                                                    x = ((#players_joined_in_last_5_mins)+1) * unit<br><br>
+                                        <div class="formulas">
+                                            <p>>unit = 3.5
+                                            <br><br>x = ((#players_joined_in_last_5_mins)+1) * unit<br><br>
                                             y = 1.1*((32*x*3^(-0.1*x)) + (217/x) + (x^(-0.3)))/2<br><br>
-                                            time_of_display  = rounded (y) * multiplier
-                                        </p>
+                                            time_of_display  = rounded (y) * multiplier</p>
+                                        </div>
 
                                         <p style="text-align: left;">*multiplier = a real number that follows the equation -0.000015* #floaters + 1.9,<br>
                                             max time_of_display = 141 mins,  
