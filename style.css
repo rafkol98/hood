@@ -24,26 +24,26 @@ ul{
 h2{
     color: white;
     font-style: italic;
-    font-size: 36px;
+    font-size: 32px;
     font-weight: 300;
     padding: 5px;
 }
 
 h3{
     font-style: italic;
-    font-size: 24px;
+    font-size: 22px;
     font-weight: 300;
 }
 
 h4 {
     font-style: italic;
-    font-size: 28px;
+    font-size: 26px;
     font-weight: 300;
     color: white;
 }
 
 h5{
-    font-size: 22px;
+    font-size: 20px;
     padding: 5px;
     color: white;
     text-decoration: underline;
