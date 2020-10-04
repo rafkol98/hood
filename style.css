@@ -52,9 +52,11 @@ h6{
 }
 
 p {
-    font-size: 20px;
+    font-size: 18px;
     color: rgb(215, 215, 215);
 }
+
+
 
 li{
     padding: 7px;
@@ -683,6 +685,20 @@ hr.style-two {
     transform: rotate(2deg);
 }
 
+
+.homeTotal{
+    font-style: italic;
+    font-size: 60px;
+    font-weight: 300;
+    color: rgb(249, 87, 0);
+    transition: width 2s, height 2s, transform 1s;
+}
+
+.homeTotal:hover{
+    transform: rotate(2deg);
+}
+
+
 .icon-bit {
     display: inline-block;
     width: 25px;
@@ -1068,7 +1084,7 @@ a {
 }
 
 .formulas{
-    font-size: 24px;
+    font-size: 20px;
     font-style: italic;
     background-color: rgb(34, 34, 34);
     padding:40px;
@@ -1080,3 +1096,73 @@ a {
 .containerDocs{
     margin-top: 4%;
 }
+
+/* If the screen size is 600px wide or less, set the font-size of <div> to 30px */
+@media screen and (max-width: 600px) {
+    p {
+      font-size: 14px;
+    }
+
+    .formulas{
+        font-size: 16px;
+        font-style: italic;
+        background-color: rgb(34, 34, 34);
+        padding:40px;
+        text-align: center;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 1);
+        overflow: scroll;
+    }
+
+    h2{
+        color: white;
+        font-style: italic;
+        font-size: 24px;
+        font-weight: 300;
+        padding: 5px;
+    }
+    
+    h3{
+        font-style: italic;
+        font-size: 18px;
+        font-weight: 300;
+    }
+    
+    h4 {
+        font-style: italic;
+        font-size: 22px;
+        font-weight: 300;
+        color: white;
+    }
+    
+    h5{
+        font-size: 18px;
+        padding: 5px;
+        color: white;
+        text-decoration: underline;
+    }
+    
+    h6{
+        font-style: italic;
+        font-size: 17px;
+        padding: 5px;
+    }
+    .homeTotal{
+        font-style: italic;
+        font-size: 28px;
+        font-weight: 300;
+        color: rgb(249, 87, 0);
+        transition: width 2s, height 2s, transform 1s;
+    }
+    .login-title{
+        text-align: left !important;
+        font-style: italic;
+        font-size: 25px;
+        margin-top: 20px;
+        margin-bottom: 8px;
+    }
+    li{
+        padding: 5px;
+        font-size: 14px;
+        color: rgb(215, 215, 215);
+    }
+  }
