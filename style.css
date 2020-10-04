@@ -1160,4 +1160,9 @@ a {
         margin-top: 20px;
         margin-bottom: 8px;
     }
+    li{
+        padding: 5px;
+        font-size: 14px;
+        color: rgb(215, 215, 215);
+    }
   }
