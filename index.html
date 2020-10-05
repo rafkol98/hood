@@ -25,7 +25,7 @@
         <script src="https://www.gstatic.com/firebasejs/7.3.0/firebase-app.js"></script>
 
         <!-- TODO: Add SDKs for Firebase products that you want to use
-                                                 https://firebase.google.com/docs/web/setup#available-libraries -->
+                                                         https://firebase.google.com/docs/web/setup#available-libraries -->
         <!-- Add Firebase products that you want to use -->
         <script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-auth.js"></script>
 
@@ -51,11 +51,11 @@
         <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
         <script src="./js/totalBricksChart.js"></script>
 
-       
 
     </head>
-   
-    <body onload="countTotalBricks()">
+
+    <body
+        onload="countTotalBricks()">
         <!--Navigation Menu-->
         <section id="nav_bar">
 
@@ -72,114 +72,106 @@
                             <a class="nav-link" href="./Docs.html" style="margin-right: 30px;">Docs</a>
                         </li>
                     </div>
-            </nav>
+                </nav>
             </section>
-            
+
             <div class="bgIndex">
-            <div class="" style="margin-bottom: 0px;">
+                <div class="" style="margin-bottom: 0px;">
 
-                <div class="loader2">
-                    <br>
-                    <img src="./images/logos-08.png" alt="logo-brixy" height="120px">
-                    <img src="./images/brixy.net logo@2x.png" alt="brixyLogo-text"  height="90px">
-                    <br>
-                    <img src="images/three-dots.svg" alt="three-dots" height="25px">
-                </div>
+                    <div class="loader2">
+                        <br>
+                        <img src="./images/logos-08.png" alt="logo-brixy" height="120px">
+                        <img src="./images/brixy.net logo@2x.png" alt="brixyLogo-text" height="90px">
+                        <br>
+                        <img src="images/three-dots.svg" alt="three-dots" height="25px">
+                    </div>
 
-                <div class="containerIndex">
-                    <div class="row">
+                    <div class="containerIndex">
+                        <div class="row">
 
 
-                        <div class="col-md-4 col-md-push-4 order-sm-1 border-on-section" style="height: 400px; margin-top: 65px;">
+                            <div class="col-md-4 col-md-push-4 order-sm-1 border-on-section" style="height: 400px; margin-top: 65px;">
 
-                            <div class="">
-                                <p class="login-title">SIGN IN</p>
-                                <input id="email" type="text" placeholder="Enter Email" name="uname" required>
+                                <div class="">
+                                    <p class="login-title">SIGN IN</p>
+                                    <input id="email" type="text" placeholder="Enter Email" name="uname" required>
 
-                                <input id="password" type="password" placeholder="Enter Password" name="psw" required>
+                                    <input id="password" type="password" placeholder="Enter Password" name="psw" required>
 
-                                <button id="btn-login" type="submit">Sign in...</button>
-                                <label>
-                                    <input type="checkbox" checked="checked" name="remember">
-                                    Remember me
-                                </label>
-                                <div class="gapp">
-                                    <p>
-                                        <a href="">Forgot your password?</a>
-                                    </p>
+                                    <button id="btn-login" type="submit">Sign in...</button>
+                                    <label>
+                                        <input type="checkbox" checked="checked" name="remember">
+                                        Remember me
+                                    </label>
+                                    <div class="gapp">
+                                        <p>
+                                            <a href="">Forgot your password?</a>
+                                        </p>
+                                    </div>
+
                                 </div>
-
                             </div>
+
+
                         </div>
 
 
+                        <div class="gap"></div>
+                        <svg class="arrows">
+                            <path class="a1" d="M0 0 L30 32 L60 0"></path>
+                            <path class="a2" d="M0 20 L30 52 L60 20"></path>
+                            <path class="a3" d="M0 40 L30 72 L60 40"></path>
+                        </svg>
+
                     </div>
-
-
-                    <div class="gap"></div>
-                    <svg class="arrows">
-                        <path class="a1" d="M0 0 L30 32 L60 0"></path>
-                        <path class="a2" d="M0 20 L30 52 L60 20"></path>
-                        <path class="a3" d="M0 40 L30 72 L60 40"></path>
-                      </svg>
-                    
-                </div>
-                  <div class="border-on-section2">
+                    <div class="border-on-section2">
                         <h2>What is brixy.net?</h2>
 
                         <p style="text-align: left; margin-bottom: 20px;">Brixy.net is a platform that allows users to passively earn online while taking advantage of the collective behaviour. It uses a bias-proof value spreading system, that objectively rewards the users according to their time of entry and the number of other participants.</p>
 
 
-                   
+                        <hr class="style-two">
 
-                    <hr class="style-two">
+                        <div class="row flex-column-reverse flex-md-row" style="position: relative; margin-bottom: 40px;">
 
-                    <div class="row flex-column-reverse flex-md-row" style="position: relative; margin-bottom: 40px;">
+                            <div class="col-md-5 col-md-push-5 order-sm-2">
 
-                        <div class="col-md-5 col-md-push-5 order-sm-2">
-                          
-                            <img src="./images/whyBrixy_alt@2x.png" style="width: 70%; margin: auto; margin-top: 40px; margin-left: 40px;"/>
-               
-                            
-                           
-                        
-                        </div>
-                        <div class="col-md-7 col-md-push-7 order-sm-2">
-                            <div class="gapp"></div>
-                            <h2>Why Brixy.net?</h2>
-                           
-                           
+                                <img src="./images/whyBrixy_alt@2x.png" style="width: 70%; margin: auto; margin-top: 40px; margin-left: 40px;"/>
+
+
+                            </div>
+                            <div class="col-md-7 col-md-push-7 order-sm-2">
+                                <div class="gapp"></div>
+                                <h2>Why Brixy.net?</h2>
+
+
                                 <ul>
                                     <li>Usernames are fully and repeatedly encrypted to protect against planned enrolment.</li>
                                     <li>Limitless opportunities to earn</li>
                                     <li>Become a part of the revolution!</li>
-                                        
+
                                 </ul>
-                                            
-                                    
-                            
-                        
+
+
+                            </div>
+
                         </div>
-                       
-                    </div>
 
 
-
-                    
-
-                    <hr class="style-two">
+                        <hr class="style-two">
 
 
-                    
-                    <h2>How it works</h2>
-                    
-                    <p style="text-align: left;">The value spreading system functions on specific periods of time named cycles. During a Cycle users can use the platform to join a cycle by paying the corresponding entrance fee. (see more on Cycles and their duration)</p>
+                        <h2>How it works</h2>
+
+                        <p style="text-align: left;">The value spreading system functions on specific periods of time named cycles. During a Cycle users can use the platform to join a cycle by paying the corresponding entrance fee.
+                            <a href="./Docs.html">(see more on Cycles and their duration)</a>
+                        </p>
                         <div class="gapp"></div>
                         <div class="row" style="position: relative;">
 
                             <div class="col-md-7 col-md-push-7 order-sm-1">
-                             
-                                
+
+
                                 <h4>Display Mechanism:</h4>
                                 <p style="text-align: left;">
                                     The value spreading system functions on specific periods of time which are called Cycles. Each user can join a Cycle by paying the corresponding entrance fee and each Cycle has a display queue. Every time a new user joins the Cycle, they will get the last position in the queue, whilst the person who is currently displayed is first. The display time of the user listed first is infinite until another user joins the Cycle. When that happens, they will collect their first deposit and from that moment they will be further displayed for x minutes. These x minutes were optimally calculated using a formula that considers the traffic of the pool upon his entrance.
@@ -188,13 +180,13 @@
                                 <p>
                                     <a class="bg_dark_grey" data-toggle="collapse" href="#collapseDeposits" role="button" aria-expanded="false" aria-controls="collapseDeposits">
                                         What are deposits?
-                                      </a>
+                                    </a>
                                 </p>
                                 <div class="collapse" id="collapseDeposits">
-                                  <div class="card card-body" style="background-color: rgb(199, 199, 199) !important; margin-left: 0% !important;">
-                                    <h4 style="color: black;">Deposits</h4>
-                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
-                                  </div>
+                                    <div class="card card-body" style="background-color: rgb(199, 199, 199) !important; margin-left: 0% !important;">
+                                        <h4 style="color: black;">Deposits</h4>
+                                        A Deposit is a specific amount of bricks that are earned by the displayed user when other users join the Cycle.
+                                    </div>
                                 </div>
 
                                 <br>
@@ -202,22 +194,22 @@
                                 <p style="text-align: left;">
                                     There are three different tiers you can choose from to join: bronze, silver, and gold.
                                 </p>
-                                
-                                
-                                <br>
-                                     <h4>Tickets:</h4>
-                            <p style="text-align: left;">
-                                If you do not receive any deposits by the end of a Cycle, you will receive a free ticket and priority which can be used to join any of the following Cycles of the tier you already participated with a priority in the display queue.
-                            </p>
 
-                        
+
+                                <br>
+                                <h4>Tickets:</h4>
+                                <p style="text-align: left;">
+                                    If you do not receive any deposits by the end of a Cycle, you will receive a free ticket and priority which can be used to join any of the following Cycles of the tier you already participated with a priority in the display queue.
+                                </p>
+
+
                             </div>
 
                             <div class="col-md-5 col-md-push-5 order-sm-1">
                                 <div class="gap"></div>
                                 <img src="./images/vector_home_alt.svg" style="width: 80%; margin-left: 40px;" class="helper"/>
                             </div>
-                           
+
                         </div>
 
                         <div class="row">
@@ -225,99 +217,115 @@
                                 <br>
                                 <h4>Randomizer:</h4>
                                 <p style="text-align: left;">
-                                    Your chances of being displayed are always high whichever position in the display queue you possess!  The system has a randomiser that picks a random user from the queue and places him right before the displayed user. 
+                                    Your chances of being displayed are always high whichever position in the display queue you possess!  The system has a randomiser that picks a random user from the queue and places him right before the displayed user.
                                 </p>
                                 <br>
                                 <h4>Bonus:</h4>
                                 <p style="text-align: left;">
-                                    The more users join the Cycle, the more money collected! If a checkpoint is exceeded by the end of a Cycle and you ended up with just one deposit (so you earned less than you initially paid for entering), you will receive an extra bonus which can skyrocket your earnings!
-                                    toggle for Bonus.
+                                    The more users join the Cycle, the more money collected! If a checkpoint is exceeded by the end of a Cycle and you ended up with just one deposit (so you earned less than you initially paid for entering), you will receive an extra bonus which can skyrocket your earnings!                                   
                                 </p>
-    
-                       
+
+                                <p>
+                                    <a class="bg_dark_grey" data-toggle="collapse" href="#collapse3" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                        Who earns this bonus?
+                                    </a>
+                                </p>
+                                <div class="collapse" id="collapse3">
+                                    <div class="card card-body" style="background-color: #d2d2d2 !important; margin-left: 0% !important;">
+                                        <h4 style="color: black;">Display System
+                                        </h4>
+                                        Participants who received just one deposit when they were displayed are very likely to receive a bonus! You can learn more about it <a href="./Docs.html" style="color: black;">by reading the docs</a>
+                                    </div>
+                                </div>
+
+
+
                             </div>
                         </div>
 
                         <hr class="style-two">
 
-                
+
                         <h2>How to Join</h2>
-                       
+
 
                         <div class="row" style="position: relative; margin-bottom: 40px;">
 
-                            
+
                             <div class="col-md-7 col-md-push-7 order-sm-1">
                                 <h4>Step 1</h4>
-                                <p >Purchase a sufficient amount of bricks for your desired tier in advance. </p>
-                              
+                                <p>Purchase a sufficient amount of bricks for your desired tier in advance.
+                                </p>
+
                                 <p>
                                     <a class="bg_dark_grey" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
                                         What are bricks?
-                                      </a>
+                                    </a>
                                 </p>
                                 <div class="collapse" id="collapseExample">
-                                  <div class="card card-body shadow" style="background-color: rgb(199, 199, 199) !important; margin-left: 0% !important; ">
-                                    <h4 style="color: black;">Bricks</h4>
-                                    Bricks is the virtual currency used in the platform to eliminate transaction friction <a href="./Docs.html" style="color: black;">(learn more)</a>
-                                  </div>
+                                    <div class="card card-body shadow" style="background-color: rgb(199, 199, 199) !important; margin-left: 0% !important; ">
+                                        <h4 style="color: black;">Bricks</h4>
+                                        Bricks is the virtual currency used in the platform to eliminate transaction friction
+                                        <a href="./Docs.html" style="color: black;">(learn more)</a>
+                                    </div>
                                 </div>
-                                
+
                             </div>
 
                             <div class="col-md-5 col-md-push-5 order-sm-2">
-                                
-                                <img src="./images/earn_vec_alt.svg" class="centerImg"/>
-                        
+
+                                <img src="./images/earn_vec_alt@2x.png" class="centerImg"/>
+
                             </div>
                         </div>
-                        
+
                         <div class="row flex-column-reverse flex-md-row" style="position: relative; margin-bottom: 40px;">
 
                             <div class="col-md-5">
-                                <img src="./images/req_vec_alt.svg" class="centerImg" style="width: 70% !important;"/>
+                                <img src="./images/req_vec_alt@2x.png" class="centerImg" style="width: 70% !important;"/>
                             </div>
 
                             <div class="col-md-7">
                                 <h4>Step 2</h4>
                                 <p>Join an active cycle of your desired tier by using the encrypted hash of the displayed user.</p>
-                              
+
                             </div>
 
                         </div>
 
                         <div class="row" style="position: relative; margin-bottom: 40px;">
 
-                            
+
                             <div class="col-md-7 col-md-push-7 order-sm-1">
                                 <h4>Step 3</h4>
-                                <p >Wait until your turn comes to be displayed!</p>
+                                <p>Wait until your turn comes to be displayed!</p>
 
                                 <p>
                                     <a class="bg_dark_grey" data-toggle="collapse" href="#collapse3" role="button" aria-expanded="false" aria-controls="collapseExample">
-                                       How long do I have to wait?
-                                      </a>
+                                        Who is displayed and for how long?
+                                    </a>
                                 </p>
                                 <div class="collapse" id="collapse3">
-                                  <div class="card card-body" style="background-color: #d2d2d2 !important; margin-left: 0% !important;">
-                                    <h4 style="color: black;">Display </h4>
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. A impedit expedita facilis odit accusantium delectus voluptate, maiores unde dignissimos architecto quo excepturi corrupti suscipit facere quae reprehenderit saepe laudantium at. <a href="./Docs.html" style="color: black;">(learn more)</a>
-                                  </div>
+                                    <div class="card card-body" style="background-color: #d2d2d2 !important; margin-left: 0% !important;">
+                                        <h4 style="color: black;">Display System
+                                        </h4>
+                                         Displayed users have a position in the queue of display according to the amount of people that were already participating in the cycle before their point of entry. For example, if 50 people were already in the Cycle, a new participant will reserve the position 51. Whenever someone’s remaining time on the display page expires, the next one in order, takes their place. 
+                                        <a href="./Docs.html" style="color: black;">(learn more)</a>
+                                    </div>
                                 </div>
-                                
-                              
-                        
+
+
                             </div>
 
                             <div class="col-md-5 col-md-push-5 order-sm-2">
-                                
+
                                 <img src="./images/waiting_vec_alt.svg" class="centerImg" style="width: 36% !important;"/>
-                        
+
                             </div>
                         </div>
 
                         <hr class="style-two">
-                        
+
 
                         <h2>Last week's statistics</h2>
                         <div class="gapSS"></div>
@@ -326,70 +334,62 @@
 
                             <div class="col-md-6 col-md-push-6 order-sm-1">
                                 <h4 class="center">Total Bricks raised on all tiers:</h4>
-                                <p class="homeTotal center"><span id="bricksTotal">...</span> Bricks</p>
-                                
-                        
+                                <p class="homeTotal center">
+                                    <span id="bricksTotal">...</span>
+                                    Bricks</p>
+
+
                             </div>
 
                             <div class="col-md-6 col-md-push-6 order-sm-1">
                                 <canvas id="totalBricksCanvas"></canvas>
-                               
-                        
+
+
                             </div>
 
 
                         </div>
 
                     </div>
-               
 
-                
-                <section id="#footer">
-                    <div class="containerFooter">
-                        <img src="./images/outline vector.svg" style="width: 100%; margin-top: 80px;"/>
-                    </div>
-                </section>
+
+                    <section id="#footer">
+                        <div class="containerFooter">
+                            <img src="./images/outline vector.svg" style="width: 100%; margin-top: 80px;"/>
+                        </div>
+                    </section>
                 </div>
             </div>
 
-      
-            
-                <script src="js/signIn.js"></script>
-                <script>
-                        
-                            window.addEventListener('load', function () {
-                                firebase.auth().onAuthStateChanged(function (user) {
 
-                                if (user) {
-                                    window.location.href = "loggedIn.html"
-                                    jQuery(".loader2").fadeOut("slow");
-                                } else {
-                                    jQuery(".loader2").fadeOut("slow");
-                                }
+            <script src="js/signIn.js"></script>
+            <script>
 
-                            });
+                window.addEventListener('load', function () {
+                    firebase.auth().onAuthStateChanged(function (user) {
 
-                        })
-
-
-                    $("#password").keyup(function (event) {
-                        if (event.keyCode == 13) {
-                            $("#btn-login").click();
+                        if (user) {
+                            window.location.href = "loggedIn.html"
+                            jQuery(".loader2").fadeOut("slow");
+                        } else {
+                            jQuery(".loader2").fadeOut("slow");
                         }
+
                     });
 
-
-                   
-
+                })
 
 
+                $("#password").keyup(function (event) {
+                    if (event.keyCode == 13) {
+                        $("#btn-login").click();
+                    }
+                });
+            </script>
 
-
-
-                </script>
-
-                <!-- Optional JavaScript
-                                                                     jQuery first, then Popper.js, then Bootstrap JS -->
-                                                                     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+            <!-- Optional JavaScript
+                                                                                 jQuery first, then Popper.js, then Bootstrap JS -->
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         </body>
+
 </html>
