@@ -1101,6 +1101,13 @@ a {
     margin-top: 4%;
 }
 
+.sideNote{
+    font-size: 17px;
+    font-style: italic;
+    color: rgb(198, 198, 198);
+    margin: 0px;
+}
+
 /* If the screen size is 600px wide or less, set the font-size of <div> to 30px */
 @media screen and (max-width: 600px) {
     p {
@@ -1171,5 +1178,11 @@ a {
         padding-left: 5px;
         font-size: 14px;
         color: rgb(215, 215, 215);
+    }
+    .sideNote{
+        font-size: 14px;
+        font-style: italic;
+        color: rgb(198, 198, 198);
+        margin: 0px;
     }
   }
