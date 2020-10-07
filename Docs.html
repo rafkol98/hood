@@ -142,10 +142,10 @@
                                         <p style="text-align: left;">
                                             Now it’s time to introduce another important component of the system - Cycles. Cycles are defined as periods of time that repeat on a standard basis for the purposes of the system. The duration of a Cycle is dynamic, and it is calculated based on the number of floaters a few seconds before a new Cycle begins.
                                             <br><br>The duration of a cycle is calculated with the following formula:
-                                            <br><br></p>
+                                            <br></p>
                                         <p class="formulas">length_of_cycles_in_hours = 0.001 * #floaters+144</p>
 
-                                        <br><br>
+                                        <br>
                                         <p style="text-align: left;">
                                             <span class="sideNote">*The whole process is completely automatic.</span>
                                             <br><br>
@@ -187,7 +187,7 @@
                                             y = 1.1*((32*x*3^(-0.1*x)) + (217/x) + (x^(-0.3)))/2<br><br>
                                             time_of_display  = rounded (y) * multiplier
                                         </div>
-                                        <br><br>
+                                        <br>
                                         <p style="text-align: left;"><span class="sideNote">*multiplier = a real number that follows the equation -0.000015* #floaters + 1.9,<br>
                                             max time_of_display = 141 mins,  min time_of_display = 1 min</span><br><br>
                                            Users are displayed for infinite amount of time until they get their first deposit. When that happens, they are allowed an extra display time which is calculated using the abovementioned formula.
@@ -333,7 +333,7 @@
                                     <p style="text-align: left;">Apart from the free entrance ticket that all spenders receive at the end of a Cycle, spenders have another perk: spenders’ precedence. Spenders’ precedence is a window of time at the beginning of a Cycle in which ONLY ticket-holder spenders can enter the Cycle. The length of this window is measured in minutes, and it depends on the number of spenders of the last Cycle. It is calculated with the following formula:</p>
                                     <p class="formulas">spenders_precedence = 0.001 * #spenders_previous_cycle + 10</p>
             
-                                    <p style="text-align: left;"><span class="sideNote"><br><br>*after the spender precedence ends, ticket-holder spenders who didn’t manage to join yet can still join the Cycle without precedence (given that the maximum number of spenders hasn’t been reached yet). 
+                                    <p style="text-align: left;"><span class="sideNote"><br>*after the spender precedence ends, ticket-holder spenders who didn’t manage to join yet can still join the Cycle without precedence (given that the maximum number of spenders hasn’t been reached yet). 
                                         <br><br>*if the maximum number of allowed spenders (#max_spenders) is reached before the end of spenders’ precedence, then spenders’ precedence ends, and new participants can join the Cycle.</span>
                                         <br><br>As the values of the variables #max_spenders and #spenders_precedence rise (rise of #floaters) the time_of_display declines. This is due to the multiplier which declines as the number of floaters rise.
                                         This relationship ensures that the value of the variables #max_spenders and #spenders_precedence rises to accommodate spenders according to the demand, whilst maintaining enough time for new participants to become earners from their first time of using the VSS. Specifically, the worst-case scenario in terms of how many hours spenders can occupy from the length of the Cycle is calculated with the following equation:
@@ -410,16 +410,16 @@
                                     <p style="text-align: left;">
                                         As it is obvious, participants that receive two or more deposits have practically earned more than their entrance fee. However, participants that earn only one deposit are still considered earners for the purposes of the VSS. <br><br>
                                         Yet, since the worth of a single deposit is less than the entrance fee, those participants practically didn’t earn back more than their entrance fee. This is balanced out with the implementation of a bonus mechanism for the VSS. Since everyone’s display time begins to countdown from the moment they receive their first deposit, everyone that was displayed will receive at least one deposit. In a situation where a Cycle has a lot of traffic, a participant becoming earner with just one deposit can be considered rare. As Cycle traffic cumulates, the chances of someone receiving just a single deposit are significantly reduced. The factor that is responsible for the occurrence of such cases is the collective behavior which is nearly unpredictable. In the case of high traffic cumulation, participants that became earners with a single deposit are highly rewarded by the bonus mechanism of the VSS.<br><br>
-                                        Cycles consist of 5 fixed checkpoints which are achieved based on the number of people who joined.<br><br>
+                                        Cycles consist of 5 fixed checkpoints which are achieved based on the number of people who joined.<br>
                                         <div class="formulas">
                                         0-19 participants – 0% of the grand sum of money (including service commission)<br><br>
                                         20-49 participants – 5% of the grand sum of money (including service commission) <br><br>
                                         50-99 participants – 10% of the grand sum of money (including service commission) <br><br>
                                         100-169 participants – 15% of the grand sum of money (including service commission) <br><br>
-                                        170 or more – 20% of the grand sum of money (including service commission) <br><br>
+                                        170 or more – 20% of the grand sum of money (including service commission) <br>
                                         </div>
 
-                                        <br><br>The percentage of the grand sum of money is then divided amongst the number of participants that got just a single deposit. This can create a situation where single deposit users can earn massive amount of bonus. This entirely depends on the number of single deposit earners and ultimately the unpredictable collective behaviour.
+                                        <br>The percentage of the grand sum of money is then divided amongst the number of participants that got just a single deposit. This can create a situation where single deposit users can earn massive amount of bonus. This entirely depends on the number of single deposit earners and ultimately the unpredictable collective behaviour.
                                     </p>
 
                                 </div>
