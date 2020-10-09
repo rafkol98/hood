@@ -1108,6 +1108,10 @@ a {
     margin: 0px;
 }
 
+.seqWidth{
+    width: 180px;
+}
+
 /* If the screen size is 600px wide or less, set the font-size of <div> to 30px */
 @media screen and (max-width: 600px) {
     p {
@@ -1184,5 +1188,8 @@ a {
         font-style: italic;
         color: rgb(198, 198, 198);
         margin: 0px;
+    }
+    .seqWidth{
+        width: 120px;
     }
   }
