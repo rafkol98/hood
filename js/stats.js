@@ -146,6 +146,8 @@ function statsCall(num) {
                     });
 
 
+                } else{
+                    $(".loader2").fadeOut("slow");
                 }
 
             });
